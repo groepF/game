@@ -1,9 +1,9 @@
-#include "Window.h"
+#include "Game.h"
 #include <iostream>
 
 int main(int argc, char* args[])
 {
-	Window window("Awesome game");
+	Game game("Awesome game", 600, 400);
 
 	return 0;
 }
