@@ -26,7 +26,14 @@
 *.out
 *.app
 
+# Custom project gitignore
 *.lib
+*.suo
+*.pdb
+*.idb
+*.tlog
+*.log
+*.db
 
 /.vs
 
