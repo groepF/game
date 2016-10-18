@@ -6,7 +6,7 @@ std::string Window::_title = "No Title";
 int Window::_width = 1280;
 int Window::_height = 720;
 bool Window::_fullScreen = false;
-SDL_Color Window::_backgroundColor = { 128, 128, 128, 255 };
+SDL_Color Window::_backgroundColor = { 0, 0, 0, 255 };
 
 Window::Window() {}
 Window::~Window() {}

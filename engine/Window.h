@@ -5,7 +5,6 @@
 
 #include <SDL/SDL.h>
 
-
 class Window
 {
 public:

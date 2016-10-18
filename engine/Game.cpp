@@ -4,28 +4,19 @@ Game::Game(const char* title, int width, int height)
 {
 	
 	// Initialize SDL.
-	if (SDL_Init(SDL_INIT_VIDEO) >= 0)
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
-		// Create the window.
-		m_Window = SDL_CreateWindow(title,
-			SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED,
-			width,
-			height,
-			SDL_WINDOW_SHOWN);
-
-		if (m_Window != 0)
-			Console::Println("Initialized the SDL_Window");
-		{
-			m_Renderer = SDL_CreateRenderer(m_Window, -1, 0);
-
-			if (m_Renderer != 0)
-			{
-				Console::Println("Initialized the SDL_Renderer");
-				SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-			}
-		}
+		std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		return;
 	}
+
+	SDL_SetRenderDrawBlendMode(Window::GetRenderer(), SDL_BLENDMODE_BLEND);
+
+	if (!Window::IsInitialised()) {
+		Window::SetMode(width, height, false, title);
+	}
+
+	OnInitialize();
 	
 	// Set the state to play.
 	m_State = GameState::PLAY;
@@ -35,11 +26,8 @@ Game::Game(const char* title, int width, int height)
 
 Game::~Game() 
 {
-	Console::Println("Destroying the SDL_Window");
-	SDL_DestroyWindow(m_Window);
-	Console::Println("Destroying the SDL_Renderer");
-	SDL_DestroyRenderer(m_Renderer);
-	Console::Println("SDL_Quit");
+	Window::OnCleanUp();
+	OnCleanUp();
 	SDL_Quit();
 }
 
@@ -74,16 +62,19 @@ void Game::Update()
 			}
 			break;
 		}
+		OnEvent(&event);
 	}
 
 	m_StateManager->Update();
+	OnUpdate();
 }
 
 void Game::Render()
 {
-	SDL_RenderClear(m_Renderer);
+	SDL_RenderClear(Window::GetRenderer());
 
-	m_StateManager->Render(m_Renderer);
+	m_StateManager->Render(Window::GetRenderer());
+	OnRender();
 
-	SDL_RenderPresent(m_Renderer);
+	SDL_RenderPresent(Window::GetRenderer());
 }

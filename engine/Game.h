@@ -2,6 +2,7 @@
 
 #include <SDL/SDL.h>
 #include <iostream>
+#include "Window.h"
 #include "Console.h"
 #include "StateManager.h"
 
@@ -14,14 +15,17 @@ public:
 	~Game();
 
 private:
-	SDL_Window *m_Window;
-	SDL_Renderer *m_Renderer;
-
 	StateManager *m_StateManager;
 	GameState m_State;
 
 	void Run();
 	void Update();
 	void Render();
+
+	virtual void OnInitialize();
+	virtual void OnEvent(SDL_Event* event);
+	virtual void OnUpdate();
+	virtual void OnRender();
+	virtual void OnCleanUp();
 };
 
