@@ -26,6 +26,9 @@ Game::Game(const char* title, int width, int height)
 			}
 		}
 	}
+
+	// Initialize Audio
+	audio = AudioController();
 	
 	// Set the state to play.
 	m_State = GameState::PLAY;
@@ -41,6 +44,11 @@ Game::~Game()
 	SDL_DestroyRenderer(m_Renderer);
 	Console::Println("SDL_Quit");
 	SDL_Quit();
+}
+
+AudioController Game::getAudioController()
+{
+	return audio;
 }
 
 void Game::Run()

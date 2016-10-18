@@ -7,6 +7,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{ac389ffc-e0ca-42cb-9d17-8be6a5d560e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{f8e16c3c-ba44-427f-9fc3-62b19c99626f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp">
@@ -16,6 +19,9 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="AudioController.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -24,6 +30,9 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="StateManager.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioController.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
