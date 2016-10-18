@@ -27,3 +27,6 @@
 *.app
 
 /Debug
+/.vs
+
+game.VS.db
