@@ -33,6 +33,7 @@
 *.tlog
 *.log
 *.db
+*.ilk
 
 /.vs/*
 
