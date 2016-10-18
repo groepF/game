@@ -35,17 +35,11 @@
 *.db
 *.ilk
 
-<<<<<<< Updated upstream
-/.vs/*
-=======
-<<<<<<< Updated upstream
+
 /.vs
-=======
 */engine/tlog
 
 */.vs
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 game.VS.db
 game.VC.VC.opendb
