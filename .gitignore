@@ -27,7 +27,6 @@
 *.app
 
 # Custom project gitignore
-*.lib
 *.suo
 *.pdb
 *.idb
@@ -35,6 +34,7 @@
 *.log
 *.db
 
-/.vs
+/.vs/*
 
 game.VS.db
+game.VC.VC.opendb
