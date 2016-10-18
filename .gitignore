@@ -26,7 +26,8 @@
 *.out
 *.app
 
-/Debug
+*.lib
+
 /.vs
 
 game.VS.db
