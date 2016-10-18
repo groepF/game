@@ -4,7 +4,7 @@ Game::Game(const char* title, int width, int height)
 {
 	
 	// Initialize SDL.
-	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
+	if (SDL_Init(SDL_INIT_VIDEO) >= 0)
 	{
 		// Create the window.
 		m_Window = SDL_CreateWindow(title,
@@ -12,7 +12,7 @@ Game::Game(const char* title, int width, int height)
 			SDL_WINDOWPOS_CENTERED,
 			width,
 			height,
-			SDL_WINDOW_OPENGL);
+			SDL_WINDOW_SHOWN);
 
 		if (m_Window != 0)
 			Console::Println("Initialized the SDL_Window");
