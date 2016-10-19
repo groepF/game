@@ -22,9 +22,6 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
@@ -34,11 +31,11 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="StateManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

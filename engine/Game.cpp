@@ -2,7 +2,6 @@
 
 Game::Game(const char* title, int width, int height)
 {
-	
 	// Initialize SDL.
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
@@ -16,26 +15,21 @@ Game::Game(const char* title, int width, int height)
 		Window::SetMode(width, height, false, title);
 	}
 
-	OnInitialize();
-	
-	// Set the state to play.
-	m_State = GameState::PLAY;
-	// Start up the run method.
-	Run();
+	if (_currentState != nullptr)
+	{
+		_currentState->OnInitialize();
+	}
 }
 
 Game::~Game() 
 {
 	Window::OnCleanUp();
-	OnCleanUp();
 	SDL_Quit();
 }
 
 void Game::Run()
 {
-	Console::Println("Starting the Run method");
-
-	while (m_State != GameState::EXIT)
+	while (_currentState != nullptr)
 	{
 		Update();
 		Render();
@@ -51,30 +45,33 @@ void Game::Update()
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			m_State = GameState::EXIT;
+			_currentState = nullptr;
 			break;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				m_State = GameState::EXIT;
-				break;
-			}
+		default: 
 			break;
 		}
-		OnEvent(&event);
+		if (_currentState != nullptr)
+		{
+			_currentState->OnEvent(&event);
+		}
 	}
-
-	m_StateManager->Update();
-	OnUpdate();
+	if (_currentState != nullptr)
+	{
+		_currentState->OnUpdate();
+	}
 }
 
 void Game::Render()
 {
 	SDL_RenderClear(Window::GetRenderer());
-
-	m_StateManager->Render(Window::GetRenderer());
-	OnRender();
-
+	if (_currentState != nullptr)
+	{
+		_currentState->OnRender();
+	}
 	SDL_RenderPresent(Window::GetRenderer());
+}
+
+void Game::Add(IState* state)
+{
+	_currentState = state;
 }

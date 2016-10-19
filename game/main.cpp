@@ -1,28 +1,14 @@
 #include "Game.h"
-
-void Game::OnInitialize() {
-
-}
-
-void Game::OnEvent(SDL_Event *event) {
-
-}
-
-void Game::OnUpdate() {
-
-}
-
-void Game::OnRender() {
-
-}
-
-void Game::OnCleanUp() {
-
-}
+#include "FirstState.h"
 
 int main(int argc, char* args[])
 {
 	Game game("Awesome game", 600, 400);
+
+	FirstState state1;
+	game.Add(&state1);
+
+	game.Run();
 
 	return 0;
 }

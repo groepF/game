@@ -6,10 +6,11 @@
 
 class Console
 {
-public:
+private:
 	Console();
 	~Console();
 
+public:
 	static void Println(const char* line);
 };
 
