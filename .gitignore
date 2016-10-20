@@ -39,7 +39,9 @@
 /.vs
 */engine/tlog
 
-*/.vs
-
 game.VS.db
 game.VC.VC.opendb
+
+*.ilk
+*.pdb
+*.suo
