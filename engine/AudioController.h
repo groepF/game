@@ -6,14 +6,13 @@
 class AudioController
 {
 public:
-	//The music that will be played
-	Mix_Music *music = NULL;
 	AudioController();
 	bool initSound();
-	bool loadFiles(const char* file);
+	Mix_Music* loadBackground(const char* file);
+	Mix_Chunk* loadChunks(const char* file);
 	void cleanUp();
 
-	void playSound(const char* file);
+	void playSound(const char* file, int loop);
 	void stopSound();
 
 	~AudioController();

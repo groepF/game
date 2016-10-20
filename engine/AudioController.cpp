@@ -17,53 +17,56 @@ bool AudioController::initSound()
 	return true;
 }
 
-bool AudioController::loadFiles(const char* file)
+Mix_Music* AudioController::loadBackground(const char* file)
 {
 	//Load the music
-	music = Mix_LoadMUS(file);
+	Mix_Music* music = Mix_LoadMUS(file);
 
 	//If there was a problem loading the music
 	if (music == NULL)
 	{
 		Console::Println("Music not loaded");
-		return false;
+		return NULL;
 	}
 	Console::Println("Music loaded");
 	//If everything loaded fine
-	return true;
+	return music;
+}
+
+Mix_Chunk* AudioController::loadChunks(const char * file)
+{
+	//Load the sound effects
+	Mix_Chunk* chunk = Mix_LoadWAV(file);
+
+	//If there was a problem loading the sound effects
+	if (chunk == NULL)
+	{
+		return NULL;
+	}
+
+	//If everything loaded fine
+	return chunk;
 }
 
 void AudioController::cleanUp()
 {
 	//Free the music
-	Mix_FreeMusic(music);
+	//Mix_FreeMusic(music);
 }
 
-void AudioController::playSound(const char* file)
+void AudioController::playSound(const char* file, int loop)
 {
-	loadFiles(file);
-
-	//If there is no music playing
-	if (Mix_PlayingMusic() == 0)
+	if (loop < 0)
 	{
-		//Play the music
-		Mix_PlayMusic(music, 1); //second parameter defines amount of loops. -1 is infinite.
+		Mix_Music* music = loadBackground(file);
+		Console::Println("Play backgroundmusic");
+		Mix_PlayMusic(music, loop); //second parameter defines amount of loops. -1 is infinite.
 	}
-	//If music is being played
 	else
 	{
-		//If the music is paused
-		if (Mix_PausedMusic() == 1)
-		{
-			//Resume the music
-			Mix_ResumeMusic();
-		}
-		//If the music is playing
-		else
-		{
-			//Pause the music
-			Mix_PauseMusic();
-		}
+		Mix_Chunk* chunk = loadChunks(file);
+		Console::Println("Play chunk");
+		Mix_PlayChannel(-1, chunk, loop);
 	}
 }
 
