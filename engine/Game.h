@@ -17,6 +17,6 @@ private:
 	IState* _currentState;
 
 	void Update();
-	void Render();
+	void Render() const;
 };
 

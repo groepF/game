@@ -61,7 +61,7 @@ void Game::Update()
 	}
 }
 
-void Game::Render()
+void Game::Render() const
 {
 	SDL_RenderClear(Window::GetRenderer());
 	if (_currentState != nullptr)
