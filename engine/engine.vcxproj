@@ -120,13 +120,14 @@
     <ClInclude Include="AudioController.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="IState.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioController.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

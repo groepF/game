@@ -1,10 +1,14 @@
 #include "Game.h"
+<<<<<<< HEAD
 #include "AudioController.h"
 #include <chrono>
 #include <thread>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+=======
+#include "FirstState.h"
+>>>>>>> develop
 
 int main(int argc, char* args[])
 {
@@ -34,6 +38,11 @@ int main(int argc, char* args[])
 
 	Game game("Awesome game", 600, 400);
 	
+
+	FirstState state1;
+	game.Add(&state1);
+
+	game.Run();
 
 	return 0;
 }

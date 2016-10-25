@@ -9,6 +9,14 @@
     </Filter>
     <Filter Include="Audio">
       <UniqueIdentifier>{f8e16c3c-ba44-427f-9fc3-62b19c99626f}</UniqueIdentifier>
+    <Filter Include="Input">
+      <UniqueIdentifier>{13ed3d4c-c96a-410b-bd36-9227b5054ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{9aaf92e2-51fb-4b88-9bd0-f81915af673d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{e1aa4f1a-43c8-4802-9a1e-9b59d93087bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -16,8 +24,8 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Window.cpp">
+      <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="AudioController.cpp">
       <Filter>Audio</Filter>
@@ -28,7 +36,10 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="StateManager.h">
+    <ClInclude Include="Window.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="AudioController.h">

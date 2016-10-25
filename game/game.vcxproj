@@ -80,7 +80,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)engine/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_mixer.lib;engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;Box2D.lib;engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FirstState.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BasePlayer.cpp" />
     <ClCompile Include="EntityController.cpp" />
@@ -155,6 +156,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PowerupDecorator.h" />
     <ClInclude Include="Team.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FirstState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
