@@ -10,9 +10,10 @@ public:
 	bool initSound();
 	Mix_Music* loadBackground(const char* file);
 	Mix_Chunk* loadChunks(const char* file);
-	void cleanUp();
 
-	void playSound(const char* file, int loop);
+	void playSound(const char* file, bool backgroundMusic);
+	void playChunk(const char* file);
+	void playBackgroundMusic(const char* file);
 
 	void stopBackgroundSound();
 	void pauseBackgroundSound();

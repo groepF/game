@@ -14,9 +14,8 @@ int main(int argc, char* args[])
 
 	AudioController audio{};
 	
-	audio.playSound("../game/sound/fullsample.wav", -1);
-	audio.playSound("../game/sound/sample.wav", 1);
-	//audio.playSound("../game/sound/samplechunk.wav", 1);
+	audio.playSound("../game/sound/fullsample.wav", true);
+	audio.playSound("../game/sound/sample.wav", false);
 
 	using namespace std::this_thread; // sleep_for, sleep_until
 	using namespace std::chrono; // nanoseconds, system_clock, seconds
