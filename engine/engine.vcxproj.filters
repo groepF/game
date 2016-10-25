@@ -25,6 +25,9 @@
     <ClCompile Include="Window.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -36,6 +39,9 @@
     </ClInclude>
     <ClInclude Include="IState.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,11 +1,20 @@
 #include "FirstState.h"
 #include "Console.h"
+#include "TextureManager.h"
 
 FirstState::FirstState() {}
 FirstState::~FirstState() {}
 
-void FirstState::OnInitialize() {}
-void FirstState::OnRender() {}
+void FirstState::OnInitialize()
+{
+	TheTextureManager::Instance()->load("speler.png", "player", Window::GetRenderer());
+}
+
+void FirstState::OnRender()
+{
+	TheTextureManager::Instance()->render("player", 50, 50, 200, 200, Window::GetRenderer());
+}
+
 void FirstState::OnUpdate() {}
 void FirstState::OnCleanUp() {}
 
