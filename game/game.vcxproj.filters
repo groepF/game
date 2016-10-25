@@ -70,7 +70,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,7 +80,6 @@
   <ItemGroup>
     <ClInclude Include="FirstState.h">
       <Filter>Source Files</Filter>
-=======
     <ClInclude Include="GameController.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -132,7 +130,6 @@
     </ClInclude>
     <ClInclude Include="PowerupDecorator.h">
       <Filter>PowerUp</Filter>
->>>>>>> develop
     </ClInclude>
   </ItemGroup>
 </Project>
