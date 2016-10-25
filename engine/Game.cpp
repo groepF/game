@@ -14,11 +14,6 @@ Game::Game(const char* title, int width, int height)
 	if (!Window::IsInitialised()) {
 		Window::SetMode(width, height, false, title);
 	}
-
-	if (_currentState != nullptr)
-	{
-		_currentState->OnInitialize();
-	}
 }
 
 Game::~Game() 
@@ -74,4 +69,5 @@ void Game::Render() const
 void Game::Add(IState* state)
 {
 	_currentState = state;
+	_currentState->OnInitialize();
 }
