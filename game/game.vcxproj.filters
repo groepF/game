@@ -1,20 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameController.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="Team.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelController.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBuilder.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCreator.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReaderFactory.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityController.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BasePlayer.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="IMovableStrategy.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerupDecorator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="PowerUp">
+      <UniqueIdentifier>{eec2d618-2e1e-4087-9849-47497de7853a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Movables">
+      <UniqueIdentifier>{05d79e80-7ff4-464e-949e-49cfcbe747ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Level">
+      <UniqueIdentifier>{f007953e-4953-4270-a468-3de7fef642d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{27b76f47-6750-40b6-82e3-272b79da02f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{b2d4ff8c-a7a6-4099-a11c-8222d2443a48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,6 +81,58 @@
   <ItemGroup>
     <ClInclude Include="FirstState.h">
       <Filter>Source Files</Filter>
+=======
+    <ClInclude Include="GameController.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelController.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBuilder.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCreator.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReaderFactory.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityController.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BasePlayer.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="IMovableStrategy.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerupDecorator.h">
+      <Filter>PowerUp</Filter>
+>>>>>>> develop
     </ClInclude>
   </ItemGroup>
 </Project>
