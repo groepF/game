@@ -1,17 +1,14 @@
 #pragma once
 
 #include <SDL/SDL.h>
-<<<<<<< HEAD
 #include <iostream>
 #include "Console.h"
 #include "StateManager.h"
 #include "AudioController.h"
-
-enum class GameState { PLAY, EXIT };
-=======
 #include "Window.h"
 #include "IState.h"
->>>>>>> develop
+
+enum class GameState { PLAY, EXIT };
 
 class Game
 {
