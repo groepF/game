@@ -70,6 +70,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FirstState.h">
+      <Filter>Source Files</Filter>
     <ClInclude Include="GameController.h">
       <Filter>Game</Filter>
     </ClInclude>

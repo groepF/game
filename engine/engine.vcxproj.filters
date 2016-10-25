@@ -7,14 +7,23 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{ac389ffc-e0ca-42cb-9d17-8be6a5d560e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{13ed3d4c-c96a-410b-bd36-9227b5054ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{9aaf92e2-51fb-4b88-9bd0-f81915af673d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{e1aa4f1a-43c8-4802-9a1e-9b59d93087bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Window.cpp">
+      <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -22,7 +31,10 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="StateManager.h">
+    <ClInclude Include="Window.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
