@@ -3,7 +3,6 @@
 #include <SDL/SDL.h>
 #include <iostream>
 #include "Console.h"
-#include "StateManager.h"
 #include "AudioController.h"
 #include "Window.h"
 #include "IState.h"
