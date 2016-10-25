@@ -118,9 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClCompile Include="FirstState.cpp" />
-=======
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BasePlayer.cpp" />
     <ClCompile Include="EntityController.cpp" />
@@ -132,7 +130,6 @@
     <ClCompile Include="LevelBuilder.cpp" />
     <ClCompile Include="LevelController.cpp" />
     <ClCompile Include="LevelCreator.cpp" />
->>>>>>> develop
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapReader.cpp" />
     <ClCompile Include="MapReaderFactory.cpp" />
