@@ -70,10 +70,22 @@ void AudioController::playSound(const char* file, int loop)
 	}
 }
 
-void AudioController::stopSound()
+void AudioController::stopBackgroundSound()
 {
 	if (Mix_PlayingMusic() != 0)
+		Mix_HaltMusic();
+}
+
+void AudioController::pauseBackgroundSound()
+{
+	if (Mix_PausedMusic() != 1)
 		Mix_PauseMusic();
+}
+
+void AudioController::resumeBackgroundSound()
+{
+	if (Mix_PausedMusic() == 1)
+		Mix_ResumeMusic();
 }
 
 AudioController::~AudioController()

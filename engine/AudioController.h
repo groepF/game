@@ -13,11 +13,10 @@ public:
 	void cleanUp();
 
 	void playSound(const char* file, int loop);
-	void stopSound();
+
+	void stopBackgroundSound();
+	void pauseBackgroundSound();
+	void resumeBackgroundSound();
 
 	~AudioController();
-
-
-	
-
 };
