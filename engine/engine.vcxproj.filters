@@ -27,6 +27,8 @@
     <ClCompile Include="Window.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Render</Filter>
     <ClCompile Include="AudioController.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
@@ -42,6 +44,8 @@
     <ClInclude Include="IState.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Render</Filter>
     <ClInclude Include="AudioController.h">
       <Filter>Audio</Filter>
     </ClInclude>
