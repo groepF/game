@@ -1,14 +1,11 @@
 #include "Game.h"
-<<<<<<< HEAD
 #include "AudioController.h"
 #include <chrono>
 #include <thread>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-=======
 #include "FirstState.h"
->>>>>>> develop
 
 int main(int argc, char* args[])
 {
