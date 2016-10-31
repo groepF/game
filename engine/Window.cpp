@@ -1,130 +1,120 @@
 #include "Window.h"
 
-SDL_Window* Window::_window = nullptr;
-SDL_Renderer* Window::_renderer = nullptr;
-std::string Window::_title = "No Title";
-int Window::_width = 1280;
-int Window::_height = 720;
-bool Window::_fullScreen = false;
-SDL_Color Window::_backgroundColor = { 0, 0, 0, 255 };
+Window::Window(unsigned width, unsigned height, std::string title) :
+	window(nullptr),
+	surface(nullptr),
+	renderer(nullptr),
+	width(width),
+	height(height),
+	originalWidth(width),
+	originalHeight(height),
+	title(title)
+{
+	this->resize(title, width, height);
 
-Window::Window() {}
-Window::~Window() {}
-
-bool Window::Initialize() {
-	if (_window) {
-		SDL_DestroyWindow(_window);
+	if (!(this->window) || !(this->renderer) || !(this->surface))
+	{
+		Log::error("Window(): Couldn't create Window");
+		throw "Window() Fail";
 	}
 
-	_window = SDL_CreateWindow(_title.c_str(), 
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, 
-		_width, 
-		_height,
-		SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP * _fullScreen);
+	this->clear();
 
-	if (_window == nullptr) {
-		std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
-
-	if (_renderer) {
-		SDL_DestroyRenderer(_renderer);
-	}
-
-	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-	if (_renderer == nullptr) {
-		std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
-
-	SDL_SetRenderDrawColor(Window::GetRenderer(), _backgroundColor.r, _backgroundColor.g, _backgroundColor.b, 0);
-
-	return true;
+	this->refresh();
 }
 
-void ShowError(bool& error) {
-	error = true;
-	std::cerr << SDL_GetError() << std::endl;
+Window::~Window()
+{
+	this->destroy();
 }
 
-const std::string& Window::GetTitle() {
-	return _title;
-}
+void Window::resize(std::string title, unsigned int width, unsigned int height)
+{
+	this->destroy();
 
-bool Window::SetMode(int width, int height, bool fullScreen, std::string title) {
-	_width = width;
-	_height = height;
-	_fullScreen = fullScreen;
-	_title = title;
+	SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
 
-	if (IsInitialised()) {
-		bool error = false;
-
-		SDL_SetWindowTitle(_window, _title.c_str());
-		SDL_SetWindowSize(_window, _width, _height);
-
-		if (SDL_SetWindowFullscreen(_window, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN * _fullScreen) < 0) {
-			ShowError(error);
-		}
-
-		//SDL_RenderSetLogicalSize(Window::GetRenderer(), _w, _h);
-		return !error;
+	if (!(this->window) || !(this->renderer))
+	{
+		Log::error("Window::resize: Couldn't create SDL_Window or SDL_Renderer");
+		return;
 	}
-	else {
-		return Initialize();
+
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+	SDL_RenderSetLogicalSize(this->renderer, width, height);
+
+	this->setTitle(title);
+
+	this->surface = SDL_GetWindowSurface(this->window);
+	if (!(this->surface))
+	{
+		return;
+	}
+
+	this->width = width;
+	this->height = height;
+}
+
+void Window::destroy()
+{
+	if (this->renderer)
+	{
+		SDL_DestroyRenderer(this->renderer);
+		this->renderer = nullptr;
+	}
+
+	if (this->window)
+	{
+		SDL_DestroyWindow(this->window);
+		this->window = nullptr;
 	}
 }
 
-SDL_Window* Window::GetWindow() {
-	return _window;
+void Window::minimize() const
+{
+	SDL_MinimizeWindow(this->window);
 }
 
-SDL_Renderer* Window::GetRenderer() {
-	return _renderer;
+void Window::maximize() const
+{
+	SDL_MaximizeWindow(this->window);
 }
 
-void Window::SetWidth(const int &w) {
-	SetMode(w, _height, _fullScreen, _title);
+void Window::restore() const
+{
+	SDL_RestoreWindow(this->window);
 }
 
-void Window::SetHeight(const int &h) {
-	SetMode(_width, h, _fullScreen, _title);
+void Window::fill(Color color) const
+{
+	SDL_SetRenderDrawColor(this->renderer,
+		color.r(),
+		color.g(),
+		color.b(),
+		color.a());
+
+	SDL_RenderClear(this->renderer);
 }
 
-int Window::GetWidth() {
-	return _width;
-}
-
-int Window::GetHeight() {
-	return _height;
-}
-
-bool Window::IsInitialised() {
-	return _window != nullptr && _renderer != nullptr;
-}
-
-bool Window::IsFullscreen() {
-	return _fullScreen;
-}
-
-void Window::OnCleanUp() {
-	if (_window) {
-		SDL_DestroyWindow(_window);
-		_window = nullptr;
-	}
-	if (_renderer) {
-		SDL_DestroyRenderer(_renderer);
-		_renderer = nullptr;
+void Window::setTitle(std::string title) const
+{
+	if (this->window)
+	{
+		SDL_SetWindowTitle(this->window, title.c_str());
 	}
 }
 
-void Window::SetBackgroundColor(const SDL_Color& color) {
-	_backgroundColor = color;
-	SDL_SetRenderDrawColor(Window::GetRenderer(), _backgroundColor.r, _backgroundColor.g, _backgroundColor.b, _backgroundColor.a);
+void Window::clear() const
+{
+	this->fill(this->background);
 }
 
-SDL_Color Window::GetBackgroundColor() {
-	return _backgroundColor;
+void Window::refresh() const
+{
+	SDL_RenderPresent(this->renderer);
+}
+
+void Window::setBackgroundColor(Color color)
+{
+	background = color;
 }

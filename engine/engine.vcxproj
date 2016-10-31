@@ -117,18 +117,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AudioController.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="IState.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="SDL.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AudioController.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="SDL.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

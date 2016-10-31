@@ -1,41 +1,49 @@
 #pragma once
 
 #include <string>
-#include <iostream>
-
 #include <SDL/SDL.h>
+#include "Log.h"
+#include "Color.h"
 
 class Window
 {
 public:
-	static SDL_Window* GetWindow();
-	static SDL_Renderer* GetRenderer();
-	static int GetWidth();
-	static int GetHeight();
+	Window(unsigned int width, unsigned int height, std::string title = "");
 
-	static const std::string& GetTitle();
+	virtual ~Window();
 
-	static bool SetMode(int width, int height, bool fullScreen, std::string title = "Super Awesome Engine");
-	static void SetWidth(const int& w);
-	static void SetHeight(const int& h);
+	void destroy();
 
-	static void SetBackgroundColor(const SDL_Color& color);
-	static SDL_Color GetBackgroundColor();
+	void resize(std::string title, unsigned int width, unsigned int height);
 
-	static bool IsInitialised();
-	static bool IsFullscreen();
+	void minimize() const;
 
-	static void OnCleanUp();
+	void maximize() const;
+
+	void restore() const;
+
+	void clear() const;
+
+	void fill(Color color) const;
+
+	void setTitle(std::string title) const;
+
+	void refresh() const;
+
+	void setBackgroundColor(Color color = Color(0, 0, 0));
 
 private:
-	Window();
-	~Window();
-	static SDL_Window* _window;
-	static SDL_Renderer* _renderer;
-	static std::string _title;
-	static int _width, _height;
-	static bool _fullScreen;
-	static SDL_Color _backgroundColor;
+	SDL_Window* window;
+	SDL_Surface* surface;
+	SDL_Renderer* renderer;
 
-	static bool Initialize();
+	unsigned int width; 
+	unsigned int height;
+
+	unsigned int originalWidth;
+	unsigned int originalHeight;
+
+	std::string title;
+
+	Color background;
 };

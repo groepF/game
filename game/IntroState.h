@@ -2,7 +2,7 @@
 
 #include "State.h"
 
-class GameState : public State {
+class IntroState : public State {
 public:
 	void OnStart() final;
 	void OnRender() final;

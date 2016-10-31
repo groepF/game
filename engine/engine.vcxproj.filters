@@ -2,52 +2,88 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Core">
-      <UniqueIdentifier>{71a07582-5b80-4b11-bb9e-34b3f3ef0f3d}</UniqueIdentifier>
+      <UniqueIdentifier>{dda93370-a16e-4c8e-b4e9-49fe2f4dc84f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utils">
-      <UniqueIdentifier>{ac389ffc-e0ca-42cb-9d17-8be6a5d560e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Audio">
-      <UniqueIdentifier>{f8e16c3c-ba44-427f-9fc3-62b19c99626f}</UniqueIdentifier>
-    <Filter Include="Input">
-      <UniqueIdentifier>{13ed3d4c-c96a-410b-bd36-9227b5054ac8}</UniqueIdentifier>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{5c07e945-c681-411a-b20c-16a303e9648f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render">
-      <UniqueIdentifier>{9aaf92e2-51fb-4b88-9bd0-f81915af673d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{e1aa4f1a-43c8-4802-9a1e-9b59d93087bd}</UniqueIdentifier>
+      <UniqueIdentifier>{387b936a-de80-4073-b2da-a3c05d3aaa9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Console.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Window.cpp">
-      <Filter>Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Render</Filter>
-    <ClCompile Include="AudioController.cpp">
-      <Filter>Audio</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Console.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="Engine.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Window.h">
-      <Filter>Interface</Filter>
+    <ClInclude Include="StateManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="IState.h">
+    <ClInclude Include="State.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>Render</Filter>
-    <ClInclude Include="AudioController.h">
-      <Filter>Audio</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="SDL.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="SDL.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
