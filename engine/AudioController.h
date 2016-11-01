@@ -7,7 +7,6 @@ class AudioController
 {
 public:
 	AudioController();
-	bool initSound();
 
 	void playSound(const char* file, bool backgroundMusic);
 
@@ -18,6 +17,8 @@ public:
 	~AudioController();
 
 private:
+	bool initSound();
+
 	void playChunk(const char* file);
 	void playBackgroundMusic(const char* file);
 
