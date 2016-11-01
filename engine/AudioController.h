@@ -12,12 +12,14 @@ public:
 	Mix_Chunk* loadChunks(const char* file);
 
 	void playSound(const char* file, bool backgroundMusic);
-	void playChunk(const char* file);
-	void playBackgroundMusic(const char* file);
 
 	void stopBackgroundSound();
 	void pauseBackgroundSound();
 	void resumeBackgroundSound();
 
 	~AudioController();
+
+private:
+	void playChunk(const char* file);
+	void playBackgroundMusic(const char* file);
 };
