@@ -14,7 +14,9 @@ public:
 	void OnUpdate() final;
 	void OnEvent(SDL_Event* event) final;
 	void OnCleanUp() final;
+
 private:
+	AudioController audioConstoller;
 	int x = 0;
 	bool goingLeft;
 };

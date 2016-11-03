@@ -1,6 +1,7 @@
 #include "AudioController.h"
 #include <SDL/SDL_mixer.h>
 #include "Console.h"
+#include <thread>
 
 /*
 * Constructor
@@ -57,7 +58,7 @@ Mix_Chunk* AudioController::loadChunks(const char * file)
 */
 void AudioController::playSound(const char* file, bool backgroundMusic)
 {
-	if(backgroundMusic)
+	if (backgroundMusic)
 	{
 		playBackgroundMusic(file);
 	}
