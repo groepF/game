@@ -13,7 +13,7 @@ int main(int argc, char* args[])
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 
-	AudioController audio{};
+	/*AudioController audio{};
 	
 	audio.playSound("../game/sound/fullsample.wav", true);
 	audio.playSound("../game/sound/sample.wav", false);
@@ -31,10 +31,9 @@ int main(int argc, char* args[])
 
 	sleep_for(seconds(5));
 
-	audio.stopBackgroundSound();
+	audio.stopBackgroundSound();*/
 
 	Game game("Awesome game", 600, 400);
-	
 
 	FirstState state1;
 	game.Add(&state1);
