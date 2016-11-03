@@ -2,6 +2,7 @@
 #include <string>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
+#include <vector>
 
 class AudioController
 {
@@ -13,7 +14,6 @@ public:
 	void stopBackgroundSound();
 	void pauseBackgroundSound();
 	void resumeBackgroundSound();
-
 	~AudioController();
 
 private:

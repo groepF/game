@@ -60,14 +60,11 @@ void AudioController::playSound(const char* file, bool backgroundMusic)
 {
 	if (backgroundMusic)
 	{
-		std::thread t1(&AudioController::playBackgroundMusic, file);
-
-		//playBackgroundMusic(file);
+		playBackgroundMusic(file);
 	}
 	else
 	{
-		std::thread t1(&AudioController::playChunk, file);
-		//playChunk(file);
+		playChunk(file);
 	}
 }
 

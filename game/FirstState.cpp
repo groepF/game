@@ -2,18 +2,25 @@
 #include "Console.h"
 #include <chrono>
 #include <thread>
+#include "TextureManager.h"
 
 FirstState::FirstState() {}
-FirstState::~FirstState() {}
+FirstState::~FirstState()
+{
+}
 
 void FirstState::OnInitialize()
 {
-	//std::thread t1(&FirstState::playAudioDemo);
-
 	audioConstoller.playSound("../game/sound/fullsample.wav", true);
-
+	TheTextureManager::Instance()->load("speler.png", "player", Window::GetRenderer());
+	TheTextureManager::Instance()->load("speler_small.png", "player_small", Window::GetRenderer());
 }
-void FirstState::OnRender() {}
+
+void FirstState::OnRender() {
+	TheTextureManager::Instance()->render("player_small", x, 280, 60, 122, Window::GetRenderer(), goingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+}
+
+
 void FirstState::OnUpdate() {}
 void FirstState::OnCleanUp() {}
 
@@ -25,34 +32,28 @@ void FirstState::OnEvent(SDL_Event* event)
 		{
 		case SDLK_0:
 			Console::Println("You pressed the 0 key.");
-			audioConstoller.playSound("../game/sound/sample.wav", false);
+		case SDLK_LEFT:
+			goingLeft = true;
+			if (x - 2 <= 0)
+			{
+				audioConstoller.playSound("../game/sound/sample.wav", false);
+				x = 0;
+				break;
+			}
+			x -= 2;
+			break;
+		case SDLK_RIGHT:
+			goingLeft = false;
+			if (x + 2 >= 600 - 60)
+			{
+				audioConstoller.playSound("../game/sound/sample.wav", false);
+				x = 600 - 60;
+				break;
+			}
+			x += 2;
 			break;
 		default:
 			break;
 		}
 	}
-}
-
-void FirstState::playAudioDemo() const
-{
-
-	//AudioController audio{};
-
-	//audio.playSound("../game/sound/fullsample.wav", true);
-	//audio.playSound("../game/sound/sample.wav", false);
-
-	//using namespace std::this_thread; // sleep_for, sleep_until
-	//using namespace std::chrono; // nanoseconds, system_clock, seconds
-
-	//sleep_for(seconds(5));
-
-	//audio.pauseBackgroundSound();
-
-	//sleep_for(seconds(3));
-
-	//audio.resumeBackgroundSound();
-
-	//sleep_for(seconds(5));
-
-	//audio.stopBackgroundSound();
 }
