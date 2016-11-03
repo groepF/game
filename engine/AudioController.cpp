@@ -58,14 +58,16 @@ Mix_Chunk* AudioController::loadChunks(const char * file)
 */
 void AudioController::playSound(const char* file, bool backgroundMusic)
 {
-	if(backgroundMusic)
+	if (backgroundMusic)
 	{
-		std::thread t(playBackgroundMusic, file);
+		std::thread t1(&AudioController::playBackgroundMusic, file);
+
 		//playBackgroundMusic(file);
 	}
 	else
 	{
-		playChunk(file);
+		std::thread t1(&AudioController::playChunk, file);
+		//playChunk(file);
 	}
 }
 
