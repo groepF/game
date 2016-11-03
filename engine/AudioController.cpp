@@ -1,6 +1,7 @@
 #include "AudioController.h"
 #include <SDL/SDL_mixer.h>
 #include "Console.h"
+#include <thread>
 
 /*
 * Constructor
@@ -59,7 +60,8 @@ void AudioController::playSound(const char* file, bool backgroundMusic)
 {
 	if(backgroundMusic)
 	{
-		playBackgroundMusic(file);
+		std::thread t(playBackgroundMusic, file);
+		//playBackgroundMusic(file);
 	}
 	else
 	{
