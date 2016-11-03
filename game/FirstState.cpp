@@ -11,7 +11,7 @@ FirstState::~FirstState()
 
 void FirstState::OnInitialize()
 {
-	audioConstoller.playSound("../game/sound/fullsample.wav", true);
+	audioConstoller.playSound("../game/sound/game_music.wav", true);
 	TheTextureManager::Instance()->load("speler.png", "player", Window::GetRenderer());
 	TheTextureManager::Instance()->load("speler_small.png", "player_small", Window::GetRenderer());
 }
@@ -36,7 +36,7 @@ void FirstState::OnEvent(SDL_Event* event)
 			goingLeft = true;
 			if (x - 2 <= 0)
 			{
-				audioConstoller.playSound("../game/sound/sample.wav", false);
+				audioConstoller.playSound("../game/sound/slash.wav", false);
 				x = 0;
 				break;
 			}
@@ -46,7 +46,7 @@ void FirstState::OnEvent(SDL_Event* event)
 			goingLeft = false;
 			if (x + 2 >= 600 - 60)
 			{
-				audioConstoller.playSound("../game/sound/sample.wav", false);
+				audioConstoller.playSound("../game/sound/slash.wav", false);
 				x = 600 - 60;
 				break;
 			}
