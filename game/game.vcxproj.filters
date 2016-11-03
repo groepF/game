@@ -1,22 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="IMovableStrategy.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameState.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelController.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBuilder.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCreator.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReaderFactory.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityController.cpp">
+      <Filter>Game\Level\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Game\Level\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Game\Level\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game\Level\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BasePlayer.cpp">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Team.cpp">
+      <Filter>Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstState.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerupDecorator.cpp">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="IMovableStrategy.h" />
+    <ClInclude Include="GameController.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelController.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBuilder.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCreator.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReaderFactory.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityController.h">
+      <Filter>Game\Level\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Game\Level\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Game\Level\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Game\Level\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BasePlayer.h">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstState.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerupDecorator.h">
+      <Filter>Game\Level\Entities\Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1d6da09c-f8e6-49da-9add-cf1bbc7ee9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Level">
+      <UniqueIdentifier>{1482e523-b873-489b-86af-6971a8c65e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Level\Entities">
+      <UniqueIdentifier>{364231b0-d54f-449d-94bc-8f5e9ca5305a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Level\Entities\Player">
+      <UniqueIdentifier>{c8b1ffd3-0c90-4e43-8ee6-5b7bf32bc8e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

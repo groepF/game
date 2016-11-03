@@ -3,7 +3,9 @@
 #include <SDL/SDL.h>
 #include <iostream>
 #include "Console.h"
-#include "StateManager.h"
+#include "AudioController.h"
+#include "Window.h"
+#include "IState.h"
 
 enum class GameState { PLAY, EXIT };
 
@@ -13,15 +15,13 @@ public:
 	Game(const char* title, int width, int height);
 	~Game();
 
-private:
-	SDL_Window *m_Window;
-	SDL_Renderer *m_Renderer;
-
-	StateManager *m_StateManager;
-	GameState m_State;
-
+	void Add(IState* state);
 	void Run();
+
+private:
+	IState* _currentState;
+
 	void Update();
-	void Render();
+	void Render() const;
 };
 

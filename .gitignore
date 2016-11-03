@@ -27,14 +27,21 @@
 *.app
 
 # Custom project gitignore
-*.lib
 *.suo
 *.pdb
 *.idb
 *.tlog
 *.log
 *.db
+*.ilk
+
 
 /.vs
+*/engine/tlog
 
 game.VS.db
+game.VC.VC.opendb
+
+*.ilk
+*.pdb
+*.suo
