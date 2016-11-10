@@ -35,6 +35,7 @@
 *.db
 *.ilk
 
+Debug/engine.lib
 
 /.vs
 */engine/tlog
