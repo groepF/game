@@ -1,9 +1,11 @@
 #include "Body.h"
 
-Body::Body(float x, float y, float width, float height, bool dynamic) : width(width), height(height), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
+Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);
+	bodyDef.angularDamping = angularDamping;
+	bodyDef.linearDamping = linearDamping;
 
 	sprite = new Sprite("spritesheet", 70, 0, 70, 70);
 }
@@ -33,6 +35,11 @@ float Body::getHeight() const
 	return height * 2;
 }
 
+float Body::getAngle() const
+{
+	return body->GetAngle();
+}
+
 Sprite* Body::getSprite() const
 {
 	return sprite;
@@ -43,8 +50,19 @@ void Body::create(b2Body *body)
 	b2PolygonShape box;
 	box.SetAsBox(width, height);
 
+	b2CircleShape circle;
+	circle.m_p.Set(0, 0);
+	circle.m_radius = width;
+
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &box;
+	if (type == BOX)
+	{
+		fixtureDef.shape = &box;
+	}
+	if (type == CIRCLE)
+	{
+		fixtureDef.shape = &circle;
+	}
 	fixtureDef.density = density;
 	fixtureDef.friction = friction;
 	fixtureDef.restitution = restitution;

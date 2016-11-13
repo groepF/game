@@ -3,17 +3,25 @@
 #include "Box2D/Box2D.h"
 #include "../graphics/Sprite.h"
 #include "../graphics/Screen.h"
+#include <math.h>
+
+enum BodyType
+{
+	BOX,
+	CIRCLE
+};
 
 class Body
 {
 public:
-	Body(float x, float y, float width, float height, bool dynamic = false);
+	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
 	~Body();
 
 	float getX() const;
 	float getY() const;
 	float getWidth() const;
 	float getHeight() const;
+	float getAngle() const;
 	Sprite* getSprite() const;
 	b2BodyDef* getBodyDef();
 
@@ -24,6 +32,7 @@ private:
 	float width, height;
 	b2BodyDef bodyDef;
 protected:
+	BodyType type;
 	b2Body *body;
 	Sprite* sprite;
 	float density, friction, restitution;
