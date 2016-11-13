@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -117,7 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="engine\world\Ball.cpp" />
+    <ClCompile Include="engine\world\Body.cpp" />
     <ClCompile Include="game\entities\Block.cpp" />
     <ClCompile Include="engine\util\Color.cpp" />
     <ClCompile Include="engine\core\Engine.cpp" />
@@ -136,7 +137,8 @@
     <ClCompile Include="game\entities\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Audio.h" />
+    <ClInclude Include="engine\world\Ball.h" />
+    <ClInclude Include="engine\world\Body.h" />
     <ClInclude Include="game\entities\Block.h" />
     <ClInclude Include="engine\core\Entity.h" />
     <ClInclude Include="engine\util\Color.h" />

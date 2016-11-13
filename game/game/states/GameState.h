@@ -4,6 +4,9 @@
 #include "../../engine/world/World.h"
 #include "../entities/Block.h"
 #include "../entities/Player.h"
+#include <Box2D/Dynamics/b2World.h>
+#include "../../engine/world/Body.h"
+#include "../../engine/world/Ball.h"
 
 class GameState : public State {
 public:
@@ -13,6 +16,7 @@ public:
 	void onDestroy() final;
 
 private:
-	World *world;
-	Player *player;
+	b2World *world;
+	Body* body;
+	Ball* ball;
 };

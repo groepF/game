@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-void GameState::onCreate(Event *event)
+/*void GameState::onCreate(Event *event)
 {
 	Log::debug("OnCreate GameState");
 
@@ -64,30 +64,33 @@ void GameState::onCreate(Event *event)
 	player = new Player(100, 100);
 	world->follow(player);
 	world->add(player);
+}*/
+
+void GameState::onCreate(Event *event)
+{
+	b2Vec2 gravity(0.0f, 9.81f);
+	world = new b2World(gravity);
+	body = new Body(*world, 5.0f, 10.0f, 1.0f, 1.0f);
+	ball = new Ball(*world, 5.0f, 0.0f, 0.5f, 0.5f);
 }
 
 void GameState::onRender(Screen *screen)
 {
-	world->render(screen);
+	body->render(screen);
+	ball->render(screen);
 }
 
 void GameState::onUpdate(Event *event)
 {
-	world->update(event->getDelta());
-
-	auto speed = 2;
-	auto x = 0, y = 0;
-
-	if (event->isKeydown(KEY_W)) { y -= speed; }
-	if (event->isKeydown(KEY_S)) { y += speed; }
-	if (event->isKeydown(KEY_A)) { x -= speed; }
-	if (event->isKeydown(KEY_D)) { x += speed; }
-
-	player->setPosition(player->getX() + x, player->getY() + y);
+	float32 timeStep = 1.0f / 60.0f;	int32 velocityIterations = 6;
+	int32 positionIterations = 2;
+	world->Step(timeStep, velocityIterations, positionIterations);
 }
 
 void GameState::onDestroy()
 {
 	Log::debug("OnDestroy GameState");
 	delete world;
+	delete body;
+	delete ball;
 }

@@ -195,7 +195,7 @@ void Window::stopMusic() const
 	}
 }
 
-void Window::render(Sprite* sprite, float x, float y, double angle, double size, int alpha)
+void Window::render(Sprite* sprite, float x, float y, double angle, double size, int alpha, float width, float height)
 {
 	if (sprite == nullptr)
 	{
@@ -205,8 +205,16 @@ void Window::render(Sprite* sprite, float x, float y, double angle, double size,
 	SDL_Rect sourceRectangle;
 	SDL_Rect destinationRectangle;
 
-	destinationRectangle.w = sprite->getWidth() * size;
-	destinationRectangle.h = sprite->getHeight() * size;
+	if (width == -1 || height == -1)
+	{
+		destinationRectangle.w = sprite->getWidth();
+		destinationRectangle.h = sprite->getHeight();
+	}
+	else
+	{
+		destinationRectangle.w = width;
+		destinationRectangle.h = height;
+	}
 	destinationRectangle.x = x - viewportX;
 	destinationRectangle.y = y - viewportY;
 
@@ -217,6 +225,13 @@ void Window::render(Sprite* sprite, float x, float y, double angle, double size,
 
 	SDL_SetTextureAlphaMod(textures[sprite->getIdentifier()], alpha);
 	SDL_RenderCopyEx(renderer, textures[sprite->getIdentifier()], &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
+}
+
+void Window::renderRect(float x, float y, float width, float height) const
+{
+	SDL_Rect outlineRect = { x, y, width, height };
+	SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_RenderDrawRect(renderer, &outlineRect);
 }
 
 unsigned Window::getWidth() const { return width; }
