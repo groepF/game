@@ -1,4 +1,6 @@
 #include "GameState.h"
+#include "../entities/Player.h"
+#include "../entities/Ball.h"
 
 /*void GameState::onCreate(Event *event)
 {
@@ -68,29 +70,61 @@
 
 void GameState::onCreate(Event *event)
 {
-	b2Vec2 gravity(0.0f, 9.81f);
-	world = new b2World(gravity);
-	body = new Body(*world, 5.0f, 10.0f, 1.0f, 1.0f);
-	ball = new Ball(*world, 5.0f, 0.0f, 0.5f, 0.5f);
+	Log::debug("OnCreate GameState");
+
+	world = new World(9.81f);
+	event->playMusic("background");
+
+	int a[10][20] = {
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+	};
+
+	for (auto x = 0; x < 20; x++)
+	{
+		for (auto y = 0; y < 10; y++)
+		{
+			if (a[y][x] == 1)
+			{
+				auto size = 0.5f;
+				world->add(new Body((size * 2) * x, (size * 2) * y, size, size));
+			}
+		}
+	}
+
+	player = new Player(1.0f, 1.0f);
+	world->add(player);
+	world->add(new Ball(5.0f, 5.0f));
 }
 
 void GameState::onRender(Screen *screen)
 {
-	body->render(screen);
-	ball->render(screen);
+	world->render(screen, false);
 }
 
 void GameState::onUpdate(Event *event)
 {
-	float32 timeStep = 1.0f / 60.0f;	int32 velocityIterations = 6;
-	int32 positionIterations = 2;
-	world->Step(timeStep, velocityIterations, positionIterations);
+	if (!event->isKeydown(KEY_A) && !event->isKeydown(KEY_D))
+	{
+		player->setPlayerState(PLAYER_STOP);
+	}
+	if (event->isKeydown(KEY_W)) { player->jump(); }
+	if (event->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
+	if (event->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
+	player->move();
+	world->update();
 }
 
 void GameState::onDestroy()
 {
+	delete world; 
 	Log::debug("OnDestroy GameState");
-	delete world;
-	delete body;
-	delete ball;
 }

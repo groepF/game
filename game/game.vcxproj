@@ -117,9 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="engine\world\Ball.cpp" />
+    <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
-    <ClCompile Include="game\entities\Block.cpp" />
     <ClCompile Include="engine\util\Color.cpp" />
     <ClCompile Include="engine\core\Engine.cpp" />
     <ClCompile Include="engine\util\Config.cpp" />
@@ -137,9 +136,8 @@
     <ClCompile Include="game\entities\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine\world\Ball.h" />
+    <ClInclude Include="game\entities\Ball.h" />
     <ClInclude Include="engine\world\Body.h" />
-    <ClInclude Include="game\entities\Block.h" />
     <ClInclude Include="engine\core\Entity.h" />
     <ClInclude Include="engine\util\Color.h" />
     <ClInclude Include="engine\core\Engine.h" />

@@ -57,16 +57,13 @@
     <ClCompile Include="engine\world\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\entities\Block.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\entities\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\world\Body.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\world\Ball.cpp">
+    <ClCompile Include="game\entities\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,16 +113,13 @@
     <ClInclude Include="engine\core\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\entities\Block.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\entities\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="engine\world\Body.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\world\Ball.h">
+    <ClInclude Include="game\entities\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

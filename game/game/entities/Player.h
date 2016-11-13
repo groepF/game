@@ -1,10 +1,22 @@
 #pragma once
 
-#include "../../engine/core/Entity.h"
+#include "../../engine/world/Body.h"
 
-class Player : public Entity {
+enum PlayerState
+{
+	PLAYER_LEFT,
+	PLAYER_RIGHT,
+	PLAYER_STOP
+};
+
+class Player : public Body {
 public:
 	Player(float x, float y);
 
-	void onUpdate(float delta) final;
+	void move() const;
+	void jump();
+	void setPlayerState(PlayerState state);
+
+private:
+	PlayerState state;
 };

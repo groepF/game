@@ -1,42 +1,56 @@
 #include "World.h"
 
-World::World(): following(nullptr), cameraX(0), cameraY(0)
-{ }
+#define PPM 50
+
+World::World(float gravity) : world(nullptr)
+{
+	b2Vec2 vec(0.0f, gravity);
+	world = new b2World(vec);
+}
 
 World::~World()
 {
-	for (auto const& entity : entities) {
-		delete entity;
-	}
-	entities.clear();
-}
-
-void World::update(float delta)
-{
-	if (following != nullptr)
+	if (world)
 	{
-		cameraX += (following->getX() - (Config::getInt("width", 0) / 2) - cameraX) * 7 * delta;
-		cameraY += (following->getY() - (Config::getInt("height", 0) / 2) - cameraY) * 7 * delta;
+		delete world;
+		world = nullptr;
 	}
+	for (const auto &body : bodies)
+	{
+		delete body;
+	}
+	bodies.clear();
+}
 
-	for (auto const& entity : entities) {
-		entity->onUpdate(delta);
+void World::update() const
+{
+	world->Step(1.0f / 60.0f, 6, 2);
+}
+
+void World::render(Screen* screen, const bool debug)
+{
+	for (const auto &body : bodies)
+	{
+		if (debug)
+		{
+			screen->renderRect((body->getX() * PPM) - ((body->getWidth() * PPM) / 2), (body->getY() * PPM) - ((body->getHeight() * PPM) / 2), body->getWidth() * PPM, body->getHeight() * PPM);
+		}
+		else
+		{
+			screen->render(body->getSprite(),
+				(body->getX() - (body->getWidth() / 2)) * PPM,
+				(body->getY() - (body->getHeight() / 2)) * PPM,
+				0,
+				1,
+				255, body->getWidth() * PPM, body->getHeight() * PPM);
+		}
 	}
 }
 
-void World::render(Screen* screen)
+void World::add(Body* body)
 {
-	for (auto const& entity : entities) {
-		screen->render(entity->getSprite(), entity->getX() - cameraX, entity->getY() - cameraY, 0, 1, 255);
-	}
-}
+	auto item = world->CreateBody(body->getBodyDef());
+	body->create(item);
 
-void World::add(Entity* entity)
-{
-	entities.push_back(entity);
-}
-
-void World::follow(Entity* entity)
-{
-	following = entity;
+	bodies.push_back(body);
 }

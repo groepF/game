@@ -1,18 +1,10 @@
 #include "Body.h"
 
-Body::Body(b2World& world, float x, float y, float width, float height) : width(width), height(height), body(nullptr)
+Body::Body(float x, float y, float width, float height, bool dynamic) : width(width), height(height), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
-	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(x, y);
+	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
+	bodyDef.position.Set(x, y);
 
-	auto groundBody = world.CreateBody(&groundBodyDef);
-
-	b2PolygonShape groundBox;
-	groundBox.SetAsBox(width, height);
-
-	groundBody->CreateFixture(&groundBox, 0.0f);
-
-	body = groundBody;
 	sprite = new Sprite("spritesheet", 70, 0, 70, 70);
 }
 
@@ -41,13 +33,34 @@ float Body::getHeight() const
 	return height * 2;
 }
 
-void Body::render(Screen *screen)
+Sprite* Body::getSprite() const
 {
-	auto temp = 50;
-	screen->render(sprite,
-		(getX() * temp) - ((getWidth() * temp) / 2),
-		(getY() * temp) - ((getHeight() * temp) / 2),
-		0,
-		1,
-		255, getWidth() * temp, getHeight() * temp);
+	return sprite;
+}
+
+void Body::create(b2Body *body)
+{
+	b2PolygonShape box;
+	box.SetAsBox(width, height);
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &box;
+	fixtureDef.density = density;
+	fixtureDef.friction = friction;
+	fixtureDef.restitution = restitution;
+
+	body->CreateFixture(&fixtureDef);
+
+	this->body = body;
+}
+
+void Body::setVelocity(float x, float y)
+{
+	auto impulse = body->GetMass() * 10;
+	body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter(), true);
+}
+
+b2BodyDef* Body::getBodyDef()
+{
+	return &bodyDef;
 }

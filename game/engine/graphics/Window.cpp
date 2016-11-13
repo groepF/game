@@ -230,7 +230,7 @@ void Window::render(Sprite* sprite, float x, float y, double angle, double size,
 void Window::renderRect(float x, float y, float width, float height) const
 {
 	SDL_Rect outlineRect = { x, y, width, height };
-	SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawRect(renderer, &outlineRect);
 }
 

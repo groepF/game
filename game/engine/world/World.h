@@ -1,24 +1,23 @@
 #pragma once
 
 #include <vector>
+#include <Box2D/Box2D.h>
 #include "../core/Entity.h"
 #include "../graphics/Screen.h"
 #include "../util/Config.h"
+#include "Body.h"
 
 class World
 {
 public:
-	World();
+	World(float gravity = 9.81f);
 	~World();
 
-	void update(float delta);
-	void render(Screen *screen);
-
-	void add(Entity *entity);
-	void follow(Entity *entity);
+	void update() const;
+	void render(Screen *screen, const bool debug = false);
+	void add(Body *body);
 
 private:
-	std::vector<Entity*> entities;
-	Entity *following;
-	int cameraX, cameraY;
+	b2World *world;
+	std::vector<Body*> bodies;
 };
