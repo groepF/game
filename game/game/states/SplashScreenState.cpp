@@ -1,4 +1,7 @@
 #include "SplashScreenState.h"
+#include "../../engine/core/StateContext.h"
+
+SplashScreenState::SplashScreenState(StateContext* context) : State(context) {};
 
 void SplashScreenState::onCreate(Event *event)
 {
@@ -34,7 +37,7 @@ void SplashScreenState::onUpdate(Event *event)
 	}
 	if (counter <= 0)
 	{
-		event->transitionTo(new GameState());
+		context->setState(new GameState(context));
 	}
 }
 

@@ -68,6 +68,9 @@
 	world->add(player);
 }*/
 
+GameState::GameState(StateContext* context) : State(context) {};
+
+
 void GameState::onCreate(Event *event)
 {
 	Log::debug("OnCreate GameState");

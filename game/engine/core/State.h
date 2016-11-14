@@ -3,11 +3,13 @@
 #include "../core/Event.h"
 #include "../graphics/Screen.h"
 
+class StateContext;
+
 class State
 {
 public:
+	State(StateContext* context);
 	virtual ~State() {}
-
 	State(State const &) = delete;
 	State & operator=(State const &) = delete;
 
@@ -17,5 +19,5 @@ public:
 	virtual void onDestroy() = 0;
 
 protected:
-	State() = default;
+	StateContext* context;
 };

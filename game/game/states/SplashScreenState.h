@@ -6,6 +6,7 @@
 
 class SplashScreenState : public State {
 public:
+	SplashScreenState(StateContext* context);
 	void onCreate(Event *event) final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Event *event) final;

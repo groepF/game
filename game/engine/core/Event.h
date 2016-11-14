@@ -245,7 +245,6 @@ public:
 	Event(float delta, Window *window);
 	~Event();
 
-	void transitionTo(State *state);
 	float getDelta() const;
 	bool isKeydown(Keycode key) const;
 	State* getNextState() const;

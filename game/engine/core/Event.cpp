@@ -39,8 +39,3 @@ void Event::stopMusic() const
 		window->stopMusic();
 	}
 }
-
-void Event::transitionTo(State* state)
-{
-	nextState = state;
-}

@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\core\State.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
     <ClCompile Include="engine\util\Color.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="engine\graphics\Screen.cpp" />
     <ClCompile Include="engine\world\World.cpp" />
     <ClCompile Include="game\entities\Player.cpp" />
+    <ClCompile Include="engine\core\StateContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\entities\Ball.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="engine\graphics\Screen.h" />
     <ClInclude Include="engine\world\World.h" />
     <ClInclude Include="game\entities\Player.h" />
+    <ClInclude Include="engine\core\StateContext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

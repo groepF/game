@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine(const std::string config): running(true), currentState(nullptr)
+Engine::Engine(const std::string config) : running(true)
 {
 	try
 	{
@@ -24,12 +24,6 @@ Engine::Engine(const std::string config): running(true), currentState(nullptr)
 
 Engine::~Engine()
 {
-	if (currentState != nullptr)
-	{
-		currentState->onDestroy();
-		delete currentState;
-		currentState = nullptr;
-	}
 	if (window != nullptr)
 	{
 		delete window;
@@ -79,10 +73,7 @@ void Engine::render(Screen *screen) const
 
 	if (currentState != nullptr)
 	{
-		if (currentState != nullptr)
-		{
-			currentState->onRender(screen);
-		}
+		currentState->onRender(screen);
 	}
 
 	window->refresh();
@@ -111,13 +102,8 @@ void Engine::addMusic(std::string key, std::string filename) const
 	window->addMusic(key, filename);
 }
 
-void Engine::setState(State* state)
+void Engine::stateUpdated()
 {
-	if (currentState != nullptr)
-	{
-		currentState->onDestroy();
-	}
-	currentState = state;
 	Event event{ 0, window };
 	currentState->onCreate(&event);
 }
