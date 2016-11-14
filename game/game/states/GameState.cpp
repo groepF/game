@@ -72,7 +72,7 @@ void GameState::onCreate(Event *event)
 {
 	Log::debug("OnCreate GameState");
 
-	world = new World(9.81f);
+	world = new World(6.81f);
 	event->playMusic("background");
 
 	int a[10][20] = {
