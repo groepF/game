@@ -3,7 +3,7 @@
 Player::Player(float x, float y) : Body(x, y, 0.5f, 0.5f, true)
 {
 	this->sprite = new Sprite("spritesheet", 0, 70, 70, 70);
-	this->density = 0.1f;
+	this->density = 0.4f;
 	this->restitution = 0.0f;
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
