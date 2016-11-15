@@ -1,126 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="IMovableStrategy.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameState.cpp">
-      <Filter>Game</Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameController.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="engine\util\SDL.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelController.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\util\Log.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\util\Config.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelBuilder.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\util\Utils.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelCreator.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\core\Engine.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapReader.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\util\Color.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapReaderFactory.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="engine\graphics\Window.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EntityController.cpp">
-      <Filter>Game\Level\Entities</Filter>
+    <ClCompile Include="engine\graphics\Sprite.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Game\Level\Entities</Filter>
+    <ClCompile Include="game\states\SplashScreenState.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>Game\Level\Entities</Filter>
+    <ClCompile Include="engine\graphics\Screen.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game\Level\Entities</Filter>
+    <ClCompile Include="engine\core\Event.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClCompile Include="game\states\GameState.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BasePlayer.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClCompile Include="engine\world\World.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Team.cpp">
-      <Filter>Game\Level</Filter>
+    <ClCompile Include="game\entities\Player.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FirstState.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="engine\world\Body.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PowerupDecorator.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClCompile Include="game\entities\Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\StateContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\core\State.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IMovableStrategy.h" />
-    <ClInclude Include="GameController.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="engine\util\SDL.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelController.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\util\Log.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\util\Config.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelBuilder.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\util\Utils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelCreator.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\core\Engine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapReader.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\core\State.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapReaderFactory.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\util\Color.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityController.h">
-      <Filter>Game\Level\Entities</Filter>
+    <ClInclude Include="engine\graphics\Window.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Game\Level\Entities</Filter>
+    <ClInclude Include="engine\graphics\Sprite.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Goal.h">
-      <Filter>Game\Level\Entities</Filter>
+    <ClInclude Include="game\states\SplashScreenState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game\Level\Entities</Filter>
+    <ClInclude Include="engine\graphics\Screen.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClInclude Include="engine\core\Event.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasePlayer.h">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClInclude Include="game\states\GameState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Team.h">
-      <Filter>Game\Level</Filter>
+    <ClInclude Include="engine\world\World.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="engine\core\Entity.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FirstState.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="game\entities\Player.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PowerupDecorator.h">
-      <Filter>Game\Level\Entities\Player</Filter>
+    <ClInclude Include="engine\world\Body.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Game">
-      <UniqueIdentifier>{1d6da09c-f8e6-49da-9add-cf1bbc7ee9de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level">
-      <UniqueIdentifier>{1482e523-b873-489b-86af-6971a8c65e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level\Entities">
-      <UniqueIdentifier>{364231b0-d54f-449d-94bc-8f5e9ca5305a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level\Entities\Player">
-      <UniqueIdentifier>{c8b1ffd3-0c90-4e43-8ee6-5b7bf32bc8e9}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="game\entities\Ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\core\StateContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
