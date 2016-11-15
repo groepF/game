@@ -247,14 +247,12 @@ public:
 
 	float getDelta() const;
 	bool isKeydown(Keycode key) const;
-	State* getNextState() const;
 
 	void playMusic(std::string music) const;
 	void stopMusic() const;
 
 private:
 	float delta;
-	State *nextState;
 	Window *window;
 	const Uint8 *keyboardState;
 };

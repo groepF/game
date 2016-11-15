@@ -86,10 +86,6 @@ void Engine::update(float delta)
 	{
 		currentState->onUpdate(&event);
 	}
-	if (event.getNextState() != nullptr)
-	{
-		setState(event.getNextState());
-	}
 }
 
 void Engine::addSpritesheet(std::string key, std::string filename) const
