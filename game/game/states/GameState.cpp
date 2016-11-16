@@ -1,7 +1,7 @@
 #include "GameState.h"
 #include "../entities/Player.h"
 #include "../entities/Ball.h"
-#include "../../LevelReader.h"
+#include "../map/LevelReader.h"
 
 /*void GameState::onCreate(Event *event)
 {

@@ -75,7 +75,7 @@
     <ClCompile Include="engine\world\parser\TMXParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelReader.cpp">
+    <ClCompile Include="game\map\LevelReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,7 +152,7 @@
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelReader.h">
+    <ClInclude Include="game\map\LevelReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
