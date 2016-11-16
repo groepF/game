@@ -15,6 +15,7 @@ class Body
 {
 public:
 	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
+	Body(Sprite* s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
 	~Body();
 
 	float getX() const;

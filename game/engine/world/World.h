@@ -16,8 +16,10 @@ public:
 	void update() const;
 	void render(Screen *screen, const bool debug = false);
 	void add(Body *body);
+	void addBackground(Sprite* s);
 
 private:
 	b2World *world;
 	std::vector<Body*> bodies;
+	Sprite* background;
 };

@@ -136,8 +136,14 @@
     <ClCompile Include="engine\world\World.cpp" />
     <ClCompile Include="game\entities\Player.cpp" />
     <ClCompile Include="engine\core\StateContext.cpp" />
+    <ClCompile Include="engine\world\parser\TMXParser.cpp" />
+    <ClCompile Include="game\map\LevelReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp" />
     <ClInclude Include="game\entities\Ball.h" />
     <ClInclude Include="engine\world\Body.h" />
     <ClInclude Include="engine\core\Entity.h" />
@@ -157,6 +163,8 @@
     <ClInclude Include="engine\world\World.h" />
     <ClInclude Include="game\entities\Player.h" />
     <ClInclude Include="engine\core\StateContext.h" />
+    <ClInclude Include="engine\world\parser\TMXParser.h" />
+    <ClInclude Include="game\map\LevelReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
