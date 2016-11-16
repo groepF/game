@@ -29,6 +29,13 @@ void World::update() const
 
 void World::render(Screen* screen, const bool debug)
 {
+	//teken background
+	screen->render(this->background,
+		(screen->getScreenWidth() / 2) - (this->background->getWidth() / 2),
+		(screen->getScreenHeight() / 2) - (this->background->getHeight() / 2),
+		0,
+		1);
+
 	for (const auto &body : bodies)
 	{
 		if (debug)
@@ -53,4 +60,9 @@ void World::add(Body* body)
 	body->create(item);
 
 	bodies.push_back(body);
+}
+
+void World::addBackground(Sprite* background)
+{
+	this->background = background;
 }

@@ -1,5 +1,15 @@
 #include "Body.h"
 
+Body::Body(Sprite* s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
+{
+	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
+	bodyDef.position.Set(x, y);
+	bodyDef.angularDamping = angularDamping;
+	bodyDef.linearDamping = linearDamping;
+
+	sprite = s; // new Sprite("metal", 0, 40, 20, 20);
+}
+
 Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
@@ -7,7 +17,7 @@ Body::Body(float x, float y, float width, float height, bool dynamic, float angu
 	bodyDef.angularDamping = angularDamping;
 	bodyDef.linearDamping = linearDamping;
 
-	sprite = new Sprite("spritesheet", 70, 0, 70, 70);
+	sprite = new Sprite("metal", 0, 40, 20, 20);
 }
 
 Body::~Body()
