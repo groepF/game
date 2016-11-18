@@ -69,25 +69,24 @@
 	world->add(player);
 }*/
 
-GameState::GameState(StateContext* context) : State(context) {};
+GameState::GameState(StateContext* context) : State(context)
+{ }
 
-
-void GameState::onCreate(Event *event)
+void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
 	world = new World(9.81f);
-	event->playMusic("background");
 
 	LevelReader reader("res/maps/level1.tmx");
 	auto tiles = reader.getTiles();
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
-	
-	int counter = 0;
-	for(int x = 0; x < reader.getLevelHeight(); x++)
+
+	auto counter = 0;
+	for(auto x = 0; x < reader.getLevelHeight(); x++)
 	{
-		for (int y = 0; y < reader.getLevelWidth(); y++)
+		for (auto y = 0; y < reader.getLevelWidth(); y++)
 		{
 			if(tiles.at(counter) != 0)
 			{
@@ -189,6 +188,7 @@ void GameState::onCreate(Event *event)
 	player = new Player(1.0f, 1.0f);
 	world->add(player);
 	world->add(new Ball(5.0f, 5.0f));
+	player->setFixedRotation(true);
 }
 
 void GameState::onRender(Screen *screen)
@@ -196,15 +196,15 @@ void GameState::onRender(Screen *screen)
 	world->render(screen);
 }
 
-void GameState::onUpdate(Event *event)
+void GameState::onUpdate(Keyboard *keyboard)
 {
-	if (!event->isKeydown(KEY_A) && !event->isKeydown(KEY_D))
+	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
 	}
-	if (event->isKeydown(KEY_W)) { player->jump(); }
-	if (event->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
-	if (event->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
+	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
+	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
+	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
 	player->move();
 	world->update();
 }

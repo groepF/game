@@ -7,6 +7,7 @@ Player::Player(float x, float y) : Body(x, y, 0.5f, 0.5f, true)
 	this->restitution = 0.0f;
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
+	this->type = CIRCLE;
 }
 
 void Player::move() const

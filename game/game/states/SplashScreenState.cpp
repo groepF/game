@@ -3,7 +3,7 @@
 SplashScreenState::SplashScreenState(StateContext* context) : State(context), counter(0), hasReached(false), sprite(nullptr)
 { }
 
-void SplashScreenState::onCreate(Event *event)
+void SplashScreenState::onCreate()
 {
 	Log::debug("OnCreate SplashScreenState");
 	sprite = new Sprite("splashscreen", 0, 0, 518, 116);
@@ -15,11 +15,10 @@ void SplashScreenState::onRender(Screen *screen)
 		(screen->getWidth() / 2) - (sprite->getWidth() / 2),
 		(screen->getHeight() / 2) - (sprite->getHeight() / 2),
 		0,
-		1,
 		counter);
 }
 
-void SplashScreenState::onUpdate(Event *event)
+void SplashScreenState::onUpdate(Keyboard *keyboard)
 {
 	if (counter >= 255)
 	{

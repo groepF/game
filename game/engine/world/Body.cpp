@@ -88,6 +88,11 @@ void Body::setVelocity(float x, float y)
 	body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter(), true);
 }
 
+void Body::setFixedRotation(bool rotation) const
+{
+	body->SetFixedRotation(rotation);
+}
+
 b2BodyDef* Body::getBodyDef()
 {
 	return &bodyDef;

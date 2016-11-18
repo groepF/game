@@ -24,7 +24,7 @@ World::~World()
 
 void World::update() const
 {
-	world->Step(1.0f / 60.0f, 6, 2);
+	world->Step(1.0f / 60.0f, 8, 3);
 }
 
 void World::render(Screen* screen, const bool debug)

@@ -3,7 +3,6 @@
 #include <string>
 #include "State.h"
 #include "StateContext.h"
-#include "../core/Event.h"
 #include "../util/Log.h"
 #include "../util/Config.h"
 #include "../util/SDL.h"

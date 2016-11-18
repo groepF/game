@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../core/Event.h"
+#include "../input/Keyboard.h"
 #include "../graphics/Screen.h"
 
 class StateContext;
@@ -12,9 +12,9 @@ public:
 	State(State const &) = delete;
 	State & operator=(State const &) = delete;
 
-	virtual void onCreate(Event *event) = 0;
+	virtual void onCreate() = 0;
 	virtual void onRender(Screen *screen) = 0;
-	virtual void onUpdate(Event* event) = 0;
+	virtual void onUpdate(Keyboard *keyboard) = 0;
 	virtual void onDestroy() = 0;
 
 protected:

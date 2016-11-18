@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "../input/Keyboard.h"
 
 Engine::Engine(const std::string config) : running(true)
 {
@@ -56,7 +57,6 @@ void Engine::start()
 				break;
 			}
 		}
-		//Game update, render loop	
 		update(delta);
 		render(window);
 
@@ -80,10 +80,10 @@ void Engine::render(Screen *screen) const
 
 void Engine::update(float delta)
 {
-	Event event{ delta, window };
+	Keyboard keyboard;
 	if (currentState != nullptr)
 	{
-		currentState->onUpdate(&event);
+		currentState->onUpdate(&keyboard);
 	}
 }
 
@@ -99,6 +99,5 @@ void Engine::addMusic(std::string key, std::string filename) const
 
 void Engine::stateUpdated()
 {
-	Event event{ 0, window };
-	currentState->onCreate(&event);
+	currentState->onCreate();
 }

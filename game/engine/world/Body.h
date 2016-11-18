@@ -29,6 +29,7 @@ public:
 
 	void create(b2Body *body);
 	void setVelocity(float x, float y);
+	void setFixedRotation(bool rotation) const;
 
 private:
 	float width, height;
