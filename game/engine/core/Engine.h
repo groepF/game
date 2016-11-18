@@ -24,7 +24,7 @@ protected:
 	void stateUpdated() override;
 private:
 	bool running;
-	Window* window;
+	Window *window;
 	void update(float delta);
 	void render(Screen *screen) const;
 };

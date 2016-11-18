@@ -76,13 +76,12 @@ void GameState::onCreate(Event *event)
 {
 	Log::debug("OnCreate GameState");
 
-	world = new World(6.81f);
+	world = new World(9.81f);
 	event->playMusic("background");
 
 	LevelReader reader("res/maps/level1.tmx");
-	std::vector<int> tiles = reader.getTiles();
-
-	Sprite* background = new Sprite("background", 0, 0, 1300, 720);
+	auto tiles = reader.getTiles();
+	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 	
 	int counter = 0;

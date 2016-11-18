@@ -31,10 +31,9 @@ void World::render(Screen* screen, const bool debug)
 {
 	//teken background
 	screen->render(this->background,
-		(screen->getScreenWidth() / 2) - (this->background->getWidth() / 2),
-		(screen->getScreenHeight() / 2) - (this->background->getHeight() / 2),
-		0,
-		1);
+		(screen->getWidth() / 2) - (this->background->getWidth() / 2),
+		(screen->getHeight() / 2) - (this->background->getHeight() / 2),
+		0);
 
 	for (const auto &body : bodies)
 	{
@@ -47,8 +46,7 @@ void World::render(Screen* screen, const bool debug)
 			screen->render(body->getSprite(),
 				(body->getX() - (body->getWidth() / 2)) * PPM,
 				(body->getY() - (body->getHeight() / 2)) * PPM,
-				0,
-				1,
+				body->getAngle(),
 				255, body->getWidth() * PPM, body->getHeight() * PPM);
 		}
 	}

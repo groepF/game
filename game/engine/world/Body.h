@@ -3,7 +3,8 @@
 #include "Box2D/Box2D.h"
 #include "../graphics/Sprite.h"
 #include "../graphics/Screen.h"
-#include <math.h>
+#include <SDL/SDL_stdinc.h>
+
 
 enum BodyType
 {

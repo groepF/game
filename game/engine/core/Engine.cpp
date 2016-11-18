@@ -38,7 +38,6 @@ void Engine::start()
 	auto lastTime = 0;
 
 	SDL_Event sdlEvent;
-	Screen screen{ window };
 
 	while (running)
 	{
@@ -59,7 +58,7 @@ void Engine::start()
 		}
 		//Game update, render loop	
 		update(delta);
-		render(&screen);
+		render(window);
 
 		SDL_Delay(1);
 	}

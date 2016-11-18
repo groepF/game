@@ -2,17 +2,14 @@
 
 Window::Window(unsigned width, unsigned height, std::string title) :
 	window(nullptr),
-	surface(nullptr),
 	renderer(nullptr),
 	width(width),
 	height(height),
-	viewportX(0.0f),
-	viewportY(0.0f),
 	title(title)
 {
 	this->resize(title, width, height);
 
-	if (!(this->window) || !(this->renderer) || !(this->surface))
+	if (!(this->window) || !(this->renderer))
 	{
 		Log::error("Window(): Couldn't create Window");
 		throw "Window() Fail";
@@ -43,12 +40,6 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 	SDL_RenderSetLogicalSize(this->renderer, width, height);
 
 	this->setTitle(title);
-
-	this->surface = SDL_GetWindowSurface(this->window);
-	if (!(this->surface))
-	{
-		return;
-	}
 
 	this->width = width;
 	this->height = height;
@@ -130,12 +121,6 @@ void Window::setBackgroundColor(Color color)
 	background = color;
 }
 
-void Window::setViewport(float x, float y)
-{
-	viewportX = x;
-	viewportY = y;
-}
-
 void Window::addTexture(std::string key, std::string filename)
 {
 	auto surface = IMG_Load(filename.c_str());
@@ -195,7 +180,7 @@ void Window::stopMusic() const
 	}
 }
 
-void Window::render(Sprite* sprite, float x, float y, double angle, double size, int alpha, float width, float height)
+void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, float width, float height) const
 {
 	if (sprite == nullptr)
 	{
@@ -215,16 +200,16 @@ void Window::render(Sprite* sprite, float x, float y, double angle, double size,
 		destinationRectangle.w = width;
 		destinationRectangle.h = height;
 	}
-	destinationRectangle.x = x - viewportX;
-	destinationRectangle.y = y - viewportY;
+	destinationRectangle.x = x;
+	destinationRectangle.y = y;
 
 	sourceRectangle.x = sprite->getX();
 	sourceRectangle.y = sprite->getY();
 	sourceRectangle.w = sprite->getWidth();
 	sourceRectangle.h = sprite->getHeight();
 
-	SDL_SetTextureAlphaMod(textures[sprite->getIdentifier()], alpha);
-	SDL_RenderCopyEx(renderer, textures[sprite->getIdentifier()], &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
+	SDL_SetTextureAlphaMod(textures.at(sprite->getIdentifier()), alpha);
+	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void Window::renderRect(float x, float y, float width, float height) const

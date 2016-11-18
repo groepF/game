@@ -45,9 +45,6 @@
     <ClCompile Include="game\states\SplashScreenState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\graphics\Screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\core\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

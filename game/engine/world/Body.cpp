@@ -47,7 +47,7 @@ float Body::getHeight() const
 
 float Body::getAngle() const
 {
-	return body->GetAngle();
+	return body->GetAngle() * (180 / M_PI);
 }
 
 Sprite* Body::getSprite() const

@@ -2,6 +2,7 @@
 
 #include "../../engine/core/State.h"
 #include "../../engine/graphics/Sprite.h"
+#include "../../engine/core/StateContext.h"
 #include "GameState.h"
 
 class SplashScreenState : public State {
