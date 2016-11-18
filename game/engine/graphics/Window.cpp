@@ -28,7 +28,8 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
+	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!(this->window) || !(this->renderer))
 	{

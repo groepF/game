@@ -53,6 +53,16 @@ void Engine::start()
 			case SDL_QUIT:
 				running = false;
 				break;
+			case SDL_KEYDOWN:
+				switch (sdlEvent.key.keysym.sym)
+				{
+				case SDLK_ESCAPE:
+					running = false;
+					break;
+				default:
+					break;
+				}
+				break;
 			default:
 				break;
 			}
