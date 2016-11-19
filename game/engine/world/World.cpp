@@ -1,8 +1,6 @@
 #include "World.h"
 
-#define PPM 50
-
-World::World(float gravity) : world(nullptr)
+World::World(float gravity) : world(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
 	world = new b2World(vec);
@@ -14,6 +12,11 @@ World::~World()
 	{
 		delete world;
 		world = nullptr;
+	}
+	if (background)
+	{
+		delete background;
+		background = nullptr;
 	}
 	for (const auto &body : bodies)
 	{

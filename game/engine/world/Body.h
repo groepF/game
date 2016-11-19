@@ -2,9 +2,7 @@
 
 #include "Box2D/Box2D.h"
 #include "../graphics/Sprite.h"
-#include "../graphics/Screen.h"
 #include <SDL/SDL_stdinc.h>
-
 
 enum BodyType
 {
@@ -28,7 +26,7 @@ public:
 	b2BodyDef* getBodyDef();
 
 	void create(b2Body *body);
-	void setVelocity(float x, float y);
+	void setVelocity(float x, float y) const;
 	void setFixedRotation(bool rotation) const;
 
 private:

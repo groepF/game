@@ -69,14 +69,19 @@
 	world->add(player);
 }*/
 
-GameState::GameState(StateContext* context) : State(context)
-{ }
+GameState::GameState(StateContext* context) :
+	State(context),
+	world(nullptr),
+	player(nullptr)
+{
+
+}
 
 void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	world = new World(9.81f);
+	world = new World(WORLD_GRAVITY);
 
 	LevelReader reader("res/maps/level1.tmx");
 	auto tiles = reader.getTiles();

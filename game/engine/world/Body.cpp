@@ -82,7 +82,7 @@ void Body::create(b2Body *body)
 	this->body = body;
 }
 
-void Body::setVelocity(float x, float y)
+void Body::setVelocity(float x, float y) const
 {
 	auto impulse = body->GetMass() * 10;
 	body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter(), true);
