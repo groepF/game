@@ -1,10 +1,11 @@
 #include "Window.h"
 
-Window::Window(unsigned width, unsigned height, std::string title) :
+Window::Window(unsigned width, unsigned height, bool fullscreen, std::string title) :
 	window(nullptr),
 	renderer(nullptr),
 	width(width),
 	height(height),
+	fullscreen(fullscreen),
 	title(title)
 {
 	this->resize(title, width, height);
@@ -28,8 +29,15 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if(this->fullscreen)
+	{
+		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	} else
+	{
+		SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
+	}
+	
 
 	if (!(this->window) || !(this->renderer))
 	{

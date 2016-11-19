@@ -13,7 +13,7 @@
 class Window : public Screen
 {
 public:
-	Window(unsigned int width, unsigned int height, std::string title = "");
+	Window(unsigned int width, unsigned int height, bool fullscreen = false, std::string title = "");
 
 	virtual ~Window();
 	void destroy();
@@ -48,6 +48,8 @@ private:
 
 	unsigned int width;
 	unsigned int height;
+
+	bool fullscreen;
 
 	std::string title;
 	Color background;

@@ -12,8 +12,9 @@ Engine::Engine(const std::string config) : running(true)
 		auto width = Config::getInt("width", 640);
 		auto height = Config::getInt("height", 480);
 		auto title = Config::getString("title", "Default window title");
+		auto fullscreen = Config::getBool("fullscreen", false);
 
-		window = new Window(width, height, title);
+		window = new Window(width, height, fullscreen, title);
 		window->setBackgroundColor(Color("white"));
 	}
 	catch (...)
