@@ -24,6 +24,14 @@ void Screen::render(Sprite* sprite, float x, float y, double angle, double size,
 	}
 }
 
+void Screen::renderText(std::string text, Color color, int x, int y, int width, int height) const
+{
+	if(window != nullptr)
+	{
+		window->renderText(text, color, x, y, width, height);
+	}
+}
+
 void Screen::renderRect(float x, float y, float width, float height) const
 {
 	if (window != nullptr)
