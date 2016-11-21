@@ -3,7 +3,6 @@
 #include "../../engine/core/State.h"
 #include "../../engine/world/World.h"
 #include "../entities/Player.h"
-#include "../../engine/Entities/FpsCounter.h"
 
 class GameState : public State {
 public:
@@ -16,5 +15,4 @@ public:
 private:
 	World *world;
 	Player *player;
-	FpsCounter* fpsCounter;
 };
