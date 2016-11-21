@@ -8,6 +8,8 @@
 #include "../util/Log.h"
 #include "../graphics/Sprite.h"
 #include <SDL/SDL_mixer.h>
+#include <SDL/SDL_ttf.h>
+
 
 class Window
 {
@@ -36,7 +38,7 @@ public:
 	void stopMusic() const;
 
 	void render(Sprite* sprite, float x, float y, double angle = 0, double size = 1, int alpha = 255, float width = -1, float height = -1);
-
+	void renderText(std::string message, Color color, int x, int y, int width, int height) const;
 	void renderRect(float x, float y, float width, float height) const;
 
 	unsigned int getWidth() const;
@@ -55,4 +57,5 @@ private:
 
 	std::string title;
 	Color background;
+	TTF_Font* font;
 };
