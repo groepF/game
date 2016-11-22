@@ -1,27 +1,24 @@
 #include "SplashScreenState.h"
-#include "../../engine/core/StateContext.h"
 
-SplashScreenState::SplashScreenState(StateContext* context) : State(context) {};
+SplashScreenState::SplashScreenState(StateContext* context) : State(context), counter(0), hasReached(false), sprite(nullptr)
+{ }
 
-void SplashScreenState::onCreate(Event *event)
+void SplashScreenState::onCreate()
 {
 	Log::debug("OnCreate SplashScreenState");
-	counter = 0;
-	hasReached = false;
 	sprite = new Sprite("splashscreen", 0, 0, 518, 116);
 }
 
 void SplashScreenState::onRender(Screen *screen)
 {
 	screen->render(sprite,
-		(screen->getScreenWidth() / 2) - (sprite->getWidth() / 2),
-		(screen->getScreenHeight() / 2) - (sprite->getHeight() / 2),
+		(screen->getWidth() / 2) - (sprite->getWidth() / 2),
+		(screen->getHeight() / 2) - (sprite->getHeight() / 2),
 		0,
-		1,
 		counter);
 }
 
-void SplashScreenState::onUpdate(Event *event)
+void SplashScreenState::onUpdate(Keyboard *keyboard)
 {
 	if (counter >= 255)
 	{

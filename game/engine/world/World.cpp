@@ -1,8 +1,6 @@
 #include "World.h"
 
-#define PPM 50
-
-World::World(float gravity) : world(nullptr)
+World::World(float gravity) : world(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
 	world = new b2World(vec);
@@ -15,6 +13,11 @@ World::~World()
 		delete world;
 		world = nullptr;
 	}
+	if (background)
+	{
+		delete background;
+		background = nullptr;
+	}
 	for (const auto &body : bodies)
 	{
 		delete body;
@@ -24,17 +27,16 @@ World::~World()
 
 void World::update() const
 {
-	world->Step(1.0f / 60.0f, 6, 2);
+	world->Step(1.0f / 60.0f, 8, 3);
 }
 
 void World::render(Screen* screen, const bool debug)
 {
 	//teken background
 	screen->render(this->background,
-		(screen->getScreenWidth() / 2) - (this->background->getWidth() / 2),
-		(screen->getScreenHeight() / 2) - (this->background->getHeight() / 2),
-		0,
-		1);
+		(screen->getWidth() / 2) - (this->background->getWidth() / 2),
+		(screen->getHeight() / 2) - (this->background->getHeight() / 2),
+		0);
 
 	for (const auto &body : bodies)
 	{
@@ -47,8 +49,7 @@ void World::render(Screen* screen, const bool debug)
 			screen->render(body->getSprite(),
 				(body->getX() - (body->getWidth() / 2)) * PPM,
 				(body->getY() - (body->getHeight() / 2)) * PPM,
-				0,
-				1,
+				body->getAngle(),
 				255, body->getWidth() * PPM, body->getHeight() * PPM);
 		}
 	}
