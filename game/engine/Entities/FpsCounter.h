@@ -12,20 +12,32 @@
 class FpsCounter
 {
 public:
+	/*
+	 * The FpsCounter constructor.
+	 */
 	FpsCounter();
+
+	/* 
+	 * Outputs a visual fps counter.
+	 * @param screen The screen to output the fps on.
+	 */
 	void outputFPS(Screen& screen);
 private:
+	/*
+	 * Calculates the currnet fps.
+	 * @return The amount of frames per second
+	 */
 	int getCurrentFps();
 
 	// An array to store frame times:
 	Uint32 frametimes[FRAME_VALUES];
 
-	// Last calculated SDL_GetTicks
+	// Last calculated SDL_GetTicks.
 	Uint32 frametimelast;
 
-	// total frames rendered
+	// Total frames rendered.
 	Uint32 framecount;
 
-	// the value you want
+	// The current amount of frames per second.
 	float framespersecond;
 };
