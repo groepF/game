@@ -9,6 +9,7 @@
 #include "../graphics/Sprite.h"
 #include <SDL/SDL_mixer.h>
 #include "Screen.h"
+#include <SDL/SDL_ttf.h>
 
 class Window : public Screen
 {
@@ -37,9 +38,11 @@ public:
 
 	void render(Sprite* sprite, float x, float y, double angle = 0, int alpha = 255, float width = -1, float height = -1) const override;
 	void renderRect(float x, float y, float width, float height) const override;
-
+	void renderText(std::string message, Color color, int x, int y, int width, int height) const override;
+	
 	unsigned int getWidth() const override;
 	unsigned int getHeight() const override;
+
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
@@ -53,4 +56,5 @@ private:
 
 	std::string title;
 	Color background;
+	TTF_Font* font;
 };

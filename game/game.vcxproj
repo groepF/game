@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\core\State.cpp" />
+    <ClCompile Include="engine\Entities\FpsCounter.cpp" />
     <ClCompile Include="engine\input\Keyboard.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="game\map\LevelReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\Entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />

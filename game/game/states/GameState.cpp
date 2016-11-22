@@ -2,6 +2,7 @@
 #include "../entities/Player.h"
 #include "../entities/Ball.h"
 #include "../map/LevelReader.h"
+#include "../../engine/Entities/FpsCounter.h"
 
 /*void GameState::onCreate(Event *event)
 {
@@ -72,14 +73,16 @@
 GameState::GameState(StateContext* context) :
 	State(context),
 	world(nullptr),
-	player(nullptr)
+	player(nullptr),
+	showingFPS(true)
 {
-
 }
 
 void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
+
+	this->fpsCounter = new FpsCounter();
 
 	world = new World(WORLD_GRAVITY);
 
@@ -88,78 +91,78 @@ void GameState::onCreate()
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 
-	auto counter = 0;
-	for(auto x = 0; x < reader.getLevelHeight(); x++)
+	int counter = 0;
+	for (int x = 0; x < reader.getLevelHeight(); x++)
 	{
 		for (auto y = 0; y < reader.getLevelWidth(); y++)
 		{
-			if(tiles.at(counter) != 0)
+			if (tiles.at(counter) != 0)
 			{
 				Sprite* sprite;
 				switch (tiles.at(counter)) {
-					case 1:
-						sprite = new Sprite("metal", 0, 0, 20, 20);
-						break;
-					case 2:
-						sprite = new Sprite("metal", 20, 0, 20, 20);
-						break;
-					case 3:
-						sprite = new Sprite("metal", 0, 20, 20, 20);
-						break;
-					case 4:
-						sprite = new Sprite("metal", 20, 20, 20, 20);
-						break;
-					case 5:
-						sprite = new Sprite("metal", 0, 40, 20, 20);
-						break;
-					case 7:
-						sprite = new Sprite("teams", 0, 0, 20, 20);
-						break;
-					case 8:
-						sprite = new Sprite("teams", 20, 0, 20, 20);
-						break;
-					case 9:
-						sprite = new Sprite("castle", 0, 0, 20, 20);
-						break;
-					case 10:
-						sprite = new Sprite("castle", 20, 0, 20, 20);
-						break;
-					case 11:
-						sprite = new Sprite("castle", 40, 0, 20, 20);
-						break;
-					case 12:
-						sprite = new Sprite("castle", 0, 20, 20, 20);
-						break;
-					case 13:
-						sprite = new Sprite("castle", 20, 20, 20, 20);
-						break;
-					case 14:
-						sprite = new Sprite("castle", 40, 20, 20, 20);
-						break;
-					case 15:
-						sprite = new Sprite("castle", 0, 40, 20, 20);
-						break;
-					case 16:
-						sprite = new Sprite("castle", 20, 40, 20, 20);
-						break;
-					case 17:
-						sprite = new Sprite("castle", 40, 40, 20, 20);
-						break;
-					case 18:
-						sprite = new Sprite("castle", 0, 60, 20, 20);
-						break;
-					case 19:
-						sprite = new Sprite("castle", 20, 60, 20, 20);
-						break;
-					case 20:
-						sprite = new Sprite("castle", 40, 60, 20, 20);
-						break;
-					default:
-						sprite = new Sprite("metal", 0, 40, 20, 20);
-						break;
+				case 1:
+					sprite = new Sprite("metal", 0, 0, 20, 20);
+					break;
+				case 2:
+					sprite = new Sprite("metal", 20, 0, 20, 20);
+					break;
+				case 3:
+					sprite = new Sprite("metal", 0, 20, 20, 20);
+					break;
+				case 4:
+					sprite = new Sprite("metal", 20, 20, 20, 20);
+					break;
+				case 5:
+					sprite = new Sprite("metal", 0, 40, 20, 20);
+					break;
+				case 7:
+					sprite = new Sprite("teams", 0, 0, 20, 20);
+					break;
+				case 8:
+					sprite = new Sprite("teams", 20, 0, 20, 20);
+					break;
+				case 9:
+					sprite = new Sprite("castle", 0, 0, 20, 20);
+					break;
+				case 10:
+					sprite = new Sprite("castle", 20, 0, 20, 20);
+					break;
+				case 11:
+					sprite = new Sprite("castle", 40, 0, 20, 20);
+					break;
+				case 12:
+					sprite = new Sprite("castle", 0, 20, 20, 20);
+					break;
+				case 13:
+					sprite = new Sprite("castle", 20, 20, 20, 20);
+					break;
+				case 14:
+					sprite = new Sprite("castle", 40, 20, 20, 20);
+					break;
+				case 15:
+					sprite = new Sprite("castle", 0, 40, 20, 20);
+					break;
+				case 16:
+					sprite = new Sprite("castle", 20, 40, 20, 20);
+					break;
+				case 17:
+					sprite = new Sprite("castle", 40, 40, 20, 20);
+					break;
+				case 18:
+					sprite = new Sprite("castle", 0, 60, 20, 20);
+					break;
+				case 19:
+					sprite = new Sprite("castle", 20, 60, 20, 20);
+					break;
+				case 20:
+					sprite = new Sprite("castle", 40, 60, 20, 20);
+					break;
+				default:
+					sprite = new Sprite("metal", 0, 40, 20, 20);
+					break;
 				}
 				auto size = 0.2f;
-				world->add(new Body(sprite ,(size * 2) * y, (size * 2) * x, size, size));
+				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}
 			counter++;
 		}
@@ -199,6 +202,10 @@ void GameState::onCreate()
 void GameState::onRender(Screen *screen)
 {
 	world->render(screen);
+	if (showingFPS)
+	{
+		this->fpsCounter->outputFPS(*screen);
+	}
 }
 
 void GameState::onUpdate(Keyboard *keyboard)
@@ -210,12 +217,14 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
+	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+
 	player->move();
 	world->update();
 }
 
 void GameState::onDestroy()
 {
-	delete world; 
+	delete world;
 	Log::debug("OnDestroy GameState");
 }

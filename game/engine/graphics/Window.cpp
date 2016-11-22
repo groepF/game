@@ -1,12 +1,14 @@
 #include "Window.h"
+#include <SDL/SDL_ttf.h>
 
-Window::Window(unsigned width, unsigned height, bool fullscreen, std::string title) :
+Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::string title) :
 	window(nullptr),
 	renderer(nullptr),
 	width(width),
 	height(height),
 	fullscreen(fullscreen),
-	title(title)
+	title(title),
+	font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
 {
 	this->resize(title, width, height);
 
@@ -19,6 +21,7 @@ Window::Window(unsigned width, unsigned height, bool fullscreen, std::string tit
 	this->clear();
 	this->refresh();
 }
+
 
 Window::~Window()
 {
@@ -62,7 +65,7 @@ void Window::destroy()
 	}
 	textures.clear();
 
-	for (const auto &fragment: music)
+	for (const auto &fragment : music)
 	{
 		Mix_FreeMusic(fragment.second);
 	}
@@ -219,6 +222,27 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 
 	SDL_SetTextureAlphaMod(textures.at(sprite->getIdentifier()), alpha);
 	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
+}
+
+void Window::renderText(std::string message, Color color, int x, int y, int width, int height) const
+{
+	if (font)
+	{
+		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str(), SDL_Color{ color.r(), color.g(), color.b() }) };
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+		SDL_Rect Message_rect; //create a rect		
+		Message_rect.x = x;  //controls the rect's x coordinate 		
+		Message_rect.y = y; // controls the rect's y coordinte		
+		Message_rect.w = width; // controls the width of the rect		
+		Message_rect.h = height; // controls the height of the rect		
+
+		SDL_RenderCopy(renderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture		
+		SDL_DestroyTexture(Message);
+	}else
+	{
+		Log::error("Font was not correctly loaded. Can't output text on screen.");
+	}
 }
 
 void Window::renderRect(float x, float y, float width, float height) const
