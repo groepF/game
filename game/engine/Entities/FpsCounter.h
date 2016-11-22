@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "../graphics/Screen.h"
+#include <SDL/SDL_hints.h>
 
 
 // How many frames time values to keep

@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="engine\core\State.cpp" />
     <ClCompile Include="engine\Entities\FpsCounter.cpp" />
+    <ClCompile Include="engine\input\Keyboard.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
     <ClCompile Include="engine\util\Color.cpp" />
@@ -127,13 +128,11 @@
     <ClCompile Include="engine\util\Log.cpp" />
     <ClCompile Include="engine\util\SDL.cpp" />
     <ClCompile Include="engine\util\Utils.cpp" />
-    <ClCompile Include="engine\core\Event.cpp" />
     <ClCompile Include="game\states\GameState.cpp" />
     <ClCompile Include="game\main.cpp" />
     <ClCompile Include="engine\graphics\Window.cpp" />
     <ClCompile Include="engine\graphics\Sprite.cpp" />
     <ClCompile Include="game\states\SplashScreenState.cpp" />
-    <ClCompile Include="engine\graphics\Screen.cpp" />
     <ClCompile Include="engine\world\World.cpp" />
     <ClCompile Include="game\entities\Player.cpp" />
     <ClCompile Include="engine\core\StateContext.cpp" />
@@ -142,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\Entities\FpsCounter.h" />
+    <ClInclude Include="engine\input\Keyboard.h" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
@@ -158,7 +158,6 @@
     <ClInclude Include="engine\util\Utils.h" />
     <ClInclude Include="engine\graphics\Window.h" />
     <ClInclude Include="engine\graphics\Sprite.h" />
-    <ClInclude Include="engine\core\Event.h" />
     <ClInclude Include="game\states\GameState.h" />
     <ClInclude Include="game\states\SplashScreenState.h" />
     <ClInclude Include="engine\graphics\Screen.h" />

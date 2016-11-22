@@ -1,11 +1,6 @@
 #pragma once
 
-#include <SDL/SDL_hints.h>
 #include <SDL/SDL.h>
-#include <string>
-
-class Window;
-class State;
 
 enum Keycode {
 	KEY_UNKNOWN = 0,
@@ -239,20 +234,13 @@ enum Keycode {
 	KEY_AC_BOOKMARKS = 274
 };
 
-class Event
+class Keyboard
 {
 public:
-	Event(float delta, Window *window);
-	~Event();
-
-	float getDelta() const;
+	Keyboard();
+	~Keyboard();
+	
 	bool isKeydown(Keycode key) const;
-
-	void playMusic(std::string music) const;
-	void stopMusic() const;
-
 private:
-	float delta;
-	Window *window;
 	const Uint8 *keyboardState;
 };

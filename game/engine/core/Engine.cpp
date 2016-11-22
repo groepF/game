@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "../input/Keyboard.h"
 
 Engine::Engine(const std::string config) : running(true)
 {
@@ -11,8 +12,9 @@ Engine::Engine(const std::string config) : running(true)
 		auto width = Config::getInt("width", 640);
 		auto height = Config::getInt("height", 480);
 		auto title = Config::getString("title", "Default window title");
+		auto fullscreen = Config::getBool("fullscreen", false);
 
-		window = new Window(width, height, title);
+		window = new Window(width, height, fullscreen, title);
 		window->setBackgroundColor(Color("white"));
 	}
 	catch (...)
@@ -38,7 +40,6 @@ void Engine::start()
 	auto lastTime = 0;
 
 	SDL_Event sdlEvent;
-	Screen screen{ window };
 
 	while (running)
 	{
@@ -53,13 +54,22 @@ void Engine::start()
 			case SDL_QUIT:
 				running = false;
 				break;
+			case SDL_KEYDOWN:
+				switch (sdlEvent.key.keysym.sym)
+				{
+				case SDLK_ESCAPE:
+					running = false;
+					break;
+				default:
+					break;
+				}
+				break;
 			default:
 				break;
 			}
 		}
-		//Game update, render loop	
 		update(delta);
-		render(&screen);
+		render(window);
 
 		SDL_Delay(1);
 	}
@@ -81,10 +91,10 @@ void Engine::render(Screen *screen) const
 
 void Engine::update(float delta)
 {
-	Event event{ delta, window };
+	Keyboard keyboard;
 	if (currentState != nullptr)
 	{
-		currentState->onUpdate(&event);
+		currentState->onUpdate(&keyboard);
 	}
 }
 
@@ -100,6 +110,5 @@ void Engine::addMusic(std::string key, std::string filename) const
 
 void Engine::stateUpdated()
 {
-	Event event{ 0, window };
-	currentState->onCreate(&event);
+	currentState->onCreate();
 }

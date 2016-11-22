@@ -8,13 +8,13 @@
 #include "../util/Log.h"
 #include "../graphics/Sprite.h"
 #include <SDL/SDL_mixer.h>
+#include "Screen.h"
 #include <SDL/SDL_ttf.h>
 
-
-class Window
+class Window : public Screen
 {
 public:
-	Window(unsigned int width, unsigned int height, std::string title = "");
+	Window(unsigned int width, unsigned int height, bool fullscreen = false, std::string title = "");
 
 	virtual ~Window();
 	void destroy();
@@ -30,30 +30,29 @@ public:
 
 	void setTitle(std::string title) const;
 	void setBackgroundColor(Color color = Color(0, 0, 0));
-	void setViewport(float x, float y);
 
 	void addTexture(std::string key, std::string filename);
 	void addMusic(std::string key, std::string filename);
 	void playMusic(std::string key);
 	void stopMusic() const;
 
-	void render(Sprite* sprite, float x, float y, double angle = 0, double size = 1, int alpha = 255, float width = -1, float height = -1);
-	void renderText(std::string message, Color color, int x, int y, int width, int height) const;
-	void renderRect(float x, float y, float width, float height) const;
+	void render(Sprite* sprite, float x, float y, double angle = 0, int alpha = 255, float width = -1, float height = -1) const override;
+	void renderRect(float x, float y, float width, float height) const override;
+	void renderText(std::string message, Color color, int x, int y, int width, int height) const override;
+	
+	unsigned int getWidth() const override;
+	unsigned int getHeight() const override;
 
-	unsigned int getWidth() const;
-	unsigned int getHeight() const;
 private:
-	SDL_Window* window;
-	SDL_Surface* surface;
-	SDL_Renderer* renderer;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 	std::map<std::string, SDL_Texture*> textures;
 	std::map<std::string, Mix_Music*> music;
 
 	unsigned int width;
 	unsigned int height;
 
-	float viewportX, viewportY;
+	bool fullscreen;
 
 	std::string title;
 	Color background;
