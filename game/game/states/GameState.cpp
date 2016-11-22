@@ -73,9 +73,9 @@
 GameState::GameState(StateContext* context) :
 	State(context),
 	world(nullptr),
-	player(nullptr)
+	player(nullptr),
+	showingFPS(true)
 {
-
 }
 
 void GameState::onCreate()
@@ -202,7 +202,10 @@ void GameState::onCreate()
 void GameState::onRender(Screen *screen)
 {
 	world->render(screen);
-	this->fpsCounter->outputFPS(*screen);
+	if (showingFPS)
+	{
+		this->fpsCounter->outputFPS(*screen);
+	}
 }
 
 void GameState::onUpdate(Keyboard *keyboard)
@@ -214,6 +217,8 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
+	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+
 	player->move();
 	world->update();
 }
