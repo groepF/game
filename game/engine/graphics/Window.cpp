@@ -1,18 +1,18 @@
 #include "Window.h"
+#include <SDL/SDL_ttf.h>
 
-Window::Window(unsigned width, unsigned height, std::string title) :
+Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::string title) :
 	window(nullptr),
-	surface(nullptr),
 	renderer(nullptr),
 	width(width),
 	height(height),
-	viewportX(0.0f),
-	viewportY(0.0f),
-	title(title)
+	fullscreen(fullscreen),
+	title(title),
+	font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
 {
 	this->resize(title, width, height);
 
-	if (!(this->window) || !(this->renderer) || !(this->surface))
+	if (!(this->window) || !(this->renderer))
 	{
 		Log::error("Window(): Couldn't create Window");
 		throw "Window() Fail";
@@ -21,6 +21,7 @@ Window::Window(unsigned width, unsigned height, std::string title) :
 	this->clear();
 	this->refresh();
 }
+
 
 Window::~Window()
 {
@@ -31,7 +32,15 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
+	if(this->fullscreen)
+	{
+		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	} else
+	{
+		SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
+	}
+	
 
 	if (!(this->window) || !(this->renderer))
 	{
@@ -43,12 +52,6 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 	SDL_RenderSetLogicalSize(this->renderer, width, height);
 
 	this->setTitle(title);
-
-	this->surface = SDL_GetWindowSurface(this->window);
-	if (!(this->surface))
-	{
-		return;
-	}
 
 	this->width = width;
 	this->height = height;
@@ -62,7 +65,7 @@ void Window::destroy()
 	}
 	textures.clear();
 
-	for (const auto &fragment: music)
+	for (const auto &fragment : music)
 	{
 		Mix_FreeMusic(fragment.second);
 	}
@@ -130,12 +133,6 @@ void Window::setBackgroundColor(Color color)
 	background = color;
 }
 
-void Window::setViewport(float x, float y)
-{
-	viewportX = x;
-	viewportY = y;
-}
-
 void Window::addTexture(std::string key, std::string filename)
 {
 	auto surface = IMG_Load(filename.c_str());
@@ -195,7 +192,7 @@ void Window::stopMusic() const
 	}
 }
 
-void Window::render(Sprite* sprite, float x, float y, double angle, double size, int alpha, float width, float height)
+void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, float width, float height) const
 {
 	if (sprite == nullptr)
 	{
@@ -215,16 +212,37 @@ void Window::render(Sprite* sprite, float x, float y, double angle, double size,
 		destinationRectangle.w = width;
 		destinationRectangle.h = height;
 	}
-	destinationRectangle.x = x - viewportX;
-	destinationRectangle.y = y - viewportY;
+	destinationRectangle.x = x;
+	destinationRectangle.y = y;
 
 	sourceRectangle.x = sprite->getX();
 	sourceRectangle.y = sprite->getY();
 	sourceRectangle.w = sprite->getWidth();
 	sourceRectangle.h = sprite->getHeight();
 
-	SDL_SetTextureAlphaMod(textures[sprite->getIdentifier()], alpha);
-	SDL_RenderCopyEx(renderer, textures[sprite->getIdentifier()], &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
+	SDL_SetTextureAlphaMod(textures.at(sprite->getIdentifier()), alpha);
+	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
+}
+
+void Window::renderText(std::string message, Color color, int x, int y, int width, int height) const
+{
+	if (font)
+	{
+		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str(), SDL_Color{ color.r(), color.g(), color.b() }) };
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+		SDL_Rect Message_rect; //create a rect		
+		Message_rect.x = x;  //controls the rect's x coordinate 		
+		Message_rect.y = y; // controls the rect's y coordinte		
+		Message_rect.w = width; // controls the width of the rect		
+		Message_rect.h = height; // controls the height of the rect		
+
+		SDL_RenderCopy(renderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture		
+		SDL_DestroyTexture(Message);
+	}else
+	{
+		Log::error("Font was not correctly loaded. Can't output text on screen.");
+	}
 }
 
 void Window::renderRect(float x, float y, float width, float height) const

@@ -47,7 +47,7 @@ float Body::getHeight() const
 
 float Body::getAngle() const
 {
-	return body->GetAngle();
+	return body->GetAngle() * (180 / M_PI);
 }
 
 Sprite* Body::getSprite() const
@@ -82,10 +82,15 @@ void Body::create(b2Body *body)
 	this->body = body;
 }
 
-void Body::setVelocity(float x, float y)
+void Body::setVelocity(float x, float y) const
 {
 	auto impulse = body->GetMass() * 10;
 	body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter(), true);
+}
+
+void Body::setFixedRotation(bool rotation) const
+{
+	body->SetFixedRotation(rotation);
 }
 
 b2BodyDef* Body::getBodyDef()

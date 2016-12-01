@@ -1,19 +1,20 @@
 #pragma once
 
-#include "Window.h"
+#include "Sprite.h"
+#include "../util/Color.h"
 
 class Screen
 {
 public:
-	Screen(Window *window);
-	~Screen();
+	virtual ~Screen() {}
+	Screen(Screen const &) = delete;
+	Screen & operator=(Screen const &) = delete;
 
-	int getScreenWidth() const;
-	int getScreenHeight() const;
-	void render(Sprite* sprite, float x, float y, double angle = 0, double size = 1, int alpha = 255, float width = -1, float height = -1) const;
-
-	void renderRect(float x, float y, float width, float height) const;
-
-private:
-	Window *window;
+	virtual unsigned int getWidth() const = 0;
+	virtual unsigned int getHeight() const = 0;
+	virtual void render(Sprite* sprite, float x, float y, double angle = 0, int alpha = 255, float width = -1, float height = -1) const = 0;
+	virtual void renderRect(float x, float y, float width, float height) const = 0;
+	virtual void renderText(std::string text, Color color, int x, int y, int width, int height) const = 0;
+protected:
+	Screen() = default;
 };

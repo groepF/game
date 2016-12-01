@@ -22,4 +22,6 @@ private:
 	b2World *world;
 	std::vector<Body*> bodies;
 	Sprite* background;
+
+	const int PPM = 50;
 };
