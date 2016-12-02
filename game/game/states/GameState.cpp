@@ -17,6 +17,9 @@ GameState::~GameState()
 
 }
 
+/**
+* Function gets called when state changes
+*/
 void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
@@ -26,6 +29,7 @@ void GameState::onCreate()
 	world = new World(WORLD_GRAVITY);
 
 	LevelReader reader("res/maps/level1.tmx");
+	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
 	
@@ -39,8 +43,10 @@ void GameState::onCreate()
 		{
 			if (tiles.at(counter) != 0)
 			{
+				//Retrieve the correct Tile from the TileSet
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
 				auto size = 0.2f;
+				//Add the sprite to the world
 				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}
 			counter++;
