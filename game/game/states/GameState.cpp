@@ -41,7 +41,7 @@ void GameState::onCreate()
 			{
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
 				auto size = 0.2f;
-				world->add(new Body(*sprite, (size * 2) * y, (size * 2) * x, size, size));
+				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}
 			counter++;
 		}

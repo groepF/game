@@ -14,7 +14,7 @@ class Body
 {
 public:
 	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
-	Body(Sprite& s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
+	Body(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
 	~Body();
 
 	float getX() const;
@@ -22,7 +22,7 @@ public:
 	float getWidth() const;
 	float getHeight() const;
 	float getAngle() const;
-	Sprite* getSprite() const;
+	std::shared_ptr<Sprite> getSprite() const;
 	b2BodyDef* getBodyDef();
 
 	void create(b2Body *body);
@@ -35,6 +35,6 @@ private:
 protected:
 	BodyType type;
 	b2Body *body;
-	Sprite* sprite;
+	std::shared_ptr<Sprite> sprite;
 	float density, friction, restitution;
 };
