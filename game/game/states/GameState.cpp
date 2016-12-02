@@ -21,7 +21,7 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	this->fpsCounter = new FpsCounter();
+	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());
 
 	world = new World(WORLD_GRAVITY);
 

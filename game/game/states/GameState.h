@@ -18,7 +18,7 @@ public:
 private:
 	World *world;
 	Player *player;
-	FpsCounter* fpsCounter;
+	std::unique_ptr<FpsCounter> fpsCounter;
 	bool showingFPS;
 	const float WORLD_GRAVITY = 9.81f;
 };
