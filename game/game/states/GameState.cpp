@@ -88,6 +88,8 @@ void GameState::onCreate()
 
 	LevelReader reader("res/maps/level1.tmx");
 	auto tiles = reader.getTiles();
+	auto tileSet = reader.getTileSet();
+	
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 
@@ -99,7 +101,7 @@ void GameState::onCreate()
 			if (tiles.at(counter) != 0)
 			{
 				Sprite* sprite;
-				switch (tiles.at(counter)) {
+				/*switch (tiles.at(counter)) {
 				case 1:
 					sprite = new Sprite("metal", 0, 0, 20, 20);
 					break;
@@ -160,7 +162,8 @@ void GameState::onCreate()
 				default:
 					sprite = new Sprite("metal", 0, 40, 20, 20);
 					break;
-				}
+				}*/
+				sprite = tileSet.at(tiles.at(counter)-1);
 				auto size = 0.2f;
 				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}

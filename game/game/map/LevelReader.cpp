@@ -25,8 +25,6 @@ int LevelReader::getLevelHeight()
 	return this->height;
 }
 
-
-
 std::vector<int> LevelReader::getTiles()
 {
 
@@ -48,6 +46,27 @@ std::vector<int> LevelReader::getTiles()
 
 		return tiles;
 	}
+}
+
+std::vector<Sprite*> LevelReader::getTileSet()
+{
+	std::vector<Sprite*> tileSet;
+
+	for(auto item : tmx_parser.tilesetList)
+	{
+		for (int row = 0; row < item.tilecount / item.columns; row++)
+		{
+			for (int col = 0; col < item.columns; col++)
+			{
+				int x = row * item.tileheight;
+				int y = col * item.tilewidth;
+				Sprite* tile = new Sprite(item.name, y, x, item.tilewidth, item.tileheight);
+				tileSet.push_back(tile);
+			}
+		}
+	}
+
+	return tileSet;
 }
 
 

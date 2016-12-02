@@ -35,7 +35,11 @@ namespace TMX
 
 		struct Tileset {
 			unsigned int firstGID;
-			std::string source;
+			std::string name;
+			unsigned int tileheight;
+			unsigned int tilewidth;
+			unsigned int tilecount;
+			unsigned int columns;
 		};
 
 		struct Data {
