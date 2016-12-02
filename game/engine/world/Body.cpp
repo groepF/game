@@ -1,6 +1,6 @@
 #include "Body.h"
 
-Body::Body(Sprite* s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
+Body::Body(Sprite& s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);

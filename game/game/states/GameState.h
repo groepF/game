@@ -9,6 +9,7 @@
 class GameState : public State {
 public:
 	GameState(StateContext* context);
+	~GameState();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;

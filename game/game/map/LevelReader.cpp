@@ -48,9 +48,9 @@ std::vector<int> LevelReader::getTiles()
 	}
 }
 
-std::vector<Sprite*> LevelReader::getTileSet()
+std::vector<std::shared_ptr<Sprite>> LevelReader::getTileSet()
 {
-	std::vector<Sprite*> tileSet;
+	std::vector<std::shared_ptr<Sprite>> tileSet;
 
 	for(auto item : tmx_parser.tilesetList)
 	{
@@ -60,7 +60,7 @@ std::vector<Sprite*> LevelReader::getTileSet()
 			{
 				int x = row * item.tileheight;
 				int y = col * item.tilewidth;
-				Sprite* tile = new Sprite(item.name, y, x, item.tilewidth, item.tileheight);
+				std::shared_ptr<Sprite> tile = std::make_shared<Sprite>(Sprite(item.name, y, x, item.tilewidth, item.tileheight));
 				tileSet.push_back(tile);
 			}
 		}

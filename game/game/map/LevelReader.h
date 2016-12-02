@@ -13,7 +13,7 @@ public:
 	int getLevelWidth();
 	int getLevelHeight();
 	std::vector<int> getTiles();
-	std::vector<Sprite*> getTileSet();
+	std::vector<std::shared_ptr<Sprite>> getTileSet();
 
 private:
 	int width;
