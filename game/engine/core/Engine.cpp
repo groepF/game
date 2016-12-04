@@ -74,6 +74,8 @@ void Engine::start()
 		SDL_Delay(1);
 	}
 
+
+
 	SDL::stop();
 }
 

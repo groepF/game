@@ -6,7 +6,7 @@ Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::st
 	renderer(nullptr),
 	width(width),
 	height(height),
-	fullscreen(fullscreen),
+	fullscreen(false),
 	title(title),
 	font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
 {

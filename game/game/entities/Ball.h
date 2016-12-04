@@ -8,8 +8,8 @@ public:
 	Ball(float x, float y);
 	void pickUp(Player* player);
 	void drop();
-	bool isPickedUp() const;
+	bool isHeldBy(Player*) const;
 
 private:
-	bool pickedUp;
+	Player* heldBy;
 };

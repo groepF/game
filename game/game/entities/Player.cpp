@@ -46,19 +46,20 @@ PlayerState Player::getPlayerState() const
 bool Player::canPickup(Body* b)
 {
 
-	auto xPlayer_1 = this->body->GetPosition().x;
-	auto xPlayer_2 = this->body->GetPosition().x + this->sprite->getWidth();
-	auto yPlayer_1 = this->body->GetPosition().y;
-	auto yPlayer_2 = this->body->GetPosition().y + this->sprite->getHeight();
+	int xPlayer_1 = this->body->GetPosition().x;
+	int xPlayer_2 = this->body->GetPosition().x + this->getWidth();
+	int yPlayer_1 = this->body->GetPosition().y;
+	int yPlayer_2 = this->body->GetPosition().y + this->getHeight();
 
-	auto xEntity_1 = b->getX();
-	auto xEntity_2 = b->getX() + b->getWidth();
-	auto yEntity_1 = b->getY();
-	auto yEntity_2 = b->getY() + b->getHeight();
+	int xEntity_1 = b->getX();
+	int xEntity_2 = b->getX() + b->getWidth();
+	int yEntity_1 = b->getY();
+	int yEntity_2 = b->getY() + b->getHeight();
 
-	if (xPlayer_1 >= xEntity_2 && xPlayer_1 <= xEntity_2 + 20)
+	if (xPlayer_1 >= xEntity_2 && xPlayer_1 <= xEntity_2 + 1
+		&& ((yPlayer_2 >= yEntity_1 && yPlayer_2 <= yEntity_2) || (yPlayer_1 >= yEntity_1 && yPlayer_1 <= yEntity_2)))
 		return true;
-	if (xPlayer_2 <= xEntity_1 && xPlayer_2 <= xEntity_1 - 20)
+	if (xPlayer_2 <= xEntity_1 && xPlayer_2 >= xEntity_1 -1)
 		return true;
 	
 	return false;
