@@ -11,8 +11,12 @@ public:
 
 	/// Returns the x0 value of the sprite.
 	int getX() const;
+	void setX(int x);
+
 	/// Returns the y0 value of the sprite.
 	int getY() const;
+	void setY(int y);
+
 	/// Returns the x1 value of the sprite.
 	int getWidth() const;
 	/// Returns the y1 value of the sprite.

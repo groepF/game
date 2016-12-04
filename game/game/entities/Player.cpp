@@ -37,3 +37,34 @@ void Player::setPlayerState(PlayerState state)
 {
 	this->state = state;
 }
+
+PlayerState Player::getPlayerState() const
+{
+	return this->state;
+}
+
+bool Player::canPickup(Body* b)
+{
+
+	auto xPlayer_1 = this->body->GetPosition().x;
+	auto xPlayer_2 = this->body->GetPosition().x + this->sprite->getWidth();
+	auto yPlayer_1 = this->body->GetPosition().y;
+	auto yPlayer_2 = this->body->GetPosition().y + this->sprite->getHeight();
+
+	auto xEntity_1 = b->getX();
+	auto xEntity_2 = b->getX() + b->getWidth();
+	auto yEntity_1 = b->getY();
+	auto yEntity_2 = b->getY() + b->getHeight();
+
+	if (xPlayer_1 >= xEntity_2 && xPlayer_1 <= xEntity_2 + 20)
+		return true;
+	if (xPlayer_2 <= xEntity_1 && xPlayer_2 <= xEntity_1 - 20)
+		return true;
+	
+	return false;
+
+
+	
+	
+}
+
