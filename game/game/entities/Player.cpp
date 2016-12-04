@@ -43,7 +43,7 @@ PlayerState Player::getPlayerState() const
 	return this->state;
 }
 
-bool Player::canPickup(Body* b)
+bool Player::canPickup(Body* b) const
 {
 
 	int xPlayer_1 = this->body->GetPosition().x;
