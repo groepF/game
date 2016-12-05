@@ -1,6 +1,6 @@
 #include "Body.h"
 
-Body::Body(Sprite* s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
+Body::Body(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);
@@ -17,12 +17,11 @@ Body::Body(float x, float y, float width, float height, bool dynamic, float angu
 	bodyDef.angularDamping = angularDamping;
 	bodyDef.linearDamping = linearDamping;
 
-	sprite = new Sprite("metal", 0, 40, 20, 20);
+	sprite = std::make_shared<Sprite>(Sprite("metal", 0, 40, 20, 20));
 }
 
 Body::~Body()
 {
-	delete sprite;
 }
 
 float Body::getX() const
@@ -50,7 +49,7 @@ float Body::getAngle() const
 	return body->GetAngle() * (180 / M_PI);
 }
 
-Sprite* Body::getSprite() const
+std::shared_ptr<Sprite> Body::getSprite() const
 {
 	return sprite;
 }

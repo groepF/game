@@ -10,6 +10,7 @@
 class GameState : public State {
 public:
 	GameState(StateContext* context);
+	~GameState();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
@@ -19,7 +20,7 @@ private:
 	World *world;
 	Player *player;
 	Ball *ball;
-	FpsCounter* fpsCounter;
+	std::unique_ptr<FpsCounter> fpsCounter;
 	bool showingFPS;
 	const float WORLD_GRAVITY = 9.81f;
 };
