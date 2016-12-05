@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("castle", "res/images/castle.png");
 	engine.addSpritesheet("metal", "res/images/metal.png");
 	engine.addSpritesheet("color_tiles3", "res/images/team_colors.png");
-	engine.addSpritesheet("player", "res/images/Speler1.png");
+	engine.addSpritesheet("player", "res/images/players.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
 

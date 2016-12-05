@@ -80,5 +80,3 @@ std::vector<std::shared_ptr<Sprite>> LevelReader::getTileSet()
 	return tileSet;
 }
 
-
-
