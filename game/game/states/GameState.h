@@ -6,6 +6,7 @@
 #include "../../engine/Entities/FpsCounter.h"
 #include "../../engine/core/StateContext.h"
 #include "../entities/Ball.h"
+#include "../../Enemy.h"
 
 class GameState : public State {
 public:
@@ -19,6 +20,7 @@ public:
 private:
 	World *world;
 	Player *player;
+	Enemy *ai;
 	Ball *ball;
 	std::unique_ptr<FpsCounter> fpsCounter;
 	bool showingFPS;
