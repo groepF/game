@@ -2,6 +2,7 @@
 #include <string>
 #include "../graphics/Screen.h"
 #include <SDL/SDL_hints.h>
+#include "TextualEntity.h"
 
 
 // How many frames time values to keep
@@ -9,19 +10,21 @@
 // Don't make it 0 or less :)
 #define FRAME_VALUES 100
 
-class FpsCounter
+class FpsCounter : public TextualEntity
 {
 public:
 	/*
 	 * The FpsCounter constructor.
+	 * 
+	 * @param x The x pos of the text on the screen.
+	 * @param y The y pos of the text on the screen.
+	 * @param width The width of the text on the screen.
+	 * @param height The height of the text on the screen.
 	 */
-	FpsCounter();
+	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40);
 
-	/* 
-	 * Outputs a visual fps counter.
-	 * @param screen The screen to output the fps on.
-	 */
-	void outputFPS(Screen& screen);
+	const char* GetText() override;
+
 private:
 	/*
 	 * Calculates the currnet fps.

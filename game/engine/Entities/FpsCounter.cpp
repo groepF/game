@@ -2,21 +2,26 @@
 #include <SDL/SDL.h>
 #include <sstream>
 #include "../util/Log.h"
-#include "../graphics/Screen.h"
 
-FpsCounter::FpsCounter()
+FpsCounter::FpsCounter(int x, int y, int width, int height)
 {
+	this->x = x;
+	this->y = y;
+	this->width = width;
+	this->height = height;
+
+	this->color = Color("White");
+
 	// Set all frame times to 0ms.
 	memset(frametimes, 0, sizeof(frametimes));
 	framecount = 0;
 	framespersecond = 0;
 	frametimelast = SDL_GetTicks();
 }
-
-
-void FpsCounter::outputFPS(Screen& screen)
+const char* FpsCounter::GetText()
 {
-	screen.renderText(std::to_string(getCurrentFps()).c_str(), Color("white"), 10, 0, 50, 40);
+	const char* x = std::to_string(getCurrentFps()).c_str();
+	return x;
 }
 
 int FpsCounter::getCurrentFps()

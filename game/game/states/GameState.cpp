@@ -65,7 +65,7 @@ void GameState::onRender(Screen *screen)
 	world->render(screen);
 	if (showingFPS)
 	{
-		this->fpsCounter->outputFPS(*screen);
+		this->fpsCounter->Render(*screen);
 	}
 }
 
