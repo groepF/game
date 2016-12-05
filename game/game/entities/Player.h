@@ -16,6 +16,8 @@ public:
 	void move() const;
 	void jump();
 	void setPlayerState(PlayerState state);
+	PlayerState getPlayerState() const;
+	bool canPickup(Body* b) const;
 
 private:
 	PlayerState state;

@@ -10,6 +10,7 @@ Sprite::~Sprite()
 { }
 
 int Sprite::getX() const { return x; }
+
 int Sprite::getY() const { return y; }
 int Sprite::getWidth() const { return width; }
 int Sprite::getHeight() const { return height; }

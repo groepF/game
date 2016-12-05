@@ -54,8 +54,9 @@ void GameState::onCreate()
 	}
 
 	player = new Player(1.0f, 1.0f);
+	ball = new Ball(0.5f, 0.5f);
 	world->add(player);
-	world->add(new Ball(5.0f, 5.0f));
+	world->add(ball);
 	player->setFixedRotation(true);
 }
 
@@ -78,6 +79,14 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
 	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
+	else if (!keyboard->isKeydown(KEY_LCTRL))
+	{
+		if(keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
+		if(keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
+		ball->drop();
+	}
+	
 
 	player->move();
 	world->update();

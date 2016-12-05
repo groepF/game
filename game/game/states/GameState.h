@@ -5,6 +5,7 @@
 #include "../entities/Player.h"
 #include "../../engine/Entities/FpsCounter.h"
 #include "../../engine/core/StateContext.h"
+#include "../entities/Ball.h"
 
 class GameState : public State {
 public:
@@ -18,6 +19,7 @@ public:
 private:
 	World *world;
 	Player *player;
+	Ball *ball;
 	std::unique_ptr<FpsCounter> fpsCounter;
 	bool showingFPS;
 	const float WORLD_GRAVITY = 9.81f;
