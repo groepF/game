@@ -43,6 +43,10 @@ PlayerState Player::getPlayerState() const
 	return this->state;
 }
 
+/*
+ * Checks if the player is close enough to the ball to pick it up
+ * Body* b - The entity that should be picked up
+ */
 bool Player::canPickup(Body* b) const
 {
 

@@ -11,16 +11,6 @@ Sprite::~Sprite()
 
 int Sprite::getX() const { return x; }
 
-void Sprite::setX(int x)
-{
-	this->x = x;
-}
-
-void Sprite::setY(int y)
-{
-	this->y = y;
-}
-
 int Sprite::getY() const { return y; }
 int Sprite::getWidth() const { return width; }
 int Sprite::getHeight() const { return height; }
