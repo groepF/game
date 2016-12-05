@@ -138,18 +138,6 @@ namespace TMX {
 					//std::cout << "-> " << it->first << " : " << it->second << std::endl;
 				}
 			}
-
-			/*for (rapidxml::xml_node<>* object_node = oGroup_node->first_node("object"); object_node; object_node = object_node->next_sibling("object"))
-			{
-				Object object;
-
-				object.name = object_node->first_attribute("name")->value();
-				object.x = std::atoi(object_node->first_attribute("x")->value());
-				object.y = std::atoi(object_node->first_attribute("y")->value());
-
-				oGroup.object[object.name] = object;
-			}*/
-
 			objectGroup[oGroup.name] = oGroup;
 		}
 

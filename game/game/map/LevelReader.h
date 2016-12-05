@@ -15,10 +15,6 @@ public:
 	std::vector<int> getTiles();
 	std::vector<std::shared_ptr<Sprite>> getTileSet();
 
-	std::vector<int> getPlayerLocation();
-	std::vector<int> getBallLocation();
-	std::vector<int> getEnemyLocation();
-
 private:
 	int width;
 	int height;
