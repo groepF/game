@@ -74,8 +74,12 @@ namespace TMX {
 		for (rapidxml::xml_node<>* tileset_node = root_node->first_node("tileset"); tileset_node; tileset_node = tileset_node->next_sibling("tileset")) {
 			Tileset tmpTileset;
 			tmpTileset.firstGID = std::atoi(tileset_node->first_attribute("firstgid")->value());
-			tmpTileset.source = tileset_node->first_node("image")->first_attribute("source")->value();
-
+			tmpTileset.name = tileset_node->first_attribute("name")->value();
+			tmpTileset.tileheight = std::atoi(tileset_node->first_attribute("tileheight")->value());
+			tmpTileset.tilewidth = std::atoi(tileset_node->first_attribute("tilewidth")->value());
+			tmpTileset.tilecount = std::atoi(tileset_node->first_attribute("tilecount")->value());
+			tmpTileset.columns = std::atoi(tileset_node->first_attribute("columns")->value());
+		
 			//std::cout << "Tileset[ First GID: " << tmpTileset.firstGID << " Source: " << tmpTileset.source << std::endl;
 			tilesetList.push_back(tmpTileset);
 		}
@@ -136,6 +140,13 @@ namespace TMX {
 			}
 
 			objectGroup[oGroup.name] = oGroup;
+		}
+
+		for(rapidxml::xml_node<>* object_node = root_node->first_node("object"); object_node; object_node = object_node->next_sibling("object"))
+		{
+			Object object;
+
+			
 		}
 
 		for (rapidxml::xml_node<>* image_node = root_node->first_node("imagelayer"); image_node; image_node = image_node->next_sibling("imagelayer")) {

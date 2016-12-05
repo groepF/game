@@ -46,7 +46,7 @@ void World::render(Screen* screen, const bool debug)
 		}
 		else
 		{
-			screen->render(body->getSprite(),
+			screen->render(body->getSprite().get(),
 				(body->getX() - (body->getWidth() / 2)) * PPM,
 				(body->getY() - (body->getHeight() / 2)) * PPM,
 				body->getAngle(),
