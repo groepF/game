@@ -17,7 +17,16 @@ int main(int argc, char* argv[])
 
 	engine.addMusic("background", "res/sounds/music.wav");
 
-	engine.setState(new SplashScreenState(&engine));
+	auto debug = Config::getBool("debug", false);
+
+	if (debug)
+	{
+		engine.setState(new GameState(&engine));
+	}
+	else
+	{
+		engine.setState(new SplashScreenState(&engine));
+	}
 
 	engine.start();
 
