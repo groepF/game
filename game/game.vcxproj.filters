@@ -1,174 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="engine\core\State.cpp" />
+    <ClCompile Include="engine\input\Keyboard.cpp" />
+    <ClCompile Include="game\entities\Ball.cpp" />
+    <ClCompile Include="engine\world\Body.cpp" />
+    <ClCompile Include="engine\util\Color.cpp" />
+    <ClCompile Include="engine\core\Engine.cpp" />
+    <ClCompile Include="engine\util\Config.cpp" />
+    <ClCompile Include="engine\util\Log.cpp" />
+    <ClCompile Include="engine\util\SDL.cpp" />
+    <ClCompile Include="engine\util\Utils.cpp" />
+    <ClCompile Include="game\states\GameState.cpp" />
+    <ClCompile Include="game\main.cpp" />
+    <ClCompile Include="engine\graphics\Window.cpp" />
+    <ClCompile Include="engine\graphics\Sprite.cpp" />
+    <ClCompile Include="game\states\SplashScreenState.cpp" />
+    <ClCompile Include="engine\world\World.cpp" />
+    <ClCompile Include="game\entities\Player.cpp" />
+    <ClCompile Include="engine\core\StateContext.cpp" />
+    <ClCompile Include="engine\world\parser\TMXParser.cpp" />
+    <ClCompile Include="game\map\LevelReader.cpp" />
+    <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
+    <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
+    <ClCompile Include="game\entities\textual-entities\Score.cpp" />
+    <ClCompile Include="game\entities\Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\util\SDL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\util\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\util\Config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\util\Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\core\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\util\Color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\graphics\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\graphics\Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\states\SplashScreenState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\states\GameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\world\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\entities\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\world\Body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\entities\Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\core\StateContext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\core\State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\world\parser\TMXParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\map\LevelReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Entities\FpsCounter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\input\Keyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Entities\TextualEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="engine\util\SDL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\util\Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\util\Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\util\Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\core\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\core\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\util\Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\graphics\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\graphics\Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\states\SplashScreenState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\graphics\Screen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\states\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\core\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\entities\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\Body.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\entities\Ball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\core\StateContext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\parser\TMXParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\map\LevelReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\Entities\FpsCounter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\input\Keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\Entities\TextualEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="engine\input\Keyboard.h" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp" />
+    <ClInclude Include="game\entities\Ball.h" />
+    <ClInclude Include="engine\world\Body.h" />
+    <ClInclude Include="engine\core\Entity.h" />
+    <ClInclude Include="engine\util\Color.h" />
+    <ClInclude Include="engine\core\Engine.h" />
+    <ClInclude Include="engine\core\State.h" />
+    <ClInclude Include="engine\util\Config.h" />
+    <ClInclude Include="engine\util\Log.h" />
+    <ClInclude Include="engine\util\SDL.h" />
+    <ClInclude Include="engine\util\Utils.h" />
+    <ClInclude Include="engine\graphics\Window.h" />
+    <ClInclude Include="engine\graphics\Sprite.h" />
+    <ClInclude Include="game\states\GameState.h" />
+    <ClInclude Include="game\states\SplashScreenState.h" />
+    <ClInclude Include="engine\graphics\Screen.h" />
+    <ClInclude Include="engine\world\World.h" />
+    <ClInclude Include="game\entities\Player.h" />
+    <ClInclude Include="engine\core\StateContext.h" />
+    <ClInclude Include="engine\world\parser\TMXParser.h" />
+    <ClInclude Include="game\map\LevelReader.h" />
+    <ClInclude Include="engine\core-entities\FpsCounter.h" />
+    <ClInclude Include="engine\core-entities\TextualEntity.h" />
+    <ClInclude Include="game\entities\textual-entities\Score.h" />
+    <ClInclude Include="game\entities\Enemy.h" />
   </ItemGroup>
 </Project>

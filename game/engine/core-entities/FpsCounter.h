@@ -15,19 +15,26 @@ class FpsCounter : public TextualEntity
 public:
 	/*
 	 * The FpsCounter constructor.
-	 * 
+	 *
 	 * @param x The x pos of the text on the screen.
 	 * @param y The y pos of the text on the screen.
 	 * @param width The width of the text on the screen.
 	 * @param height The height of the text on the screen.
+	 * @param color The color of the text on the screen.
 	 */
-	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40);
+	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40, Color color = Color("white"));
 
+	/*
+	 * Gets the text to render on the screen.
+	 *
+	 * @return The text to render on the screen.
+	 */
 	std::string GetText() override;
 
 private:
 	/*
 	 * Calculates the currnet fps.
+	 *
 	 * @return The amount of frames per second
 	 */
 	int getCurrentFps();

@@ -132,9 +132,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
-    <ClCompile Include="engine\Entities\FpsCounter.cpp" />
+    <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
     <ClCompile Include="engine\input\Keyboard.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
@@ -154,11 +154,12 @@
     <ClCompile Include="engine\core\StateContext.cpp" />
     <ClCompile Include="engine\world\parser\TMXParser.cpp" />
     <ClCompile Include="game\map\LevelReader.cpp" />
-    <ClCompile Include="engine\Entities\TextualEntity.cpp" />
+    <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
+    <ClCompile Include="game\entities\textual-entities\Score.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="engine\Entities\FpsCounter.h" />
+    <ClInclude Include="game\entities\Enemy.h" />
+    <ClInclude Include="engine\core-entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
@@ -184,7 +185,8 @@
     <ClInclude Include="engine\core\StateContext.h" />
     <ClInclude Include="engine\world\parser\TMXParser.h" />
     <ClInclude Include="game\map\LevelReader.h" />
-    <ClInclude Include="engine\Entities\TextualEntity.h" />
+    <ClInclude Include="engine\core-entities\TextualEntity.h" />
+    <ClInclude Include="game\entities\textual-entities\Score.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,19 +2,18 @@
 #include "../entities/Player.h"
 #include "../entities/Ball.h"
 #include "../map/LevelReader.h"
-#include "../../engine/Entities/FpsCounter.h"
+#include "../../engine/core-entities/FpsCounter.h"
+#include "../entities/textual-entities/Score.h"
 
 GameState::GameState(StateContext* context) :
 	State(context),
 	world(nullptr),
-	player(nullptr),
-	showingFPS(true)
+	player(nullptr)
 {
 }
 
 GameState::~GameState()
 {
-
 }
 
 /**
@@ -24,15 +23,13 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());
-
 	world = new World(WORLD_GRAVITY);
 
 	LevelReader reader("res/maps/level1.tmx");
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
-	
+
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 	auto size = 0.2f;
@@ -44,8 +41,8 @@ void GameState::onCreate()
 			if (tiles.at(counter) != 0)
 			{
 				//Retrieve the correct Tile from the TileSet
-				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
-				
+				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
+
 				//Add the sprite to the world
 				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}
@@ -61,14 +58,20 @@ void GameState::onCreate()
 	world->add(ai);
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
+
+	textualEntities.push_back(new FpsCounter());
+	textualEntities.push_back(new Score());
 }
 
 void GameState::onRender(Screen *screen)
 {
 	world->render(screen);
-	if (showingFPS)
+	for (auto textualEntity : textualEntities)
 	{
-		this->fpsCounter->Render(*screen);
+		if (std::find(hiddenEntities.begin(), hiddenEntities.end(), textualEntity->get_identifier()) == hiddenEntities.end())
+		{
+			textualEntity->Render(*screen);
+		}
 	}
 }
 
@@ -81,15 +84,25 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
-	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
+	if (keyboard->isKeydown(KEY_F)) {
+		auto position = std::find(hiddenEntities.begin(), hiddenEntities.end(), "fps");
+		if (position != hiddenEntities.end())
+		{
+			hiddenEntities.erase(position);
+		}
+		else
+		{
+			hiddenEntities.push_back("fps");
+		}
+	}
+	if (keyboard->isKeydown(KEY_LCTRL)) { if (player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	else if (!keyboard->isKeydown(KEY_LCTRL))
 	{
-		if(keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
-		if(keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
+		if (keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
+		if (keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
 		ball->drop();
 	}
-	
+
 
 	player->move();
 	world->update();
@@ -98,5 +111,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 void GameState::onDestroy()
 {
 	delete world;
+	for (auto textualEntity : textualEntities)
+	{
+		delete textualEntity;
+	}
 	Log::debug("OnDestroy GameState");
 }

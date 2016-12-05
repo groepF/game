@@ -3,21 +3,15 @@
 #include <sstream>
 #include "../util/Log.h"
 
-FpsCounter::FpsCounter(int x, int y, int width, int height)
+FpsCounter::FpsCounter(int x, int y, int width, int height, Color color) : TextualEntity("fps", x, y, width, height, color)
 {
-	this->x = x;
-	this->y = y;
-	this->width = width;
-	this->height = height;
-
-	this->color = Color("White");
-
 	// Set all frame times to 0ms.
 	memset(frametimes, 0, sizeof(frametimes));
 	framecount = 0;
 	framespersecond = 0;
 	frametimelast = SDL_GetTicks();
 }
+
 std::string FpsCounter::GetText()
 {
 	return std::to_string(getCurrentFps());
