@@ -18,10 +18,9 @@ FpsCounter::FpsCounter(int x, int y, int width, int height)
 	framespersecond = 0;
 	frametimelast = SDL_GetTicks();
 }
-const char* FpsCounter::GetText()
+std::string FpsCounter::GetText()
 {
-	const char* x = std::to_string(getCurrentFps()).c_str();
-	return x;
+	return std::to_string(getCurrentFps());
 }
 
 int FpsCounter::getCurrentFps()

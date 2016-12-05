@@ -32,15 +32,16 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	if(this->fullscreen)
+	if (this->fullscreen)
 	{
 		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-	} else
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	}
+	else
 	{
 		SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
 	}
-	
+
 
 	if (!(this->window) || !(this->renderer))
 	{
@@ -192,7 +193,7 @@ void Window::stopMusic() const
 	}
 }
 
-void Window::render(Sprite* sprite, int x, int y, double angle, int alpha, int width, int height) const
+void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, float width, float height) const
 {
 	if (sprite == nullptr)
 	{
@@ -224,11 +225,11 @@ void Window::render(Sprite* sprite, int x, int y, double angle, int alpha, int w
 	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Window::renderText(const char* message, Color color, int x, int y, int width, int height) const
+void Window::renderText(std::string text, Color color, int x, int y, int width, int height) const
 {
 	if (font)
 	{
-		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message, SDL_Color{ color.r(), color.g(), color.b() }) };
+		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, text.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 		SDL_Rect Message_rect; //create a rect		
@@ -239,7 +240,8 @@ void Window::renderText(const char* message, Color color, int x, int y, int widt
 
 		SDL_RenderCopy(renderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture		
 		SDL_DestroyTexture(Message);
-	}else
+	}
+	else
 	{
 		Log::error("Font was not correctly loaded. Can't output text on screen.");
 	}

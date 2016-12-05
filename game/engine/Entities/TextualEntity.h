@@ -11,7 +11,7 @@ public:
 
 protected:
 	TextualEntity() = default;
-	virtual const char* GetText() = 0;
+	virtual std::string GetText() = 0;
 
 	int x;
 	int y;

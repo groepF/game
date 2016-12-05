@@ -23,7 +23,7 @@ public:
 	 */
 	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40);
 
-	const char* GetText() override;
+	std::string GetText() override;
 
 private:
 	/*

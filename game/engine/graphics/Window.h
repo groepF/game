@@ -36,9 +36,9 @@ public:
 	void playMusic(std::string key);
 	void stopMusic() const;
 
-	void render(Sprite* sprite, int x, int y, double angle = 0, int alpha = 255, int width = -1, int height = -1) const override;
+	void render(Sprite* sprite, float x, float y, double angle = 0, int alpha = 255, float width = -1, float height = -1) const override;
 	void renderRect(float x, float y, float width, float height) const override;
-	void renderText(const char* text, Color color, int x, int y, int width, int height) const override;
+	void renderText(std::string text, Color color, int x, int y, int width, int height) const override;
 	
 	unsigned int getWidth() const override;
 	unsigned int getHeight() const override;
