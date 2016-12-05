@@ -11,5 +11,5 @@ Enemy::Enemy(float x, float y) : Body(x, y, 0.25f, 0.5f, true)
 
 void Enemy::hitByPlayer(Player* player) const
 {
-	
+	//bal loslaten (eerst bal pakken door enemy bouwen.... 
 }
