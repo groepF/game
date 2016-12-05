@@ -137,4 +137,11 @@
 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 </data>
  </layer>
+ <objectgroup name="spawn">
+  <object id="7" name="ball" x="640" y="40" width="20" height="20">
+   <ellipse/>
+  </object>
+  <object id="9" name="ai" x="1240" y="320" width="19" height="40"/>
+  <object id="10" name="player" x="40" y="320" width="19" height="40"/>
+ </objectgroup>
 </map>
