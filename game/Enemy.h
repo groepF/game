@@ -6,6 +6,5 @@ class Enemy : public Body {
 public:
 	Enemy(float x, float y);
 	
-
 private:
 };
