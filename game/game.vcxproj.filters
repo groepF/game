@@ -78,7 +78,7 @@
     <ClCompile Include="engine\input\Keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="game\entities\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="engine\input\Keyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="game\entities\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

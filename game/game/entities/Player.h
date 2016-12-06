@@ -2,6 +2,8 @@
 
 #include "../../engine/world/Body.h"
 
+class Enemy;
+
 enum PlayerState
 {
 	PLAYER_LEFT,
@@ -18,6 +20,7 @@ public:
 	void setPlayerState(PlayerState state);
 	PlayerState getPlayerState() const;
 	bool canPickup(Body* b) const;
+	void hitByEnemy(Enemy* e) const;
 
 private:
 	PlayerState state;

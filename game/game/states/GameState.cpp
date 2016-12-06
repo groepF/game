@@ -37,9 +37,9 @@ void GameState::onCreate()
 	world->addBackground(background);
 	auto size = 0.2f;
 	int counter = 0;
-	for (int x = 0; x < reader.getLevelHeight(); x++)
+	for (float x = 0; x < reader.getLevelHeight(); x++)
 	{
-		for (auto y = 0; y < reader.getLevelWidth(); y++)
+		for (float y = 0; y < reader.getLevelWidth(); y++)
 		{
 			if (tiles.at(counter) != 0)
 			{
@@ -47,15 +47,15 @@ void GameState::onCreate()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
 				
 				//Add the sprite to the world
-				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
+				world->add(new Body(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
 			}
 			counter++;
 		}
 	}
 
-	player = new Player((size * 2) * 3, (size * 2) * 1);
-	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
-	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	player = new Player((size * 2) * 3 + 0.2f, (size * 2) * 1 + 0.2f);
+	ai = new Enemy((size * 2) * 61 + 0.2f, (size * 2) * 1 + 0.2f);
+	ball = new Ball((size * 2) * 32 + 0.2f, (size * 2) * 1 + 0.2f);
 	world->add(player);
 	world->add(ball);
 	world->add(ai);

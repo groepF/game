@@ -74,3 +74,8 @@ bool Player::canPickup(Body* b) const
 	
 }
 
+void Player::hitByEnemy(Enemy * e) const
+{
+	//bal loslaten (eerst bal pakken door enemy bouwen.... 
+}
+
