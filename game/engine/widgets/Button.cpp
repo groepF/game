@@ -19,17 +19,32 @@ Button::~Button()
 		delete normal;
 		normal = nullptr;
 	}
+	if (pressed != nullptr)
+	{
+		delete pressed;
+		pressed = nullptr;
+	}
 }
 
 void Button::onCreate()
 {
-	this->hovered = new Sprite("button", 0, 50, 600, 50);
-	this->normal = new Sprite("button", 0, 0, 600, 50);
+	this->hovered = new Sprite("button_hovered", 0, 0, 314, 99);
+	this->normal = new Sprite("button_normal", 0, 0, 314, 99);
+	this->pressed = new Sprite("button_pressed", 0, 0, 314, 99);
 }
 
 void Button::onRender(Screen* screen)
 {
-	screen->render(!hovering ? normal : hovered, x, y, 0, 255, width, height);
+	Sprite* button = normal;
+	if(pressing)
+	{
+		button = pressed;
+	}
+	else if(hovering)
+	{
+		button = hovered;
+	}
+	screen->render(button, x, y, 0, 255, width, height);
 	screen->renderText(text, Color{"white"}, x, y, width, height);
 }
 
@@ -39,10 +54,19 @@ bool Button::onUpdate(Keyboard* keyboard, Mouse* mouse)
 	int mouseY = mouse->getY();
 	hovering = inBounds(mouseX, mouseY);
 
-	if (hovering && mouse->isLeftPressed() && inBounds(mouse->getLeftPressX(), mouse->getLeftPressY()))
+	if(pressing && inBounds(mouse->getLeftReleaseX(), mouse->getLeftReleaseY()))
 	{
+		mouse->consumeEvent();
 		listener->onClick(this);
 		return false;
+	}
+
+	if (hovering && mouse->isLeftPressed() && inBounds(mouse->getLeftPressX(), mouse->getLeftPressY()))
+	{
+		pressing = true;
+	} else
+	{
+		pressing = false;
 	}
 	return true;
 }

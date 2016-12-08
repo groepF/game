@@ -17,7 +17,9 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("player", "res/images/players.png");
 	engine.addSpritesheet("menu_background", "res/images/back_blurred.png");
 	engine.addSpritesheet("foxtrot_menu", "res/images/foxtrot_menu.png");
-	engine.addSpritesheet("button", "res/images/button.png");
+	engine.addSpritesheet("button_hovered", "res/images/button_hovered.png");
+	engine.addSpritesheet("button_pressed", "res/images/button_pressed.png");
+	engine.addSpritesheet("button_normal", "res/images/button_default.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
 

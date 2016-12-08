@@ -3,7 +3,7 @@
 #include "../../engine/util/Config.h"
 #include "GameState.h"
 
-MenuState::MenuState(StateContext* context): State(context)
+MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
 }
 
@@ -42,7 +42,7 @@ void MenuState::onCreate()
 
 	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
-	this->logo = new Sprite("foxtrot_menu", 0, 0, 514, 129);
+	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
 }
 
 void MenuState::onRender(Screen* screen)
@@ -50,7 +50,7 @@ void MenuState::onRender(Screen* screen)
 	screen->render(background, 0, 0);
 	screen->render(logo,
 	               (screen->getWidth() / 2) - (logo->getWidth() / 2),
-	               30);
+	               40);
 }
 
 void MenuState::onUpdate(Keyboard* keyboard)
