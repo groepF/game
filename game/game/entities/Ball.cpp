@@ -4,7 +4,7 @@
 Ball::Ball(float x, float y) : Body(x, y, 0.3f, 0.3f, true, 0.1f, 0.5f)
 {
 	this->sprite = std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70));
-	this->density = 2.0f;
+	this->density = 0.3f;
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
@@ -25,6 +25,19 @@ void Ball::drop()
 bool Ball::isHeldBy(Body* p) const
 {
 	return this->heldBy == p;
+}
+
+/*
+ * Shoots ball
+ * Body* body - Entity that shoots
+ * bool left - if is shot left
+ */
+void Ball::shoot(Body* from, bool left)
+{
+	
+	auto sideForce = (left ? -50.0 : 50.0);
+	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getX(), from->getY()), false);
+
 }
 
 /*
