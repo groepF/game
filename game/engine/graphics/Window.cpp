@@ -224,23 +224,25 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Window::renderText(std::string message, Color color, int x, int y, int width, int height) const
+void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop) const
 {
 	if (font)
 	{
 		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str(), SDL_Color{ color.r(), color.g(), color.b() }) };
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
-		int w, h;
-		SDL_QueryTexture(Message, nullptr, nullptr, &w, &h);
+		int w = width, h = height;
+		if (!crop) {
+			SDL_QueryTexture(Message, nullptr, nullptr, &w, &h);
+		}
 
 		SDL_Rect Message_rect; //create a rect		
 		Message_rect.x = x + (width / 2) - (w / 2);  //controls the rect's x coordinate 		
 		Message_rect.y = y + (height / 2) - (h / 2); // controls the rect's y coordinte		
 		Message_rect.w = w; // controls the width of the rect		
-		Message_rect.h = h; // controls the height of the rect		
+		Message_rect.h = h; // controls the height of the rect	
 
-		SDL_RenderCopy(renderer, Message, nullptr, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture		
+		SDL_RenderCopyEx(renderer, Message, nullptr, &Message_rect, angle, nullptr, SDL_FLIP_NONE); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
 		SDL_DestroyTexture(Message);
 	}else
 	{

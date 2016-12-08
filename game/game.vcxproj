@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\states\CreditsState.cpp" />
     <ClCompile Include="engine\widgets\Button.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="engine\widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\states\CreditsState.h" />
     <ClInclude Include="engine\input\OnClickListener.h" />
     <ClInclude Include="engine\widgets\Button.h" />
     <ClInclude Include="game\entities\Enemy.h" />
