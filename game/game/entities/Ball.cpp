@@ -27,6 +27,11 @@ bool Ball::isHeldBy(Body* p) const
 	return this->heldBy == p;
 }
 
+/*
+ * Shoots ball
+ * Body* body - Entity that shoots
+ * bool left - if is shot left
+ */
 void Ball::shoot(Body* from, bool left)
 {
 	
