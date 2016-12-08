@@ -25,4 +25,6 @@ private:
 	std::vector<TextualEntity*> textualEntities;
 	std::vector<std::string> hiddenEntities;
 	const float WORLD_GRAVITY = 9.81f;
+	bool isDebug;
+	bool showGrid;
 };

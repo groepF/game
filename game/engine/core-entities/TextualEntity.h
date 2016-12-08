@@ -1,8 +1,10 @@
 #pragma once
 #include "../util/Color.h"
 #include "../graphics/Screen.h"
+#include "../world/Body.h"
+#include "../graphics/render-strategies/data-providers/ITextRenderDataPorvider.h"
 
-class TextualEntity
+class TextualEntity : public Body, public ITextRenderDataPorvider
 {
 public:
 	virtual ~TextualEntity() = default;
@@ -16,12 +18,11 @@ public:
 	 * Renders text on a screen.
 	 * @param screen The screen to render text on.
 	 */
-	void Render(Screen& screen);
+	void Render(Screen& screen) const;
 
 	std::string get_identifier() const;
 
 protected:
-	virtual std::string GetText() = 0;
 
 	/*
 	 * An sting to identify the object with.

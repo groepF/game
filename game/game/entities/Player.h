@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../engine/world/Body.h"
+#include "../../engine/core-entities/DrawableEntity.h"
 
 enum PlayerState
 {
@@ -9,7 +10,7 @@ enum PlayerState
 	PLAYER_STOP
 };
 
-class Player : public Body {
+class Player : public DrawableEntity {
 public:
 	Player(float x, float y);
 

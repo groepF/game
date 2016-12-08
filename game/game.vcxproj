@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
     <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
@@ -155,9 +156,12 @@
     <ClCompile Include="engine\world\parser\TMXParser.cpp" />
     <ClCompile Include="game\map\LevelReader.cpp" />
     <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
-    <ClCompile Include="game\entities\textual-entities\Score.cpp" />
+    <ClCompile Include="game\entities\Score.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderTextStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
+    <ClInclude Include="engine\core-entities\DrawableEntity.h" />
     <ClInclude Include="game\entities\Enemy.h" />
     <ClInclude Include="engine\core-entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
@@ -186,7 +190,10 @@
     <ClInclude Include="engine\world\parser\TMXParser.h" />
     <ClInclude Include="game\map\LevelReader.h" />
     <ClInclude Include="engine\core-entities\TextualEntity.h" />
-    <ClInclude Include="game\entities\textual-entities\Score.h" />
+    <ClInclude Include="game\entities\Score.h" />
+    <ClInclude Include="engine\graphics\render-strategies\IRenderStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderTextStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\ITextRenderDataPorvider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

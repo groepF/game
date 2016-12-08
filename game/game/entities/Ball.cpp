@@ -1,9 +1,8 @@
 #include "Ball.h"
 #include "Player.h"
 
-Ball::Ball(float x, float y) : Body(x, y, 0.3f, 0.3f, true, 0.1f, 0.5f)
+Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70)), x, y, 0.3f, 0.3f, true, 0.1f, 0.5f)
 {
-	this->sprite = std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70));
 	this->density = 2.0f;
 	this->restitution = 0.8f;
 	this->friction = 0.6f;

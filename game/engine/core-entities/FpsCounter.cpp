@@ -12,11 +12,6 @@ FpsCounter::FpsCounter(int x, int y, int width, int height, Color color) : Textu
 	frametimelast = SDL_GetTicks();
 }
 
-std::string FpsCounter::GetText()
-{
-	return std::to_string(getCurrentFps());
-}
-
 int FpsCounter::getCurrentFps()
 {
 	Uint32 frametimesindex;
@@ -70,4 +65,34 @@ int FpsCounter::getCurrentFps()
 	// now to make it an actual frames per second value...
 	framespersecond = 1000.f / framespersecond;
 	return framespersecond;
+}
+
+const char* FpsCounter::getText()
+{
+	return std::to_string(getCurrentFps()).c_str();
+}
+
+Color FpsCounter::getColor()
+{
+	return color;
+}
+
+int FpsCounter::getX()
+{
+	return x;
+}
+
+int FpsCounter::getY()
+{
+	return y;
+}
+
+int FpsCounter::getWidth()
+{
+	return width;
+}
+
+int FpsCounter::getHeight()
+{
+	return height;
 }

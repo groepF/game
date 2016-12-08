@@ -3,12 +3,14 @@
 #include "../entities/Ball.h"
 #include "../map/LevelReader.h"
 #include "../../engine/core-entities/FpsCounter.h"
-#include "../entities/textual-entities/Score.h"
+#include "../entities/Score.h"
+#include "../../engine/core-entities/DrawableEntity.h"
 
-GameState::GameState(StateContext* context) :
-	State(context),
+GameState::GameState(StateContext* context) : State(context),
 	world(nullptr),
-	player(nullptr)
+	player(nullptr),
+	isDebug(Config::getBool("debug", false)),
+	showGrid(false)
 {
 }
 
@@ -44,7 +46,7 @@ void GameState::onCreate()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
 
 				//Add the sprite to the world
-				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
+				world->add(new DrawableEntity(sprite, (size * 2) * y, (size * 2) * x, size, size));
 			}
 			counter++;
 		}
@@ -59,13 +61,14 @@ void GameState::onCreate()
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
 
+	world->add(new Score());
 	textualEntities.push_back(new FpsCounter());
-	textualEntities.push_back(new Score());
+	//textualEntities.push_back(new Score());
 }
 
 void GameState::onRender(Screen *screen)
 {
-	world->render(screen);
+	world->render(screen, showGrid);
 	for (auto textualEntity : textualEntities)
 	{
 		if (std::find(hiddenEntities.begin(), hiddenEntities.end(), textualEntity->get_identifier()) == hiddenEntities.end())
@@ -77,6 +80,10 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if (keyboard->isKeydown(KEY_F1) && isDebug)
+	{
+		showGrid = !showGrid;
+	}
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);

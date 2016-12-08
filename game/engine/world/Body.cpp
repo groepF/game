@@ -1,23 +1,11 @@
 #include "Body.h"
 
-Body::Body(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
-{
-	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
-	bodyDef.position.Set(x, y);
-	bodyDef.angularDamping = angularDamping;
-	bodyDef.linearDamping = linearDamping;
-
-	sprite = s; // new Sprite("metal", 0, 40, 20, 20);
-}
-
 Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);
 	bodyDef.angularDamping = angularDamping;
 	bodyDef.linearDamping = linearDamping;
-
-	sprite = std::make_shared<Sprite>(Sprite("metal", 0, 40, 20, 20));
 }
 
 Body::~Body()
@@ -47,11 +35,6 @@ float Body::getHeight() const
 float Body::getAngle() const
 {
 	return body->GetAngle() * (180 / M_PI);
-}
-
-std::shared_ptr<Sprite> Body::getSprite() const
-{
-	return sprite;
 }
 
 void Body::create(b2Body *body)
@@ -90,6 +73,11 @@ void Body::setVelocity(float x, float y) const
 void Body::setFixedRotation(bool rotation) const
 {
 	body->SetFixedRotation(rotation);
+}
+
+std::shared_ptr<IRenderStrategy> Body::getRenderStrategy() const
+{
+	return renderStrategy;
 }
 
 b2BodyDef* Body::getBodyDef()

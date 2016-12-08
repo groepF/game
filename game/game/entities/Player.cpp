@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(float x, float y) : Body(x, y, 0.25f, 0.5f, true)
+Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
 {
-	this->sprite = std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40));
+	this->sprite = std::make_shared<Sprite>();
 	this->density = 0.4f;
 	this->restitution = 0.0f;
 	this->friction = 0.5f;
@@ -63,14 +63,14 @@ bool Player::canPickup(Body* b) const
 	if (xPlayer_1 >= xEntity_2 && xPlayer_1 <= xEntity_2 + 1
 		&& ((yPlayer_2 >= yEntity_1 && yPlayer_2 <= yEntity_2) || (yPlayer_1 >= yEntity_1 && yPlayer_1 <= yEntity_2)))
 		return true;
-	if (xPlayer_2 <= xEntity_1 && xPlayer_2 >= xEntity_1 -1
+	if (xPlayer_2 <= xEntity_1 && xPlayer_2 >= xEntity_1 - 1
 		&& ((yPlayer_2 >= yEntity_1 && yPlayer_2 <= yEntity_2) || (yPlayer_1 >= yEntity_1 && yPlayer_1 <= yEntity_2)))
 		return true;
-	
+
 	return false;
 
 
-	
-	
+
+
 }
 
