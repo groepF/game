@@ -57,8 +57,8 @@ void GameState::onCreate()
 	ai = new Enemy((size * 2) * 61 + 0.2f, (size * 2) * 1 + 0.2f);
 	ball = new Ball((size * 2) * 32 + 0.2f, (size * 2) * 1 + 0.2f);
 	world->add(player);
-	world->add(ball);
 	world->add(ai);
+	world->add(ball);
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
 }
@@ -74,6 +74,9 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
+
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
@@ -82,15 +85,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
 	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
-	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(player); }
+	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
-	else if (!keyboard->isKeydown(KEY_LCTRL))
-	{
-		if(keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
-		if(keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
-		ball->drop();
-	}
+	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) ; }
+	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)); }
+	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }
 	
+	//Cheat, give ball to AI
+	if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
+	//Cheat, get hit by AI
+	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 
 	player->move();
 	world->update();

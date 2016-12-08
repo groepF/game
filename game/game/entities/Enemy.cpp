@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Ball.h"
 
 Enemy::Enemy(float x, float y) : Body(x, y, 0.25f, 0.5f, true)
 {
@@ -9,7 +10,11 @@ Enemy::Enemy(float x, float y) : Body(x, y, 0.25f, 0.5f, true)
 	this->type = CIRCLE;
 }
 
-void Enemy::hitByPlayer(Player* player) const
+/**
+* Makes the enemy drop the ball
+* @param b the ball to drop
+*/
+void Enemy::hitByPlayer(Ball* b) const
 {
-	//bal loslaten (eerst bal pakken door enemy bouwen.... 
+	b->drop();
 }

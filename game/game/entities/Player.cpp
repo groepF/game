@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Ball.h"
 
 Player::Player(float x, float y) : Body(x, y, 0.25f, 0.5f, true)
 {
@@ -74,8 +75,12 @@ bool Player::canPickup(Body* b) const
 	
 }
 
-void Player::hitByEnemy(Enemy * e) const
+/**
+* Makes the player drop the ball
+* @param b the ball to drop
+*/
+void Player::hitByEnemy(Ball* b) const
 {
-	//bal loslaten (eerst bal pakken door enemy bouwen.... 
+	b->drop();
 }
 
