@@ -85,8 +85,8 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	else if (!keyboard->isKeydown(KEY_LCTRL))
 	{
-		if(keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
-		if(keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
+		if (keyboard->isKeydown(KEY_LEFT)) { ball->shoot(player, true); }
+		if (keyboard->isKeydown(KEY_RIGHT)) { ball->shoot(player, false); }
 		ball->drop();
 	}
 	

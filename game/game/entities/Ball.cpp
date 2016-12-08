@@ -27,6 +27,14 @@ bool Ball::isHeldBy(Player* p) const
 	return this->heldBy == p;
 }
 
+void Ball::shoot(Body* from, bool left)
+{
+	
+	auto sideForce = (left ? -20.0 : 20.0);
+	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getX(), from->getY()), true);
+
+}
+
 /*
  * Sets the ball as picked up. Makes holder the current player.
  * Player* p - The player that performs the action

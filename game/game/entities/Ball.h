@@ -9,6 +9,7 @@ public:
 	void pickUp(Player* player);
 	void drop();
 	bool isHeldBy(Player*) const;
+	void shoot(Body* from, bool left);
 
 private:
 	Player* heldBy;
