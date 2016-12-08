@@ -43,9 +43,9 @@ void GameState::onCreate()
 
 	auto size = 0.2f;
 	int counter = 0;
-	for (int x = 0; x < reader.getLevelHeight(); x++)
+	for (float x = 0; x < reader.getLevelHeight(); x++)
 	{
-		for (auto y = 0; y < reader.getLevelWidth(); y++)
+		for (float y = 0; y < reader.getLevelWidth(); y++)
 		{
 			if (tiles.at(counter) != 0)
 			{
@@ -53,7 +53,7 @@ void GameState::onCreate()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
 				
 				//Add the sprite to the world
-				world->add(new Body(sprite, (size * 2) * y, (size * 2) * x, size, size));
+				world->add(new Body(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
 			}
 			counter++;
 		}
@@ -61,8 +61,8 @@ void GameState::onCreate()
 
 	//Add the player, ball and AI to the world
 	world->add(player);
-	world->add(ball);
 	world->add(ai);
+	world->add(ball);
 
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
@@ -79,6 +79,9 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
+
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
@@ -87,14 +90,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
 	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
-	else if (!keyboard->isKeydown(KEY_LCTRL))
-	{
-		if(keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
-		if(keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
-		ball->drop();
-	}
+	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }
+	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, false); } }
+	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }
 	
+	//Cheat, give ball to AI
+	if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
+	//Cheat, get hit by AI
+	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 
 	player->move();
 	world->update();

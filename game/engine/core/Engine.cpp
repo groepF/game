@@ -14,6 +14,8 @@ Engine::Engine(const std::string config) : running(true)
 		auto title = Config::getString("title", "Default window title");
 		auto fullscreen = Config::getBool("fullscreen", false);
 
+		mouse = new Mouse();
+
 		window = new Window(width, height, fullscreen, title);
 		window->setBackgroundColor(Color("white"));
 	}
@@ -30,6 +32,12 @@ Engine::~Engine()
 	{
 		delete window;
 		window = nullptr;
+	}
+	
+	if (mouse != nullptr)
+	{
+		delete mouse;
+		mouse = nullptr;
 	}
 }
 
@@ -64,6 +72,33 @@ void Engine::start()
 					break;
 				}
 				break;
+			case SDL_MOUSEMOTION:
+				mouse->setPosition(sdlEvent.motion.x, sdlEvent.motion.y);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if(sdlEvent.button.button == SDL_BUTTON_LEFT)
+				{
+					Log::debug("mouse left pressed");
+					mouse->setLeftPressed(true);
+					mouse->setLeftPressX(sdlEvent.button.x);
+					mouse->setLeftPressY(sdlEvent.button.y);
+				}
+				else if(sdlEvent.button.button == SDL_BUTTON_RIGHT)
+				{
+					mouse->setRightPressed(true);
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				if (sdlEvent.button.button == SDL_BUTTON_LEFT)
+				{
+					Log::debug("mouse left unpressed");
+					mouse->setLeftPressed(false);
+				}
+				else if (sdlEvent.button.button == SDL_BUTTON_RIGHT)
+				{
+					mouse->setRightPressed(false);
+				}
+				break;
 			default:
 				break;
 			}
@@ -74,18 +109,18 @@ void Engine::start()
 		SDL_Delay(1);
 	}
 
-
-
 	SDL::stop();
 }
 
 void Engine::render(Screen *screen) const
 {
 	window->clear();
+	Keyboard keyboard;
 
 	if (currentState != nullptr)
 	{
 		currentState->onRender(screen);
+		currentState->renderWidgets(screen, mouse, &keyboard);
 	}
 
 	window->refresh();

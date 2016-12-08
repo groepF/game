@@ -2,7 +2,7 @@
 #include "engine/world/World.h"
 #include "game/entities/Player.h"
 #include "game/entities/Ball.h"
-#include "Enemy.h"
+#include "game/entities/Enemy.h"
 
 class Game
 {

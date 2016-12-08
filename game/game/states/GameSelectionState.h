@@ -5,7 +5,7 @@
 #include "../../engine/world/World.h"
 #include "../entities/Player.h"
 #include "../entities/Ball.h"
-#include "../../Enemy.h"
+#include "../entities/Enemy.h"
 
 class GameSelectionState : public State
 {

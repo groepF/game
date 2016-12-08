@@ -6,8 +6,9 @@
 #include "../../engine/Entities/FpsCounter.h"
 #include "../../engine/core/StateContext.h"
 #include "../entities/Ball.h"
-#include "../../Enemy.h"
+#include "../entities/Enemy.h"
 #include "../../Game.h"
+#include "../entities/Enemy.h"
 
 class GameState : public State {
 public:
