@@ -18,11 +18,20 @@ public:
 
 
 private:
+	//Settings
+	int gameTime; //Default 180(seconden)
+	int maxGoals;
+	float gravity;
+	char* map;
+
+	int goalsTeamA;
+	int goalsTeamB;
+
 	World *world;
 	Player *player;
 	Enemy *ai;
 	Ball *ball;
-	char* map;
+	
 	const float WORLD_GRAVITY = 9.81f;
 };
 

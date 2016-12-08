@@ -2,6 +2,7 @@
 #include "../../engine/widgets/Button.h"
 #include "../../engine/util/Config.h"
 #include "GameState.h"
+#include "GameSelectionState.h"
 
 MenuState::MenuState(StateContext* context): State(context)
 {
@@ -36,7 +37,7 @@ void MenuState::onCreate()
 	int centerY = (height / 2) - (buttonHeight / 2);
 	int y = centerY - 30;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Start Game", this));
+	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Play", this));
 
 	y += 60;
 
@@ -64,10 +65,10 @@ void MenuState::onDestroy()
 void MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
-	if (text == "Start Game")
+	if (text == "Play")
 	{
 		Log::debug("clicked");
-		context->setState(new GameState(context, new Game()));
+		context->setState(new GameSelectionState(context));
 	}
 	else if (text == "Quit Game")
 	{

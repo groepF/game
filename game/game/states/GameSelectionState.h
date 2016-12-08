@@ -3,11 +3,11 @@
 #include "../../engine/core/State.h"
 #include "../../Game.h";
 #include "../../engine/world/World.h"
-#include "../entities/Player.h"
-#include "../entities/Ball.h"
-#include "../entities/Enemy.h"
+#include "../../engine/input/OnClickListener.h"
 
-class GameSelectionState : public State
+class Button;
+
+class GameSelectionState : public State, public OnClickListener
 {
 public:
 	GameSelectionState(StateContext* context);
@@ -16,7 +16,9 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
+	void onClick(Button* button) final;
 private:
 	Game *game;
+	Sprite* background;
 };
 

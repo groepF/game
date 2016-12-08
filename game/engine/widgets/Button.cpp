@@ -41,6 +41,7 @@ bool Button::onUpdate(Keyboard* keyboard, Mouse* mouse)
 
 	if (hovering && mouse->isLeftPressed() && inBounds(mouse->getLeftPressX(), mouse->getLeftPressY()))
 	{
+		mouse->setLeftPressed(false);
 		listener->onClick(this);
 		return false;
 	}

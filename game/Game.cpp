@@ -6,7 +6,7 @@ Game::Game()
 {
 	this->world = new World(WORLD_GRAVITY);
 
-	this->map = "./res/maps/level2.tmx";
+	this->map = "./res/maps/level1.tmx";
 
 	auto size = 0.2f;
 	player = new Player((size * 2) * 3, (size * 2) * 1);
