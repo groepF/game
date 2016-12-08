@@ -6,11 +6,11 @@
 class Ball : public Body {
 public:
 	Ball(float x, float y);
-	void pickUp(Player* player);
+	void pickUp(Body* player);
 	void drop();
-	bool isHeldBy(Player*) const;
+	bool isHeldBy(Body*) const;
 	void shoot(Body* from, bool left);
 
 private:
-	Player* heldBy;
+	Body* heldBy;
 };
