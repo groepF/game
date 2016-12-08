@@ -1,4 +1,5 @@
 #include "SplashScreenState.h"
+#include "MenuState.h"
 
 SplashScreenState::SplashScreenState(StateContext* context) : State(context), counter(0), hasReached(false), sprite(nullptr)
 { }
@@ -34,7 +35,7 @@ void SplashScreenState::onUpdate(Keyboard *keyboard)
 	}
 	if (counter <= 0)
 	{
-		context->setState(new GameState(context));
+		context->setState(new MenuState(context));
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "../util/Color.h"
 #include "../graphics/Window.h"
 #include "../graphics/Screen.h"
+#include "../input/Mouse.h"
 
 class Engine : public StateContext
 {
@@ -24,6 +25,7 @@ protected:
 private:
 	bool running;
 	Window *window;
+	Mouse *mouse;
 	void update(float delta);
 	void render(Screen *screen) const;
 };

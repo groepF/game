@@ -1,5 +1,6 @@
 #include "../engine/core/Engine.h"
 #include "states/SplashScreenState.h"
+#include "states/MenuState.h"
 
 int main(int argc, char* argv[])
 {
@@ -14,6 +15,9 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("metal", "res/images/metal.png");
 	engine.addSpritesheet("color_tiles3", "res/images/team_colors.png");
 	engine.addSpritesheet("player", "res/images/players.png");
+	engine.addSpritesheet("menu_background", "res/images/back_blurred.png");
+	engine.addSpritesheet("foxtrot_menu", "res/images/foxtrot_menu.png");
+	engine.addSpritesheet("button", "res/images/button.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
 
@@ -21,7 +25,7 @@ int main(int argc, char* argv[])
 
 	if (debug)
 	{
-		engine.setState(new GameState(&engine));
+		engine.setState(new MenuState(&engine));
 	}
 	else
 	{
