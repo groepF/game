@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\widgets\Button.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
     <ClCompile Include="engine\Entities\FpsCounter.cpp" />
@@ -139,8 +140,13 @@
     <ClCompile Include="engine\core\StateContext.cpp" />
     <ClCompile Include="engine\world\parser\TMXParser.cpp" />
     <ClCompile Include="game\map\LevelReader.cpp" />
+    <ClCompile Include="game\states\MenuState.cpp" />
+    <ClCompile Include="engine\input\Mouse.cpp" />
+    <ClCompile Include="engine\widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\input\OnClickListener.h" />
+    <ClInclude Include="engine\widgets\Button.h" />
     <ClInclude Include="game\entities\Enemy.h" />
     <ClInclude Include="engine\Entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
@@ -168,6 +174,9 @@
     <ClInclude Include="engine\core\StateContext.h" />
     <ClInclude Include="engine\world\parser\TMXParser.h" />
     <ClInclude Include="game\map\LevelReader.h" />
+    <ClInclude Include="game\states\MenuState.h" />
+    <ClInclude Include="engine\input\Mouse.h" />
+    <ClInclude Include="engine\widgets\Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
