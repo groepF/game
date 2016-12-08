@@ -158,6 +158,8 @@
     <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
     <ClCompile Include="game\entities\Score.cpp" />
     <ClCompile Include="engine\graphics\render-strategies\RenderTextStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
@@ -194,6 +196,8 @@
     <ClInclude Include="engine\graphics\render-strategies\IRenderStrategy.h" />
     <ClInclude Include="engine\graphics\render-strategies\RenderTextStrategy.h" />
     <ClInclude Include="engine\graphics\render-strategies\data-providers\ITextRenderDataPorvider.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

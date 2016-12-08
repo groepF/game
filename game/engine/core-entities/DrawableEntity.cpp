@@ -9,7 +9,37 @@ DrawableEntity::~DrawableEntity()
 {
 }
 
-std::shared_ptr<Sprite> DrawableEntity::getSprite() const
+float DrawableEntity::getX() const
 {
-	return sprite;
+	return Body::getX();
+}
+
+float DrawableEntity::getY() const
+{
+	return Body::getY();
+}
+
+float DrawableEntity::getHeight() const
+{
+	return Body::getHeight();
+}
+
+float DrawableEntity::getWidth() const
+{
+	return Body::getWidth();
+}
+
+double DrawableEntity::getAngle() const
+{
+	return Body::getAngle();
+}
+
+Sprite* DrawableEntity::getSprite() const
+{
+	return sprite.get();
+}
+
+int DrawableEntity::getPPM() const
+{
+	return 50;
 }

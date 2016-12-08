@@ -10,7 +10,7 @@ class RenderTextStrategy : public IRenderStrategy
 {
 public:
 	RenderTextStrategy(std::shared_ptr<ITextRenderDataPorvider> dataProvider);
-	~RenderTextStrategy();
+	virtual ~RenderTextStrategy() = default;
 	void Render(Screen& screen) override;
 
 private:

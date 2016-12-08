@@ -10,10 +10,6 @@ RenderTextStrategy::RenderTextStrategy(std::shared_ptr<ITextRenderDataPorvider> 
 	this->dataProvider = dataProvider;
 }
 
-RenderTextStrategy::~RenderTextStrategy()
-{
-}
-
 void RenderTextStrategy::Render(Screen& screen)
 {
 	screen.renderText(dataProvider->getText(), dataProvider->getColor(), dataProvider->getX(), dataProvider->getY(), dataProvider->getWidth(), dataProvider->getHeight());

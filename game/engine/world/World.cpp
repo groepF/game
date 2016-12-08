@@ -42,15 +42,11 @@ void World::render(Screen* screen, const bool debug)
 	{
 		if (debug)
 		{
-			screen->renderRect((body->getX() * PPM) - ((body->getWidth() * PPM) / 2), (body->getY() * PPM) - ((body->getHeight() * PPM) / 2), body->getWidth() * PPM, body->getHeight() * PPM);
+			
 		}
 		else
 		{
-			screen->render(body->getSprite().get(),
-				(body->getX() - (body->getWidth() / 2)) * PPM,
-				(body->getY() - (body->getHeight() / 2)) * PPM,
-				body->getAngle(),
-				255, body->getWidth() * PPM, body->getHeight() * PPM);
+			
 		}
 	}
 }

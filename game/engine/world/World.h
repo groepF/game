@@ -23,5 +23,4 @@ private:
 	std::vector<Body*> bodies;
 	Sprite* background;
 
-	const int PPM = 50;
 };
