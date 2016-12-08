@@ -22,7 +22,7 @@ void Ball::drop()
 /*
  * Checks if the ball is held by the player given.
  */
-bool Ball::isHeldBy(Player* p) const
+bool Ball::isHeldBy(Body* p) const
 {
 	return this->heldBy == p;
 }
@@ -31,7 +31,7 @@ bool Ball::isHeldBy(Player* p) const
  * Sets the ball as picked up. Makes holder the current player.
  * Player* p - The player that performs the action
  */
-void Ball::pickUp(Player* p)
+void Ball::pickUp(Body* p)
 {
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(p->getX(), p->getY()), 0);
