@@ -96,6 +96,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 	//Cheat, get hit by AI
 	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 
+
+	if(keyboard->isKeydown(KEY_ESCAPE)){/*pause game and show menu*/}
+
 	player->move();
 	world->update();
 }
