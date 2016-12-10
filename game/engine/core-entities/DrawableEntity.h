@@ -6,7 +6,9 @@ class DrawableEntity : public Body, public IDrawableRenderDataProvider
 {
 public:
 	DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
-	~DrawableEntity();
+	~DrawableEntity() = default;
+
+	void Render(Screen& screen) const override;
 
 	float getX() const override;
 	float getY() const override;
@@ -15,6 +17,8 @@ public:
 	double getAngle() const override;
 	Sprite* getSprite() const override;
 	int getPPM() const override;
+
+	void setDefaultRenderStrategy() override;
 protected:
 	std::shared_ptr<Sprite> sprite;
 };

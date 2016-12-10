@@ -7,9 +7,7 @@ class RenderDrawableStrategy : public IRenderStrategy
 {
 public:
 	RenderDrawableStrategy(std::shared_ptr<IDrawableRenderDataProvider> dataProvider);
-
 	virtual ~RenderDrawableStrategy() = default;
-
 	void Render(Screen& screen) override;
 
 private:

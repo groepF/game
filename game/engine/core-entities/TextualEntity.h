@@ -7,7 +7,7 @@
 class TextualEntity : public Body, public ITextRenderDataPorvider
 {
 public:
-	virtual ~TextualEntity() = default;
+	~TextualEntity() = default;
 
 	/*
 	 * The TextualEntity constructor.
@@ -18,10 +18,18 @@ public:
 	 * Renders text on a screen.
 	 * @param screen The screen to render text on.
 	 */
-	void Render(Screen& screen) const;
+	void Render(Screen& screen) const override;
 
 	std::string get_identifier() const;
 
+	std::string getText() override;
+	Color getColor() override;
+	int getX() override;
+	virtual int getY() override;
+	int getWidth() override;
+	int getHeight() override;
+
+	void setDefaultRenderStrategy() override;
 protected:
 
 	/*

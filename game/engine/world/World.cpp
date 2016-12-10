@@ -40,14 +40,7 @@ void World::render(Screen* screen, const bool debug)
 
 	for (const auto &body : bodies)
 	{
-		if (debug)
-		{
-			
-		}
-		else
-		{
-			
-		}
+		body->Render(*screen);
 	}
 }
 
@@ -55,7 +48,7 @@ void World::add(Body* body)
 {
 	auto item = world->CreateBody(body->getBodyDef());
 	body->create(item);
-
+	body->setDefaultRenderStrategy();
 	bodies.push_back(body);
 }
 

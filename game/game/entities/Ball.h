@@ -10,6 +10,7 @@ public:
 	void drop();
 	bool isHeldBy(Player*) const;
 
+	void setDefaultRenderStrategy() override;
 private:
 	Player* heldBy;
 };

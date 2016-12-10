@@ -23,7 +23,11 @@ public:
 	 * @param color The color of the text on the screen.
 	 */
 	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40, Color color = Color("white"));
+	~FpsCounter() = default;
 
+	std::string getText() override;
+
+	void setDefaultRenderStrategy() override;
 private:
 	/*
 	 * Calculates the currnet fps.
@@ -32,13 +36,6 @@ private:
 	 */
 	int getCurrentFps();
 
-public:
-	const char* getText() override;
-	Color getColor() override;
-	int getX() override;
-	int getY() override;
-	int getWidth() override;
-	int getHeight() override;
 private:
 	// An array to store frame times:
 	Uint32 frametimes[FRAME_VALUES];

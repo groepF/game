@@ -6,4 +6,5 @@
 class Enemy : public DrawableEntity {
 public:
 	Enemy(float x, float y);
+	void setDefaultRenderStrategy() override;
 };

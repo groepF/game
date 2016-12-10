@@ -17,18 +17,22 @@ public:
 	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
 	virtual ~Body();
 
-	float getX() const;
-	float getY() const;
-	float getWidth() const;
-	float getHeight() const;
-	float getAngle() const;
+	float getBodyX() const;
+	float getBodyY() const;
+	float getBodyWidth() const;
+	float getBodyHeight() const;
+	float getBodyAngle() const;
 
 	void create(b2Body *body);
 	void setVelocity(float x, float y) const;
 	void setFixedRotation(bool rotation) const;
 
-	std::shared_ptr<IRenderStrategy> getRenderStrategy() const;
+	virtual void setDefaultRenderStrategy() = 0;
+	
+
 	b2BodyDef* getBodyDef();
+
+	virtual void Render(Screen& screen) const = 0;
 
 private:
 	float width, height;

@@ -4,7 +4,7 @@
 class IDrawableRenderDataProvider
 {
 public:
-	virtual ~IDrawableRenderDataProvider() = 0;
+	virtual ~IDrawableRenderDataProvider() {};
 
 	virtual float getX() const = 0;
 	virtual float getY() const = 0;

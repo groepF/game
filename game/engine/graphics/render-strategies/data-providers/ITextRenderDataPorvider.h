@@ -4,9 +4,9 @@
 class ITextRenderDataPorvider
 {
 public:
-	virtual ~ITextRenderDataPorvider() = 0;
+	virtual ~ITextRenderDataPorvider() {}
 
-	virtual const char* getText() = 0;
+	virtual std::string getText() = 0;
 	virtual Color getColor() = 0;
 	virtual int getX() = 0;
 	virtual int getY() = 0;

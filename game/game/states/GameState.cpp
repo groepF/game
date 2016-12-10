@@ -7,10 +7,10 @@
 #include "../../engine/core-entities/DrawableEntity.h"
 
 GameState::GameState(StateContext* context) : State(context),
-	world(nullptr),
-	player(nullptr),
-	isDebug(Config::getBool("debug", false)),
-	showGrid(false)
+world(nullptr),
+player(nullptr),
+isDebug(Config::getBool("debug", false)),
+showGrid(false)
 {
 }
 
@@ -61,9 +61,13 @@ void GameState::onCreate()
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
 
-	world->add(new Score());
-	textualEntities.push_back(new FpsCounter());
-	//textualEntities.push_back(new Score());
+
+	auto fpsCounter = new FpsCounter();
+	auto score = new Score();
+	fpsCounter->setDefaultRenderStrategy();
+	score->setDefaultRenderStrategy();
+	textualEntities.push_back(fpsCounter);
+	textualEntities.push_back(score);
 }
 
 void GameState::onRender(Screen *screen)

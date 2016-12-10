@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <sstream>
 #include "../util/Log.h"
+#include "../graphics/render-strategies/RenderTextStrategy.h"
 
 FpsCounter::FpsCounter(int x, int y, int width, int height, Color color) : TextualEntity("fps", x, y, width, height, color)
 {
@@ -67,32 +68,13 @@ int FpsCounter::getCurrentFps()
 	return framespersecond;
 }
 
-const char* FpsCounter::getText()
+std::string FpsCounter::getText()
 {
-	return std::to_string(getCurrentFps()).c_str();
+	return std::to_string(getCurrentFps());
 }
 
-Color FpsCounter::getColor()
+void FpsCounter::setDefaultRenderStrategy()
 {
-	return color;
-}
-
-int FpsCounter::getX()
-{
-	return x;
-}
-
-int FpsCounter::getY()
-{
-	return y;
-}
-
-int FpsCounter::getWidth()
-{
-	return width;
-}
-
-int FpsCounter::getHeight()
-{
-	return height;
+	auto dataProvider = std::make_shared<FpsCounter>(*this);
+	renderStrategy = std::make_shared<RenderTextStrategy>(RenderTextStrategy(dataProvider));
 }

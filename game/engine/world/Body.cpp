@@ -12,27 +12,27 @@ Body::~Body()
 {
 }
 
-float Body::getX() const
+float Body::getBodyX() const
 {
 	return body->GetPosition().x;
 }
 
-float Body::getY() const
+float Body::getBodyY() const
 {
 	return body->GetPosition().y;
 }
 
-float Body::getWidth() const
+float Body::getBodyWidth() const
 {
 	return width * 2;
 }
 
-float Body::getHeight() const
+float Body::getBodyHeight() const
 {
 	return height * 2;
 }
 
-float Body::getAngle() const
+float Body::getBodyAngle() const
 {
 	return body->GetAngle() * (180 / M_PI);
 }
@@ -73,11 +73,6 @@ void Body::setVelocity(float x, float y) const
 void Body::setFixedRotation(bool rotation) const
 {
 	body->SetFixedRotation(rotation);
-}
-
-std::shared_ptr<IRenderStrategy> Body::getRenderStrategy() const
-{
-	return renderStrategy;
 }
 
 b2BodyDef* Body::getBodyDef()
