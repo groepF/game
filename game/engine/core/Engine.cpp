@@ -78,25 +78,25 @@ void Engine::start()
 			case SDL_MOUSEBUTTONDOWN:
 				if(sdlEvent.button.button == SDL_BUTTON_LEFT)
 				{
-					Log::debug("mouse left pressed");
 					mouse->setLeftPressed(true);
-					mouse->setLeftPressX(sdlEvent.button.x);
-					mouse->setLeftPressY(sdlEvent.button.y);
+					mouse->setLeftPressPosition(sdlEvent.button.x, sdlEvent.button.y);
 				}
 				else if(sdlEvent.button.button == SDL_BUTTON_RIGHT)
 				{
 					mouse->setRightPressed(true);
+					mouse->setRightPressPosition(sdlEvent.button.x, sdlEvent.button.y);
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
 				if (sdlEvent.button.button == SDL_BUTTON_LEFT)
 				{
-					Log::debug("mouse left unpressed");
 					mouse->setLeftPressed(false);
+					mouse->setLeftReleasePosition(sdlEvent.button.x, sdlEvent.button.y);
 				}
 				else if (sdlEvent.button.button == SDL_BUTTON_RIGHT)
 				{
 					mouse->setRightPressed(false);
+					mouse->setRightReleasePosition(sdlEvent.button.x, sdlEvent.button.y);
 				}
 				break;
 			default:

@@ -19,10 +19,10 @@ public:
 
 	std::string getText() const;
 private:
-	bool hovering;
+	bool hovering, pressing;
 	int x, y, width, height;
 	std::string text;
-	Sprite *hovered, *normal;
+	Sprite *hovered, *normal, *pressed;
 	OnClickListener *listener;
 };
 

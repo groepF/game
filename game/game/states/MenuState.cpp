@@ -2,8 +2,9 @@
 #include "../../engine/widgets/Button.h"
 #include "../../engine/util/Config.h"
 #include "GameState.h"
+#include "CreditsState.h"
 
-MenuState::MenuState(StateContext* context): State(context)
+MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
 }
 
@@ -36,13 +37,17 @@ void MenuState::onCreate()
 	int centerY = (height / 2) - (buttonHeight / 2);
 	int y = centerY - 30;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Start Game", this));
+	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Start", this));
 
 	y += 60;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
+	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Credits", this));
 
-	this->logo = new Sprite("foxtrot_menu", 0, 0, 514, 129);
+	y += 60;
+
+	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Quit", this));
+
+	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
 }
 
 void MenuState::onRender(Screen* screen)
@@ -50,7 +55,7 @@ void MenuState::onRender(Screen* screen)
 	screen->render(background, 0, 0);
 	screen->render(logo,
 	               (screen->getWidth() / 2) - (logo->getWidth() / 2),
-	               30);
+	               40);
 }
 
 void MenuState::onUpdate(Keyboard* keyboard)
@@ -64,12 +69,15 @@ void MenuState::onDestroy()
 void MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
-	if (text == "Start Game")
+	if (text == "Start")
 	{
-		Log::debug("clicked");
 		context->setState(new GameState(context));
 	}
-	else if (text == "Quit Game")
+	else if(text == "Credits")
+	{
+		context->setState(new CreditsState(context));
+	}
+	else if (text == "Quit")
 	{
 		exit(0);
 	}

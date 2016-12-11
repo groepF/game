@@ -93,6 +93,9 @@
     <ClCompile Include="engine\widgets\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\states\CreditsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\util\SDL.h">
@@ -189,6 +192,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="engine\input\OnClickListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\states\CreditsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
