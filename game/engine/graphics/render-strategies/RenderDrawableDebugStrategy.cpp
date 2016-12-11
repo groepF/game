@@ -1,7 +1,7 @@
 #include "RenderDrawableDebugStrategy.h"
 #include "../../graphics/Screen.h"
 
-RenderDrawableDebugStrategy::RenderDrawableDebugStrategy(std::shared_ptr<IDrawableRenderDataProvider> dataProvider)
+RenderDrawableDebugStrategy::RenderDrawableDebugStrategy(IDrawableRenderDataProvider* dataProvider)
 {
 	this->dataProvider = dataProvider;
 }

@@ -10,7 +10,8 @@ GameState::GameState(StateContext* context) : State(context),
 world(nullptr),
 player(nullptr),
 isDebug(Config::getBool("debug", false)),
-showGrid(false)
+showGrid(false),
+showFps(false)
 {
 }
 
@@ -55,39 +56,32 @@ void GameState::onCreate()
 	player = new Player((size * 2) * 3, (size * 2) * 1);
 	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	fpsCounter = new FpsCounter(true, 1200);
 	world->add(player);
 	world->add(ball);
 	world->add(ai);
+	world->add(fpsCounter);
+	world->add(new Score());
+
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
-
-
-	auto fpsCounter = new FpsCounter();
-	auto score = new Score();
-	fpsCounter->setDefaultRenderStrategy();
-	score->setDefaultRenderStrategy();
-	textualEntities.push_back(fpsCounter);
-	textualEntities.push_back(score);
 }
 
 void GameState::onRender(Screen *screen)
 {
-	world->render(screen, showGrid);
-	for (auto textualEntity : textualEntities)
+	fpsCounter->CalculateCurrentFps();
+	if(showHybricGrid)
 	{
-		if (std::find(hiddenEntities.begin(), hiddenEntities.end(), textualEntity->get_identifier()) == hiddenEntities.end())
-		{
-			textualEntity->Render(*screen);
-		}
+		showGrid = !showGrid;
 	}
+	world->render(screen, showGrid);
 }
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
-	if (keyboard->isKeydown(KEY_F1) && isDebug)
-	{
-		showGrid = !showGrid;
-	}
+	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
+	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
+	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
@@ -95,17 +89,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_F)) {
-		auto position = std::find(hiddenEntities.begin(), hiddenEntities.end(), "fps");
-		if (position != hiddenEntities.end())
-		{
-			hiddenEntities.erase(position);
-		}
-		else
-		{
-			hiddenEntities.push_back("fps");
-		}
-	}
 	if (keyboard->isKeydown(KEY_LCTRL)) { if (player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	else if (!keyboard->isKeydown(KEY_LCTRL))
 	{
@@ -122,9 +105,5 @@ void GameState::onUpdate(Keyboard *keyboard)
 void GameState::onDestroy()
 {
 	delete world;
-	for (auto textualEntity : textualEntities)
-	{
-		delete textualEntity;
-	}
 	Log::debug("OnDestroy GameState");
 }

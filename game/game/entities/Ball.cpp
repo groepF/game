@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 
-Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70)), x, y, 0.3f, 0.3f, true, 0.1f, 0.5f)
+Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70)), x, y, 0.3f, 0.3f, true, 1.0f, 1.0f)
 {
 	this->density = 2.0f;
 	this->restitution = 0.8f;
@@ -25,12 +25,6 @@ void Ball::drop()
 bool Ball::isHeldBy(Player* p) const
 {
 	return this->heldBy == p;
-}
-
-void Ball::setDefaultRenderStrategy()
-{
-	auto dataProvider = std::make_shared<Ball>(*this);
-	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(dataProvider));
 }
 
 /*

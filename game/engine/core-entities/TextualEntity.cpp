@@ -12,7 +12,7 @@ TextualEntity::TextualEntity(std::string identifier, int x, int y, int width, in
 	this->color = color;
 }
 
-void TextualEntity::Render(Screen& screen) const
+void TextualEntity::Render(Screen& screen, bool debug) const
 {
 	if(renderStrategy == nullptr)
 	{
@@ -59,6 +59,5 @@ int TextualEntity::getHeight()
 
 void TextualEntity::setDefaultRenderStrategy()
 {
-	auto dataProvider = std::make_shared<TextualEntity>(*this);
-	renderStrategy = std::make_shared<RenderTextStrategy>(RenderTextStrategy(dataProvider));
+	renderStrategy = std::make_shared<RenderTextStrategy>(RenderTextStrategy(this));
 }

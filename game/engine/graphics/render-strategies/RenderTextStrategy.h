@@ -9,11 +9,11 @@
 class RenderTextStrategy : public IRenderStrategy
 {
 public:
-	RenderTextStrategy(std::shared_ptr<ITextRenderDataPorvider> dataProvider);
+	RenderTextStrategy(ITextRenderDataPorvider* dataProvider);
 	void Render(Screen& screen) override;
 
 private:
 	TTF_Font* font;
-	std::shared_ptr<ITextRenderDataPorvider> dataProvider;
+	ITextRenderDataPorvider* dataProvider;
 };
 

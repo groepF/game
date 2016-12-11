@@ -9,4 +9,5 @@ public:
 	virtual ~Score() {};
 	std::string getText() override;
 	Color getColor() override;
+	void setDefaultRenderStrategy() override;
 };

@@ -6,11 +6,11 @@
 class RenderDrawableStrategy : public IRenderStrategy
 {
 public:
-	RenderDrawableStrategy(std::shared_ptr<IDrawableRenderDataProvider> dataProvider);
+	RenderDrawableStrategy(IDrawableRenderDataProvider* dataProvider);
 	virtual ~RenderDrawableStrategy() = default;
 	void Render(Screen& screen) override;
 
 private:
-	std::shared_ptr<IDrawableRenderDataProvider> dataProvider;
+	IDrawableRenderDataProvider* dataProvider;
 };
 

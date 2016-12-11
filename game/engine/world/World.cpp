@@ -1,4 +1,6 @@
 #include "World.h"
+#include "../graphics/render-strategies/RenderDrawableStrategy.h"
+#include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 
 World::World(float gravity) : world(nullptr), background(nullptr)
 {
@@ -40,7 +42,7 @@ void World::render(Screen* screen, const bool debug)
 
 	for (const auto &body : bodies)
 	{
-		body->Render(*screen);
+		body->Render(*screen, debug);
 	}
 }
 

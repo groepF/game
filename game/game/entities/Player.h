@@ -20,7 +20,6 @@ public:
 	PlayerState getPlayerState() const;
 	bool canPickup(Body* b) const;
 
-	void setDefaultRenderStrategy() override;
 private:
 	PlayerState state;
 };

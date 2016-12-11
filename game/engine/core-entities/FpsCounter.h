@@ -22,19 +22,19 @@ public:
 	 * @param height The height of the text on the screen.
 	 * @param color The color of the text on the screen.
 	 */
-	FpsCounter(int x = 10, int y = 0, int width = 50, int height = 40, Color color = Color("white"));
+	FpsCounter(bool showFps = false, int x = 10, int y = 0, int width = 50, int height = 40, Color color = Color("white"));
 	~FpsCounter() = default;
 
+	void Render(Screen& screen, bool debug) const override;
 	std::string getText() override;
 
 	void setDefaultRenderStrategy() override;
-private:
+	void toggle();
+
 	/*
 	 * Calculates the currnet fps.
-	 *
-	 * @return The amount of frames per second
 	 */
-	int getCurrentFps();
+	void CalculateCurrentFps();
 
 private:
 	// An array to store frame times:
@@ -48,4 +48,7 @@ private:
 
 	// The current amount of frames per second.
 	float framespersecond;
+
+	// Determines if the fps counter should be shown or not.
+	bool isShown;
 };

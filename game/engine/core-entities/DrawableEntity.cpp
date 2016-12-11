@@ -1,6 +1,7 @@
 #include "DrawableEntity.h"
 #include "../util/Log.h"
 #include "../graphics/render-strategies/RenderDrawableStrategy.h"
+#include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 
 DrawableEntity::DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : Body(x, y, width, height, dynamic, angularDamping, linearDamping)
 {
@@ -8,14 +9,21 @@ DrawableEntity::DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, floa
 }
 
 
-void DrawableEntity::Render(Screen& screen) const
+void DrawableEntity::Render(Screen& screen, bool debug) const
 {
-	if (renderStrategy == nullptr)
+	if (debug && renderDebugStrategy != nullptr)
 	{
-		Log::error("Your drawable entity does not have a renderStrategy. Please set it. (You'll most likely want to use the RenderDrawableStrategy or RenderDrawableDebugStrategy)");
-		return;
+		renderDebugStrategy->Render(screen);
 	}
-	renderStrategy->Render(screen);
+	else
+	{
+		if (renderStrategy == nullptr)
+		{
+			Log::error("Your drawable entity does not have a renderStrategy. Please set it. (You'll most likely want to use the RenderDrawableStrategy)");
+			return;
+		}
+		renderStrategy->Render(screen);
+	}
 }
 
 float DrawableEntity::getX() const
@@ -55,6 +63,6 @@ int DrawableEntity::getPPM() const
 
 void DrawableEntity::setDefaultRenderStrategy()
 {
-	auto dataProvider = std::make_shared<DrawableEntity>(*this);
-	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(dataProvider));
+	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(this));
+	renderDebugStrategy = std::make_shared<RenderDrawableDebugStrategy>(RenderDrawableDebugStrategy(this));
 }

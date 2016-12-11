@@ -8,9 +8,3 @@ Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite(
 	this->friction = 0.5f;
 	this->type = CIRCLE;
 }
-
-void Enemy::setDefaultRenderStrategy()
-{
-	auto dataProvider = std::make_shared<Enemy>(*this);
-	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(dataProvider));
-}

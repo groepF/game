@@ -28,11 +28,10 @@ public:
 	void setFixedRotation(bool rotation) const;
 
 	virtual void setDefaultRenderStrategy() = 0;
-	
 
 	b2BodyDef* getBodyDef();
 
-	virtual void Render(Screen& screen) const = 0;
+	virtual void Render(Screen& screen, bool debug = false) const = 0;
 
 private:
 	float width, height;
@@ -42,4 +41,5 @@ protected:
 	b2Body *body;
 	float density, friction, restitution;
 	std::shared_ptr<IRenderStrategy> renderStrategy;
+	std::shared_ptr<IRenderStrategy> renderDebugStrategy;
 };

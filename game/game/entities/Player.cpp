@@ -68,14 +68,4 @@ bool Player::canPickup(Body* b) const
 		return true;
 
 	return false;
-
-
-
-
-}
-
-void Player::setDefaultRenderStrategy()
-{
-	auto dataProvider = std::make_shared<Player>(*this);
-	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(dataProvider));
 }

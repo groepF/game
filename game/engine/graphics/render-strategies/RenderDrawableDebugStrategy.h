@@ -3,14 +3,14 @@
 #include <memory>
 #include "IRenderStrategy.h"
 
-class RenderDrawableDebugStrategy : IRenderStrategy
+class RenderDrawableDebugStrategy : public IRenderStrategy
 {
 public:
-	RenderDrawableDebugStrategy(std::shared_ptr<IDrawableRenderDataProvider> dataProvider);
+	RenderDrawableDebugStrategy(IDrawableRenderDataProvider* dataProvider);
 	virtual ~RenderDrawableDebugStrategy() = default;
 	void Render(Screen& screen) override;
 
 private:
-	std::shared_ptr<IDrawableRenderDataProvider> dataProvider;
+	IDrawableRenderDataProvider* dataProvider;
 };
 

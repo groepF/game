@@ -2,7 +2,7 @@
 #include "../../graphics/Screen.h"
 
 
-RenderDrawableStrategy::RenderDrawableStrategy(std::shared_ptr<IDrawableRenderDataProvider> dataProvider)
+RenderDrawableStrategy::RenderDrawableStrategy(IDrawableRenderDataProvider* dataProvider)
 {
 	this->dataProvider = dataProvider;
 }

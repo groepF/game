@@ -22,9 +22,10 @@ private:
 	Player *player;
 	Enemy *ai;
 	Ball *ball;
-	std::vector<TextualEntity*> textualEntities;
-	std::vector<std::string> hiddenEntities;
+	FpsCounter* fpsCounter;
 	const float WORLD_GRAVITY = 9.81f;
 	bool isDebug;
 	bool showGrid;
+	bool showHybricGrid;
+	bool showFps;
 };

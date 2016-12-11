@@ -18,7 +18,7 @@ public:
 	 * Renders text on a screen.
 	 * @param screen The screen to render text on.
 	 */
-	void Render(Screen& screen) const override;
+	void Render(Screen& screen, bool debug) const override;
 
 	std::string get_identifier() const;
 
