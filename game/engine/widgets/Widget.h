@@ -18,5 +18,10 @@ public:
 	virtual void onRender(Screen *screen) = 0;
 	virtual bool onUpdate(Keyboard *keyboard, Mouse* mouse) = 0;
 	virtual void onDestroy() = 0;
+
+	std::string getId() const;
+	void setId(std::string id);
+private:
+	std::string id;
 };
 

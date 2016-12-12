@@ -16,6 +16,10 @@ public:
 	Enemy* getEnemy();
 	Ball* getBall();
 
+	void setTime(int minutes);
+	void setGoals(int goals);
+	void setMap(int id);
+
 
 private:
 	//Settings

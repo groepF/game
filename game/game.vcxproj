@@ -145,6 +145,7 @@
     <ClCompile Include="game\states\MenuState.cpp" />
     <ClCompile Include="engine\input\Mouse.cpp" />
     <ClCompile Include="engine\widgets\Widget.cpp" />
+    <ClCompile Include="engine\widgets\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\input\OnClickListener.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="game\states\MenuState.h" />
     <ClInclude Include="engine\input\Mouse.h" />
     <ClInclude Include="engine\widgets\Widget.h" />
+    <ClInclude Include="engine\widgets\Label.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -37,11 +37,11 @@ void MenuState::onCreate()
 	int centerY = (height / 2) - (buttonHeight / 2);
 	int y = centerY - 30;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Play", this));
+	this->addWidget(new Button("play", centerX, y, buttonWidth, buttonHeight, "Play", this));
 
 	y += 60;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
+	this->addWidget(new Button("quit", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 514, 129);
 }

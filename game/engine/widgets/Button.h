@@ -7,7 +7,7 @@
 class Button : public Widget
 {
 public:
-	Button(int x, int y, int width, int height, std::string text, OnClickListener* listener);
+	Button(std::string id, int x, int y, int width, int height, std::string text, OnClickListener* listener);
 	~Button();
 	
 	void onCreate() final;
@@ -18,11 +18,14 @@ public:
 	bool inBounds(int posX, int posY) const;
 
 	std::string getText() const;
+	void select();
+	void deselect();
 private:
+	bool selected;
 	bool hovering;
 	int x, y, width, height;
 	std::string text;
-	Sprite *hovered, *normal;
+	Sprite *hovered, *normal, *spriteSelected;
 	OnClickListener *listener;
 };
 

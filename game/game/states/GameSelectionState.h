@@ -18,7 +18,11 @@ public:
 	void onDestroy() final;
 	void onClick(Button* button) final;
 private:
-	Game *game;
+	Game* game;
 	Sprite* background;
+	std::vector<Button*> timeButtons;
+	std::vector<Button*> goalButtons;
+	std::vector<Button*> mapButtons;
+	void deselectAll(std::vector<Button*> buttons);
 };
 
