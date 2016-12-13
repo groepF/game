@@ -49,6 +49,8 @@ void MenuState::onCreate()
 	this->addWidget(new Button("quit", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
+
+	this->context->playMusic("menu");
 }
 
 void MenuState::onRender(Screen* screen)
@@ -65,6 +67,7 @@ void MenuState::onUpdate(Keyboard* keyboard)
 
 void MenuState::onDestroy()
 {
+	this->context->stopMusic();
 }
 
 void MenuState::onClick(Button* button)

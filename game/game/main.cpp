@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("credits", "res/images/credits.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
+	engine.addMusic("menu", "res/sounds/menu.mp3");
 
 	auto debug = Config::getBool("debug", false);
 
