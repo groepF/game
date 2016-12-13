@@ -36,17 +36,11 @@ void Button::onCreate()
 
 void Button::onRender(Screen* screen)
 {
-	/*
-	if(selected)
-	{
-		screen->render(pressed, x, y, 0, 255, width, height);
-	} else
-	{
-		screen->render(!hovering ? normal : hovered, x, y, 0, 255, width, height);
-	}*/
-
 	Sprite* button = normal;
 	if(pressing)
+	{
+		button = pressed;
+	} else if(selected)
 	{
 		button = pressed;
 	}
