@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
+    <ClCompile Include="game\entities\Timer.cpp" />
     <ClCompile Include="game\states\CreditsState.cpp" />
     <ClCompile Include="engine\widgets\Button.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
@@ -174,10 +175,10 @@
     <ClInclude Include="engine\core-entities\DrawableEntity.h" />
     <ClInclude Include="game\entities\Enemy.h" />
     <ClInclude Include="engine\core-entities\FpsCounter.h" />
+    <ClInclude Include="game\entities\Timer.h" />
     <ClInclude Include="game\states\CreditsState.h" />
     <ClInclude Include="engine\input\OnClickListener.h" />
     <ClInclude Include="engine\widgets\Button.h" />
-    <ClInclude Include="game\entities\Enemy.h" />
     <ClInclude Include="engine\Entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />

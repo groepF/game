@@ -7,7 +7,6 @@
     <ClCompile Include="engine\widgets\Button.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
-    <ClCompile Include="engine\Entities\FpsCounter.cpp" />
     <ClCompile Include="engine\input\Keyboard.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="game\states\GameSelectionState.cpp" />
@@ -31,7 +30,6 @@
     <ClCompile Include="game\map\LevelReader.cpp" />
     <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
     <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
-    <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="game\entities\Score.cpp" />
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
     <ClCompile Include="engine\graphics\render-strategies\RenderTextStrategy.cpp" />
@@ -41,6 +39,7 @@
     <ClCompile Include="engine\input\Mouse.cpp" />
     <ClCompile Include="engine\widgets\Widget.cpp" />
     <ClCompile Include="engine\widgets\Label.cpp" />
+    <ClCompile Include="game\entities\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -77,7 +76,6 @@
     <ClInclude Include="game\map\LevelReader.h" />
     <ClInclude Include="engine\core-entities\FpsCounter.h" />
     <ClInclude Include="engine\core-entities\TextualEntity.h" />
-    <ClInclude Include="game\entities\Enemy.h" />
     <ClInclude Include="game\entities\Score.h" />
     <ClInclude Include="engine\core-entities\DrawableEntity.h" />
     <ClInclude Include="engine\graphics\render-strategies\IRenderStrategy.h" />
@@ -90,5 +88,6 @@
     <ClInclude Include="engine\input\Mouse.h" />
     <ClInclude Include="engine\widgets\Widget.h" />
     <ClInclude Include="engine\widgets\Label.h" />
+    <ClInclude Include="game\entities\Timer.h" />
   </ItemGroup>
 </Project>

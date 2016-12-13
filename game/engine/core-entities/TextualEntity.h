@@ -2,7 +2,7 @@
 #include "../util/Color.h"
 #include "../graphics/Screen.h"
 #include "../world/Body.h"
-#include "../graphics/render-strategies/data-providers/ITextRenderDataPorvider.h"
+#include "../graphics/render-strategies/data-providers/ITextRenderDataProvider.h"
 
 class TextualEntity : public Body, public ITextRenderDataProvider
 {

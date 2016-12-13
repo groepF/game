@@ -5,14 +5,14 @@
 #include "../../engine/core-entities/FpsCounter.h"
 #include "../entities/Score.h"
 #include "../../engine/core-entities/DrawableEntity.h"
+#include "../entities/Timer.h"
 
 
 GameState::GameState(StateContext* context, Game* game) :	State(context),
 world(nullptr),
 player(nullptr),
 isDebug(Config::getBool("debug", false)),
-showGrid(false),
-showFps(false)
+showGrid(false)
 {
 	this->game = game;
 }
@@ -30,7 +30,7 @@ void GameState::onCreate()
 
 	world = new World(WORLD_GRAVITY);
 
-	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());	
+	this->fpsCounter = new FpsCounter();	
 
 	world	= game->getWorld();
 	player	= game->getPlayer();
@@ -74,7 +74,8 @@ void GameState::onCreate()
 	world->add(ai);
 
 	world->add(fpsCounter);
-	world->add(new Score());
+	world->add(new Score(game));
+	world->add(new Timer(game));
 	world->add(ball);
 
 	player->setFixedRotation(true);
@@ -106,7 +107,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
 	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }

@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "data-providers/ITextRenderDataPorvider.h"
+#include "data-providers/ITextRenderDataProvider.h"
 
 class RenderTextStrategy : public IRenderStrategy
 {

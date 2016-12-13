@@ -230,7 +230,7 @@ void Window::renderText(std::string message, Color color, int x, int y, int widt
 {
 	if (font)
 	{
-		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, text.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
+		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 		int w = width, h = height;

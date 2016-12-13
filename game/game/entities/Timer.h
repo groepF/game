@@ -4,11 +4,11 @@
 
 class Game;
 
-class Score : public TextualEntity
+class Timer : public TextualEntity
 {
 public:
-	Score(Game* game, int x = 590, int y = 10, int width = 100, int height = 50, Color color = Color("white"));
-	virtual ~Score() {};
+	Timer(Game* game, int x = 590, int y = 50, int width = 100, int height = 50, Color color = Color("white"));
+	virtual ~Timer() {};
 	std::string getText() override;
 	Color getColor() override;
 	void setDefaultRenderStrategy() override;

@@ -20,6 +20,10 @@ public:
 	void setGoals(int goals);
 	void setMap(int id);
 
+	int getTeamAGoals();
+	int getTeamBGoals();
+
+	int getTimeRemaining();
 
 private:
 	//Settings

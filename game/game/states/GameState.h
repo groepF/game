@@ -30,5 +30,4 @@ private:
 	bool isDebug;
 	bool showGrid;
 	bool showHybricGrid;
-	bool showFps;
 };

@@ -1,12 +1,13 @@
 #include "Score.h"
 #include "../../engine/graphics/render-strategies/RenderTextStrategy.h"
+#include "../../Game.h"
 
 
-Score::Score(int x, int y, int width, int height, Color color) : TextualEntity("score", x, y, width, height, color) {}
+Score::Score(Game* game, int x, int y, int width, int height, Color color) : TextualEntity("score", x, y, width, height, color), game(game){}
 
 std::string Score::getText()
 {
-	return "0 - 0"; // todo change to actual score.
+	return this->game->getTeamAGoals() + " - " + game->getTeamBGoals();
 }
 
 Color Score::getColor()

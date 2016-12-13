@@ -36,7 +36,7 @@ void Ball::shoot(Body* from, bool left)
 {
 	
 	auto sideForce = (left ? -50.0 : 50.0);
-	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getX(), from->getY()), false);
+	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getBodyX(), from->getBodyY()), false);
 
 }
 
@@ -47,6 +47,6 @@ void Ball::shoot(Body* from, bool left)
 void Ball::pickUp(Body* p)
 {
 	this->body->SetActive(false);
-	this->body->SetTransform(b2Vec2(p->getX(), p->getY()), 0);
+	this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
 	this->heldBy = p;
 }
