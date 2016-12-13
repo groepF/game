@@ -14,6 +14,8 @@ Engine::Engine(const std::string config) : running(true)
 		auto title = Config::getString("title", "Default window title");
 		auto fullscreen = Config::getBool("fullscreen", false);
 
+		mouse = new Mouse();
+
 		window = new Window(width, height, fullscreen, title);
 		window->setBackgroundColor(Color("white"));
 	}
@@ -31,21 +33,28 @@ Engine::~Engine()
 		delete window;
 		window = nullptr;
 	}
+	
+	if (mouse != nullptr)
+	{
+		delete mouse;
+		mouse = nullptr;
+	}
 }
 
 void Engine::start()
 {
 	auto delta = 0.0f;
-	auto thisTime = 0;
-	auto lastTime = 0;
+
+	const auto FPS = 60;
+	const int DELAY_TIME = 1000.0f / FPS;
+
+	Uint32 frameStart, frameTime;
 
 	SDL_Event sdlEvent;
 
 	while (running)
 	{
-		thisTime = SDL_GetTicks();
-		delta = static_cast<float>(thisTime - lastTime) / 1000;
-		lastTime = thisTime;
+		frameStart = SDL_GetTicks();
 
 		while (SDL_PollEvent(&sdlEvent))
 		{
@@ -64,6 +73,33 @@ void Engine::start()
 					break;
 				}
 				break;
+			case SDL_MOUSEMOTION:
+				mouse->setPosition(sdlEvent.motion.x, sdlEvent.motion.y);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if(sdlEvent.button.button == SDL_BUTTON_LEFT)
+				{
+					mouse->setLeftPressed(true);
+					mouse->setLeftPressPosition(sdlEvent.button.x, sdlEvent.button.y);
+				}
+				else if(sdlEvent.button.button == SDL_BUTTON_RIGHT)
+				{
+					mouse->setRightPressed(true);
+					mouse->setRightPressPosition(sdlEvent.button.x, sdlEvent.button.y);
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				if (sdlEvent.button.button == SDL_BUTTON_LEFT)
+				{
+					mouse->setLeftPressed(false);
+					mouse->setLeftReleasePosition(sdlEvent.button.x, sdlEvent.button.y);
+				}
+				else if (sdlEvent.button.button == SDL_BUTTON_RIGHT)
+				{
+					mouse->setRightPressed(false);
+					mouse->setRightReleasePosition(sdlEvent.button.x, sdlEvent.button.y);
+				}
+				break;
 			default:
 				break;
 			}
@@ -71,10 +107,13 @@ void Engine::start()
 		update(delta);
 		render(window);
 
-		SDL_Delay(1);
+		frameTime = SDL_GetTicks() - frameStart;
+
+		if (frameTime < DELAY_TIME)
+		{
+			SDL_Delay(static_cast<int>(DELAY_TIME - frameTime));
+		}
 	}
-
-
 
 	SDL::stop();
 }
@@ -82,10 +121,12 @@ void Engine::start()
 void Engine::render(Screen *screen) const
 {
 	window->clear();
+	Keyboard keyboard;
 
 	if (currentState != nullptr)
 	{
 		currentState->onRender(screen);
+		currentState->renderWidgets(screen, mouse, &keyboard);
 	}
 
 	window->refresh();
@@ -108,6 +149,16 @@ void Engine::addSpritesheet(std::string key, std::string filename) const
 void Engine::addMusic(std::string key, std::string filename) const
 {
 	window->addMusic(key, filename);
+}
+
+void Engine::playMusic(std::string key)
+{
+	window->playMusic(key);
+}
+
+void Engine::stopMusic()
+{
+	window->stopMusic();
 }
 
 void Engine::stateUpdated()

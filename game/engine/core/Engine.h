@@ -9,6 +9,7 @@
 #include "../util/Color.h"
 #include "../graphics/Window.h"
 #include "../graphics/Screen.h"
+#include "../input/Mouse.h"
 
 class Engine : public StateContext
 {
@@ -19,11 +20,15 @@ public:
 	void start();
 	void addSpritesheet(std::string key, std::string filename) const;
 	void addMusic(std::string key, std::string filename) const;
+
+	void playMusic(std::string key) override;
+	void stopMusic() override;
 protected:
 	void stateUpdated() override;
 private:
 	bool running;
 	Window *window;
+	Mouse *mouse;
 	void update(float delta);
 	void render(Screen *screen) const;
 };

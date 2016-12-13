@@ -6,13 +6,15 @@
 #include "../entities/Score.h"
 #include "../../engine/core-entities/DrawableEntity.h"
 
-GameState::GameState(StateContext* context) : State(context),
+
+GameState::GameState(StateContext* context, Game* game) :	State(context),
 world(nullptr),
 player(nullptr),
 isDebug(Config::getBool("debug", false)),
 showGrid(false),
 showFps(false)
 {
+	this->game = game;
 }
 
 GameState::~GameState()
@@ -28,18 +30,27 @@ void GameState::onCreate()
 
 	world = new World(WORLD_GRAVITY);
 
-	LevelReader reader("res/maps/level1.tmx");
+	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());	
+
+	world	= game->getWorld();
+	player	= game->getPlayer();
+	ai		= game->getEnemy();
+	ball	= game->getBall();
+
+	LevelReader reader(game->getMap());
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
 
+  //Set Background.
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
+
 	auto size = 0.2f;
 	int counter = 0;
-	for (int x = 0; x < reader.getLevelHeight(); x++)
+	for (float x = 0; x < reader.getLevelHeight(); x++)
 	{
-		for (auto y = 0; y < reader.getLevelWidth(); y++)
+		for (float y = 0; y < reader.getLevelWidth(); y++)
 		{
 			if (tiles.at(counter) != 0)
 			{
@@ -47,7 +58,7 @@ void GameState::onCreate()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
 
 				//Add the sprite to the world
-				world->add(new DrawableEntity(sprite, (size * 2) * y, (size * 2) * x, size, size));
+				world->add(new DrawableEntity(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
 			}
 			counter++;
 		}
@@ -57,11 +68,14 @@ void GameState::onCreate()
 	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 	fpsCounter = new FpsCounter(true, 1200);
+  
+	//Add the player, ball and AI to the world
 	world->add(player);
-	world->add(ball);
 	world->add(ai);
+
 	world->add(fpsCounter);
 	world->add(new Score());
+	world->add(ball);
 
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
@@ -79,6 +93,9 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+  if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
+  
 	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
 	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
 	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
@@ -89,14 +106,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_LCTRL)) { if (player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
-	else if (!keyboard->isKeydown(KEY_LCTRL))
-	{
-		if (keyboard->isKeydown(KEY_LEFT)) { /*SHOOT LEFT*/ }
-		if (keyboard->isKeydown(KEY_RIGHT)) { /* SHOOT RIGHT */ }
-		ball->drop();
-	}
-
+	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
+	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
+	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
+	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }
+	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, false); } }
+	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }
+	//Cheat, give ball to AI
+	if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
+	//Cheat, get hit by AI
+	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 
 	player->move();
 	world->update();
