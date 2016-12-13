@@ -1,4 +1,7 @@
 #include "CreditsState.h"
+#include "../../engine/widgets/Button.h"
+#include "MenuState.h"
+#include "../../engine/core/StateContext.h"
 
 #define TARGET_SIZE 100
 #define Y_OFFSET 80
@@ -36,6 +39,8 @@ void CreditsState::onCreate()
 	remaining.push_back("Diede");
 	remaining.push_back("Stan");
 	remaining.push_back("Bram");
+
+	this->addWidget(new Button(20, 60, 80, 40, "<", this));
 
 	current = remaining[0];
 }
@@ -99,6 +104,14 @@ void CreditsState::onUpdate(Keyboard* keyboard)
 		{
 			currentY += 0.2;
 		}
+	}
+}
+
+void CreditsState::onClick(Button* button)
+{
+	if (button->getText() == "<")
+	{
+		context->setState(new MenuState(context));
 	}
 }
 
