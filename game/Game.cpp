@@ -1,7 +1,6 @@
 #include "Game.h"
 
 
-
 Game::Game()
 {
 	this->world = new World(WORLD_GRAVITY);
@@ -15,12 +14,12 @@ Game::Game()
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 
 	//Default settings
-	this->gameTime = 180;
+	this->gameTime = 3;
 	this->maxGoals = 5;
 
-	this->goalsTeamA = 0;
-	this->goalsTeamB = 0;
+	isOvertime = false;
 }
+
 
 
 Game::~Game()
@@ -50,6 +49,15 @@ Enemy* Game::getEnemy()
 Ball* Game::getBall()
 {
 	return this->ball;
+}
+
+void Game::begin()
+{
+	// add a countdown?
+	this->goalsTeamA = 0;
+	this->goalsTeamB = 0;
+	beginTime = std::chrono::system_clock::now();
+	timeLimit = beginTime + std::chrono::duration<int>(gameTime*60);
 }
 
 void Game::setTime(int minutes)
@@ -93,5 +101,10 @@ int Game::getTeamBGoals()
 
 int Game::getTimeRemaining()
 {
-	return gameTime;
+	return std::chrono::duration_cast<std::chrono::seconds>(timeLimit - std::chrono::system_clock::now()).count();
+}
+
+std::chrono::system_clock::time_point Game::getTimeLimit()
+{
+	return timeLimit;
 }

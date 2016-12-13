@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
+    <ClCompile Include="engine\core\AudioController.cpp" />
     <ClCompile Include="game\entities\Timer.cpp" />
     <ClCompile Include="game\states\CreditsState.cpp" />
     <ClCompile Include="engine\widgets\Button.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="engine\widgets\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\core\AudioController.h" />
     <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
     <ClInclude Include="engine\core-entities\DrawableEntity.h" />
     <ClInclude Include="game\entities\Enemy.h" />

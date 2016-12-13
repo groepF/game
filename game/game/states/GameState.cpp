@@ -15,6 +15,7 @@ isDebug(Config::getBool("debug", false)),
 showGrid(false)
 {
 	this->game = game;
+	this->game->begin();
 }
 
 GameState::~GameState()
@@ -94,6 +95,11 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if(game->getTimeRemaining() < 1 && !game->isOvertime)
+	{
+		game->isOvertime = true;
+	}
+
   if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
   
@@ -107,7 +113,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
 	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }

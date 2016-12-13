@@ -40,6 +40,7 @@
     <ClCompile Include="engine\widgets\Widget.cpp" />
     <ClCompile Include="engine\widgets\Label.cpp" />
     <ClCompile Include="game\entities\Timer.cpp" />
+    <ClCompile Include="engine\core\AudioController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -89,5 +90,6 @@
     <ClInclude Include="engine\widgets\Widget.h" />
     <ClInclude Include="engine\widgets\Label.h" />
     <ClInclude Include="game\entities\Timer.h" />
+    <ClInclude Include="engine\core\AudioController.h" />
   </ItemGroup>
 </Project>

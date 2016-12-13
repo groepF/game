@@ -3,6 +3,8 @@
 #include "game/entities/Player.h"
 #include "game/entities/Ball.h"
 #include "game/entities/Enemy.h"
+#include "chrono"
+
 
 class Game
 {
@@ -16,6 +18,8 @@ public:
 	Enemy* getEnemy();
 	Ball* getBall();
 
+	void begin();
+
 	void setTime(int minutes);
 	void setGoals(int goals);
 	void setMap(int id);
@@ -25,12 +29,18 @@ public:
 
 	int getTimeRemaining();
 
+	std::chrono::system_clock::time_point getTimeLimit();
+
+	bool isOvertime;
+
 private:
 	//Settings
 	int gameTime; //Default 180(seconden)
 	int maxGoals;
 	float gravity;
 	char* map;
+	std::chrono::system_clock::time_point beginTime;
+	std::chrono::system_clock::time_point timeLimit;
 
 	int goalsTeamA;
 	int goalsTeamB;

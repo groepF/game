@@ -3,11 +3,11 @@
 #include "../../Game.h"
 
 
-Score::Score(Game* game, int x, int y, int width, int height, Color color) : TextualEntity("score", x, y, width, height, color), game(game){}
+Score::Score(Game* game, int x, int y, int width, int height, Color color) : TextualEntity("score", x, y, width, height, color), game(game) {}
 
 std::string Score::getText()
 {
-	return this->game->getTeamAGoals() + " - " + game->getTeamBGoals();
+	return std::to_string(this->game->getTeamAGoals()) + " - " + std::to_string(game->getTeamBGoals());
 }
 
 Color Score::getColor()
