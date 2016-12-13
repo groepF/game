@@ -73,14 +73,13 @@ void MenuState::onClick(Button* button)
 
 	if (text == "Play")
 	{
-		Log::debug("clicked");
 		context->setState(new GameSelectionState(context));
 	}
 	else if(text == "Credits")
 	{
 		context->setState(new CreditsState(context));
 	}
-	else if (text == "Quit")
+	else if (text == "Quit Game")
 	{
 		exit(0);
 	}
