@@ -145,6 +145,16 @@ void Engine::addMusic(std::string key, std::string filename) const
 	window->addMusic(key, filename);
 }
 
+void Engine::playMusic(std::string key)
+{
+	window->playMusic(key);
+}
+
+void Engine::stopMusic()
+{
+	window->stopMusic();
+}
+
 void Engine::stateUpdated()
 {
 	currentState->onCreate();

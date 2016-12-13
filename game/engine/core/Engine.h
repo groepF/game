@@ -20,6 +20,9 @@ public:
 	void start();
 	void addSpritesheet(std::string key, std::string filename) const;
 	void addMusic(std::string key, std::string filename) const;
+
+	void playMusic(std::string key) override;
+	void stopMusic() override;
 protected:
 	void stateUpdated() override;
 private:
