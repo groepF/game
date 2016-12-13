@@ -1,7 +1,7 @@
 #include "Mouse.h"
 
 
-Mouse::Mouse(): x(0), y(0), leftPressed(false), rightPressed(false)
+Mouse::Mouse(): x(0), y(0), leftPressX(0), leftPressY(0), rightPressX(0), rightPressY(0), leftReleaseX(0), leftReleaseY(0), rightReleaseX(0), rightReleaseY(0), leftPressed(false), rightPressed(false)
 {
 }
 
@@ -36,14 +36,16 @@ void Mouse::setRightPressed(bool pressed)
 	rightPressed = pressed;
 }
 
-void Mouse::setLeftPressX(int leftPressX)
+void Mouse::setLeftPressPosition(int leftPressX, int leftPressY)
 {
 	this->leftPressX = leftPressX;
+	this->leftPressY = leftPressY;
 }
 
-void Mouse::setLeftPressY(int leftPressY)
+void Mouse::setRightPressPosition(int rightPressX, int rightPressY)
 {
-	this->leftPressY = leftPressY;
+	this->rightPressX = rightPressX;
+	this->rightPressY = rightPressY;
 }
 
 int Mouse::getLeftPressX() const
@@ -56,6 +58,48 @@ int Mouse::getLeftPressY() const
 	return leftPressY;
 }
 
+int Mouse::getRightPressX() const
+{
+	return rightPressX;
+}
+
+int Mouse::getRightPressY() const
+{
+	return rightPressY;
+}
+
+void Mouse::setLeftReleasePosition(int leftReleaseX, int leftReleaseY)
+{
+	this->leftReleaseX = leftReleaseX;
+	this->leftReleaseY = leftReleaseY;
+}
+
+void Mouse::setRightReleasePosition(int rightReleaseX, int rightReleaseY)
+{
+	this->rightReleaseX = rightReleaseX;
+	this->rightReleaseY = rightReleaseY;
+}
+
+int Mouse::getLeftReleaseX() const
+{
+	return leftReleaseX;
+}
+
+int Mouse::getLeftReleaseY() const
+{
+	return leftReleaseY;
+}
+
+int Mouse::getRightReleaseX() const
+{
+	return rightReleaseX;
+}
+
+int Mouse::getRightReleaseY() const
+{
+	return rightReleaseY;
+}
+
 bool Mouse::isLeftPressed() const
 {
 	return leftPressed;
@@ -64,4 +108,16 @@ bool Mouse::isLeftPressed() const
 bool Mouse::isRightPressed() const
 {
 	return rightPressed;
+}
+
+void Mouse::consumeEvent()
+{
+	leftReleaseX = 0;
+	leftReleaseY = 0;
+	rightReleaseX = 0;
+	rightReleaseY = 0;
+	leftPressX = 0;
+	leftPressY = 0;
+	rightPressX = 0;
+	rightPressY = 0;
 }

@@ -22,10 +22,10 @@ public:
 	void deselect();
 private:
 	bool selected;
-	bool hovering;
+	bool hovering, pressing;
 	int x, y, width, height;
 	std::string text;
-	Sprite *hovered, *normal, *spriteSelected;
+	Sprite *hovered, *normal, *pressed;
 	OnClickListener *listener;
 };
 

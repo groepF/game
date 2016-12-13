@@ -3,8 +3,9 @@
 #include "../../engine/util/Config.h"
 #include "GameState.h"
 #include "GameSelectionState.h"
+#include "CreditsState.h"
 
-MenuState::MenuState(StateContext* context): State(context)
+MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
 }
 
@@ -41,9 +42,13 @@ void MenuState::onCreate()
 
 	y += 60;
 
+	this->addWidget(new Button("credits", centerX, y, buttonWidth, buttonHeight, "Credits", this));
+
+	y += 60;
+
 	this->addWidget(new Button("quit", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
-	this->logo = new Sprite("foxtrot_menu", 0, 0, 514, 129);
+	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
 }
 
 void MenuState::onRender(Screen* screen)
@@ -51,7 +56,7 @@ void MenuState::onRender(Screen* screen)
 	screen->render(background, 0, 0);
 	screen->render(logo,
 	               (screen->getWidth() / 2) - (logo->getWidth() / 2),
-	               30);
+	               40);
 }
 
 void MenuState::onUpdate(Keyboard* keyboard)
@@ -65,12 +70,17 @@ void MenuState::onDestroy()
 void MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
+
 	if (text == "Play")
 	{
 		Log::debug("clicked");
 		context->setState(new GameSelectionState(context));
 	}
-	else if (text == "Quit Game")
+	else if(text == "Credits")
+	{
+		context->setState(new CreditsState(context));
+	}
+	else if (text == "Quit")
 	{
 		exit(0);
 	}
