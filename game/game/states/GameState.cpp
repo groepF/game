@@ -4,12 +4,13 @@
 #include "../map/LevelReader.h"
 #include "../../engine/Entities/FpsCounter.h"
 
-GameState::GameState(StateContext* context) :
+GameState::GameState(StateContext* context, Game* game) :
 	State(context),
 	world(nullptr),
 	player(nullptr),
 	showingFPS(true)
 {
+	this->game = game;
 }
 
 GameState::~GameState()
@@ -24,17 +25,22 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());
+	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());	
 
-	world = new World(WORLD_GRAVITY);
+	world	= game->getWorld();
+	player	= game->getPlayer();
+	ai		= game->getEnemy();
+	ball	= game->getBall();
 
-	LevelReader reader("res/maps/level1.tmx");
+	LevelReader reader(game->getMap());
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
 	
+	//Set Background
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
+
 	auto size = 0.2f;
 	int counter = 0;
 	for (float x = 0; x < reader.getLevelHeight(); x++)
@@ -53,12 +59,11 @@ void GameState::onCreate()
 		}
 	}
 
-	player = new Player((size * 2) * 3 + 0.2f, (size * 2) * 1 + 0.2f);
-	ai = new Enemy((size * 2) * 61 + 0.2f, (size * 2) * 1 + 0.2f);
-	ball = new Ball((size * 2) * 32 + 0.2f, (size * 2) * 1 + 0.2f);
+	//Add the player, ball and AI to the world
 	world->add(player);
 	world->add(ai);
 	world->add(ball);
+
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
 }

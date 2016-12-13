@@ -2,6 +2,7 @@
 #include "../../engine/widgets/Button.h"
 #include "../../engine/util/Config.h"
 #include "GameState.h"
+#include "GameSelectionState.h"
 #include "CreditsState.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
@@ -37,15 +38,15 @@ void MenuState::onCreate()
 	int centerY = (height / 2) - (buttonHeight / 2);
 	int y = centerY - 30;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Start", this));
+	this->addWidget(new Button("play", centerX, y, buttonWidth, buttonHeight, "Play", this));
 
 	y += 60;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Credits", this));
+	this->addWidget(new Button("credits", centerX, y, buttonWidth, buttonHeight, "Credits", this));
 
 	y += 60;
 
-	this->addWidget(new Button(centerX, y, buttonWidth, buttonHeight, "Quit", this));
+	this->addWidget(new Button("quit", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
 }
@@ -69,9 +70,11 @@ void MenuState::onDestroy()
 void MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
-	if (text == "Start")
+
+	if (text == "Play")
 	{
-		context->setState(new GameState(context));
+		Log::debug("clicked");
+		context->setState(new GameSelectionState(context));
 	}
 	else if(text == "Credits")
 	{

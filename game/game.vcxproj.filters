@@ -93,6 +93,13 @@
     <ClCompile Include="engine\widgets\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\states\GameSelectionState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\widgets\Label.cpp">
     <ClCompile Include="game\states\CreditsState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -194,7 +201,17 @@
     <ClInclude Include="engine\input\OnClickListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="game\states\GameSelectionState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\widgets\Label.h">
+=======
     <ClInclude Include="game\states\CreditsState.h">
+>>>>>>> develop
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

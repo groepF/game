@@ -40,7 +40,7 @@ void CreditsState::onCreate()
 	remaining.push_back("Stan");
 	remaining.push_back("Bram");
 
-	this->addWidget(new Button(20, 60, 80, 40, "<", this));
+	this->addWidget(new Button("back", 20, 60, 80, 40, "<", this));
 
 	current = remaining[0];
 }

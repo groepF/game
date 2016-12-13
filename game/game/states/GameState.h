@@ -7,10 +7,12 @@
 #include "../../engine/core/StateContext.h"
 #include "../entities/Ball.h"
 #include "../entities/Enemy.h"
+#include "../../Game.h"
+#include "../entities/Enemy.h"
 
 class GameState : public State {
 public:
-	GameState(StateContext* context);
+	GameState(StateContext* context, Game* game);
 	~GameState();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
@@ -18,6 +20,7 @@ public:
 	void onDestroy() final;
 
 private:
+	Game *game;
 	World *world;
 	Player *player;
 	Enemy *ai;
