@@ -10,6 +10,7 @@
 #include <SDL/SDL_mixer.h>
 #include "Screen.h"
 #include <SDL/SDL_ttf.h>
+#include "../core/AudioController.h"
 
 class Window : public Screen
 {
@@ -46,6 +47,7 @@ public:
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	AudioController audio;
 	std::map<std::string, SDL_Texture*> textures;
 	std::map<std::string, Mix_Music*> music;
 
