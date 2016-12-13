@@ -4,7 +4,7 @@
 #include "../world/Body.h"
 #include "../graphics/render-strategies/data-providers/ITextRenderDataPorvider.h"
 
-class TextualEntity : public Body, public ITextRenderDataPorvider
+class TextualEntity : public Body, public ITextRenderDataProvider
 {
 public:
 	~TextualEntity() = default;
@@ -25,7 +25,7 @@ public:
 	std::string getText() override;
 	Color getColor() override;
 	int getX() override;
-	virtual int getY() override;
+	int getY() override;
 	int getWidth() override;
 	int getHeight() override;
 
@@ -33,27 +33,27 @@ public:
 protected:
 
 	/*
-	 * An sting to identify the object with.
+	 * An string to identify the object with.
 	 */
 	std::string identifier;
 
 	/*
-	 * The amount of pixcels from the left.
+	 * The amount of pixels from the left.
 	 */
 	int x;
 
 	/*
-	* The amount of pixcels from the top.
+	* The amount of pixels from the top.
 	*/
 	int y;
 
 	/*
-	* The amount of pixcels the text is wide.
+	* The amount of pixels the text is wide.
 	*/
 	int width;
 
 	/*
-	* The amount of pixcels the text is high.
+	* The amount of pixels the text is high.
 	*/
 	int height;
 

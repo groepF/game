@@ -9,11 +9,11 @@
 class RenderTextStrategy : public IRenderStrategy
 {
 public:
-	RenderTextStrategy(ITextRenderDataPorvider* dataProvider);
+	RenderTextStrategy(ITextRenderDataProvider* dataProvider);
 	void Render(Screen& screen) override;
 
 private:
 	TTF_Font* font;
-	ITextRenderDataPorvider* dataProvider;
+	ITextRenderDataProvider* dataProvider;
 };
 

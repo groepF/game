@@ -1,10 +1,10 @@
 #pragma once
 #include "../../../util/Color.h"
 
-class ITextRenderDataPorvider
+class ITextRenderDataProvider
 {
 public:
-	virtual ~ITextRenderDataPorvider() {}
+	virtual ~ITextRenderDataProvider() {}
 
 	virtual std::string getText() = 0;
 	virtual Color getColor() = 0;

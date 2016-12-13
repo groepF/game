@@ -5,7 +5,7 @@
 #include "../../util/Color.h"
 #include "../../graphics/Screen.h"
 
-RenderTextStrategy::RenderTextStrategy(ITextRenderDataPorvider* dataProvider) : font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
+RenderTextStrategy::RenderTextStrategy(ITextRenderDataProvider* dataProvider) : font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
 {
 	this->dataProvider = dataProvider;
 }
