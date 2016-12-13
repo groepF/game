@@ -1,7 +1,8 @@
 #pragma once
 #include "../../engine/core/State.h"
+#include "../../engine/input/OnClickListener.h"
 
-class CreditsState : public State
+class CreditsState : public State, public OnClickListener
 {
 public:
 
@@ -12,6 +13,8 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
+
+	void onClick(Button* button) final;
 
 private:
 	Sprite *background, *logo;
