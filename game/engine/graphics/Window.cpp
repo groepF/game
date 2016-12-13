@@ -32,15 +32,16 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	if(this->fullscreen)
+	if (this->fullscreen)
 	{
 		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	} else
+	}
+	else
 	{
 		SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
 	}
-	
+
 
 	if (!(this->window) || !(this->renderer))
 	{
@@ -225,10 +226,11 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 }
 
 void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop) const
+  
 {
 	if (font)
 	{
-		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str(), SDL_Color{ color.r(), color.g(), color.b() }) };
+		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 		int w = width, h = height;
@@ -244,7 +246,8 @@ void Window::renderText(std::string message, Color color, int x, int y, int widt
 
 		SDL_RenderCopyEx(renderer, Message, nullptr, &Message_rect, angle, nullptr, SDL_FLIP_NONE); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
 		SDL_DestroyTexture(Message);
-	}else
+	}
+	else
 	{
 		Log::error("Font was not correctly loaded. Can't output text on screen.");
 	}

@@ -2,24 +2,20 @@
 #include <SDL/SDL.h>
 #include <sstream>
 #include "../util/Log.h"
-#include "../graphics/Screen.h"
+#include "../graphics/render-strategies/RenderTextStrategy.h"
+#include "DrawableEntity.h"
 
-FpsCounter::FpsCounter()
+FpsCounter::FpsCounter(bool showFps, int x, int y, int width, int height, Color color) : TextualEntity("fps", x, y, width, height, color)
 {
 	// Set all frame times to 0ms.
 	memset(frametimes, 0, sizeof(frametimes));
 	framecount = 0;
 	framespersecond = 0;
 	frametimelast = SDL_GetTicks();
+	this->isShown = showFps;
 }
 
-
-void FpsCounter::outputFPS(Screen& screen)
-{
-	screen.renderText(std::to_string(getCurrentFps()).c_str(), Color("white"), 10, 0, 50, 40);
-}
-
-int FpsCounter::getCurrentFps()
+void FpsCounter::CalculateCurrentFps()
 {
 	Uint32 frametimesindex;
 	Uint32 getticks;
@@ -71,5 +67,27 @@ int FpsCounter::getCurrentFps()
 
 	// now to make it an actual frames per second value...
 	framespersecond = 1000.f / framespersecond;
-	return framespersecond;
+}
+
+void FpsCounter::Render(Screen& screen, bool debug) const
+{
+	if (isShown)
+	{
+		TextualEntity::Render(screen, debug);
+	}
+}
+
+std::string FpsCounter::getText()
+{
+	return std::to_string(static_cast<int>(std::round(framespersecond)));
+}
+
+void FpsCounter::setDefaultRenderStrategy()
+{
+	renderStrategy = std::make_shared<RenderTextStrategy>(RenderTextStrategy(this));
+}
+
+void FpsCounter::toggle()
+{
+	isShown = !isShown;
 }

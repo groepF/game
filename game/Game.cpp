@@ -17,6 +17,9 @@ Game::Game()
 	//Default settings
 	this->gameTime = 180;
 	this->maxGoals = 5;
+
+	this->goalsTeamA = 0;
+	this->goalsTeamB = 0;
 }
 
 
@@ -76,4 +79,19 @@ void Game::setMap(int id)
 		this->map = "./res/maps/level1.tmx";
 		break;
 	}
+}
+
+int Game::getTeamAGoals()
+{
+	return goalsTeamA;
+}
+
+int Game::getTeamBGoals()
+{
+	return goalsTeamB;
+}
+
+int Game::getTimeRemaining()
+{
+	return gameTime;
 }

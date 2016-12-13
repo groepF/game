@@ -3,7 +3,7 @@
 #include "../../engine/core/State.h"
 #include "../../engine/world/World.h"
 #include "../entities/Player.h"
-#include "../../engine/Entities/FpsCounter.h"
+#include "../../engine/core-entities/FpsCounter.h"
 #include "../../engine/core/StateContext.h"
 #include "../entities/Ball.h"
 #include "../entities/Enemy.h"
@@ -25,7 +25,9 @@ private:
 	Player *player;
 	Enemy *ai;
 	Ball *ball;
-	std::unique_ptr<FpsCounter> fpsCounter;
-	bool showingFPS;
+	FpsCounter* fpsCounter;
 	const float WORLD_GRAVITY = 9.81f;
+	bool isDebug;
+	bool showGrid;
+	bool showHybricGrid;
 };

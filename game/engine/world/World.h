@@ -17,11 +17,9 @@ public:
 	void render(Screen *screen, const bool debug = false);
 	void add(Body *body);
 	void addBackground(Sprite* s);
-
 private:
 	b2World *world;
 	std::vector<Body*> bodies;
 	Sprite* background;
 
-	const int PPM = 50;
 };
