@@ -44,16 +44,17 @@ Engine::~Engine()
 void Engine::start()
 {
 	auto delta = 0.0f;
-	auto thisTime = 0;
-	auto lastTime = 0;
+
+	const auto FPS = 60;
+	const int DELAY_TIME = 1000.0f / FPS;
+
+	Uint32 frameStart, frameTime;
 
 	SDL_Event sdlEvent;
 
 	while (running)
 	{
-		thisTime = SDL_GetTicks();
-		delta = static_cast<float>(thisTime - lastTime) / 1000;
-		lastTime = thisTime;
+		frameStart = SDL_GetTicks();
 
 		while (SDL_PollEvent(&sdlEvent))
 		{
@@ -106,7 +107,12 @@ void Engine::start()
 		update(delta);
 		render(window);
 
-		SDL_Delay(1);
+		frameTime = SDL_GetTicks() - frameStart;
+
+		if (frameTime < DELAY_TIME)
+		{
+			SDL_Delay(static_cast<int>(DELAY_TIME - frameTime));
+		}
 	}
 
 	SDL::stop();
