@@ -96,13 +96,13 @@ void CreditsState::onUpdate(Keyboard* keyboard)
 {
 	if (current != "") {
 		if (width > TARGET_SIZE && height > TARGET_SIZE) {
-			angle += 0.4;
-			width -= 1;
-			height -= 1;
+			angle += 1.6;
+			width -= 4;
+			height -= 4;
 		}
 		else if (currentY < targetY)
 		{
-			currentY += 0.2;
+			currentY += 0.8;
 		}
 	}
 }
