@@ -47,9 +47,9 @@ void GameSelectionState::onCreate()
 
 
 	//Add game setting labels
-	this->addWidget(new Label(300, 200, widgetWidth, widgetHeight, "Time:"));
-	this->addWidget(new Label(300, 260, widgetWidth, widgetHeight, "Goals:"));
-	this->addWidget(new Label(300, 320, widgetWidth, widgetHeight, "Map:"));
+	this->addWidget(new Label(200, 200, widgetWidth, widgetHeight, "Select Gametime:"));
+	this->addWidget(new Label(200, 260, widgetWidth, widgetHeight, "Select Goals:"));
+	this->addWidget(new Label(200, 320, widgetWidth, widgetHeight, "Select Map:"));
 
 	//Creating buttons and add them to a vector
 
