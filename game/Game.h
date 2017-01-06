@@ -35,6 +35,8 @@ public:
 
 	void teamBScored();
 
+	bool hasWinner() const;
+
 	std::chrono::system_clock::time_point getTimeLimit();
 
 	void endGame();

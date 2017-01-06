@@ -129,6 +129,11 @@ void Game::teamBScored()
 	goalsTeamB++;
 }
 
+bool Game::hasWinner() const
+{
+	return goalsTeamA - goalsTeamB != 0;
+}
+
 std::chrono::system_clock::time_point Game::getTimeLimit()
 {
 	return timeLimit;
@@ -173,11 +178,11 @@ void Game::endGame()
 	Highscore::setMostBallposession(ballPossession);
 	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
 	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
-	Highscore::setLongestGame(getElapsedTime());
+	Highscore::setLongestGame(getElapsedTime() + 1);
 	if (goalsTeamA > goalsTeamB)
 	{
-		Highscore::setFastestWin(getElapsedTime());
-		Highscore::setFastestGoal(firstGoalTime);
+		Highscore::setFastestWin(getElapsedTime() + 1);
+		Highscore::setFastestGoal(firstGoalTime + 1);
 	}
 
 	Highscore::save();

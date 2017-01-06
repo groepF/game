@@ -1,6 +1,6 @@
-Most goals in one match:10
+Most goals in one match:2
 Win with most score difference:2
-Most ball posession ever:60%
-Longest game:150 seconds
-Fastest goal:10 seconds
-Fastest win:10 seconds
+Most ball posession ever:100%
+Longest game:60 seconds
+Fastest goal:60 seconds
+Fastest win:60 seconds

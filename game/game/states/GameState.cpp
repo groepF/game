@@ -6,6 +6,7 @@
 #include "../entities/Score.h"
 #include "../../engine/core-entities/DrawableEntity.h"
 #include "../entities/Timer.h"
+#include "MenuState.h"
 
 
 GameState::GameState(StateContext* context, Game* game) :	State(context),
@@ -95,9 +96,16 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
-	if(game->getTimeRemaining() < 1 && !game->isOvertime)
+	if (game->getTimeRemaining() < 1 && !game->isOvertime)
 	{
 		game->isOvertime = true;
+		game->teamAScored();
+		game->teamAScored();
+		if (game->hasWinner()) {
+			game->endGame();
+			context->setState(new MenuState(context));
+			return;
+		}
 	}
 
 	if(ball->isHeldBy(ai))
