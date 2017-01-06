@@ -35,6 +35,8 @@ int main(int argc, char* argv[])
 
 	auto debug = Config::getBool("debug", false);
 
+	Highscore::load();
+
 	if (debug)
 	{
 		engine.setState(new MenuState(&engine));

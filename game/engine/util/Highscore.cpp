@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "Config.h"
 
 int Highscore::mostGoalsInOneMatch = 0;
 int Highscore::scoreDifference = 0;
@@ -20,7 +21,13 @@ std::vector<std::string> Highscore::load()
 	{
 		while (getline(highscores, line))
 		{
+			if (line.size() < 1)
+			{
+				continue;
+			}
 			labels.push_back(line);
+			auto value = String::split(String::split(line, ':').at(1), ' ').at(0);
+			parseValue(String::split(line, ':').at(0), std::stoi(value));
 		}
 		highscores.close();
 	}
@@ -38,7 +45,7 @@ void Highscore::save()
 	{
 		highscores << "Most goals in one match:" + std::to_string(Highscore::getMostGoalsInOneMatch()) + "\n";
 		highscores << "Win with most score difference:" + std::to_string(Highscore::getScoreDifference()) + "\n";
-		highscores << "Most ball posession ever:" + std::to_string(Highscore::getMostBallPosession()) + "%\n";
+		highscores << "Most ball posession ever:" + std::to_string(Highscore::getMostBallPosession()) + " %\n";
 		highscores << "Longest game:" + std::to_string(Highscore::getLongestGame()) + " seconds\n";
 		highscores << "Fastest goal:" + std::to_string(Highscore::getFastestGoal()) + " seconds\n";
 		highscores << "Fastest win:" + std::to_string(Highscore::getFastestWin()) + " seconds\n";
@@ -125,4 +132,32 @@ int Highscore::getFastestGoal()
 int Highscore::getFastestWin()
 {
 	return Highscore::fastestWin;
+}
+
+void Highscore::parseValue(const std::string name, const int value)
+{
+	if (name == "Most goals in one match")
+	{
+		Highscore::mostGoalsInOneMatch = value;
+	} 
+	else if (name == "Win with most score difference")
+	{
+		Highscore::scoreDifference = value;
+	}
+	else if (name == "Most ball posession ever")
+	{
+		Highscore::mostBallposession = value;
+	}
+	else if (name == "Longest game")
+	{
+		Highscore::longestGame = value;
+	}
+	else if (name == "Fastest goal")
+	{
+		Highscore::fastestGoal = value;
+	}
+	else if (name == "Fastest win")
+	{
+		Highscore::fastestWin = value;
+	}
 }
