@@ -15,8 +15,11 @@ public:
 
 	bool onClick(Button* button) final;
 
+	void chooseRandomAd();
+
 private:
 	Sprite* background;
 	Sprite* logo;
+	Sprite* ad;
 };
 

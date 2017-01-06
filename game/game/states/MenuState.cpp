@@ -25,11 +25,19 @@ MenuState::~MenuState()
 		delete logo;
 		logo = nullptr;
 	}
+
+	if (ad != nullptr)
+	{
+		delete ad;
+		ad = nullptr;
+	}
 }
 
 void MenuState::onCreate()
 {
 	this->background = new Sprite("menu_background", 0, 0, 1300, 720);
+
+	this->chooseRandomAd();
 
 	int buttonWidth = 300;
 	int buttonHeight = 50;
@@ -39,7 +47,7 @@ void MenuState::onCreate()
 
 	int centerX = (width / 2) - (buttonWidth / 2);
 	int centerY = (height / 2) - (buttonHeight / 2);
-	int y = centerY - 30;
+	int y = centerY - 120;
 
 	this->addWidget(new Button("play", centerX, y, buttonWidth, buttonHeight, "Play", this));
 
@@ -67,6 +75,7 @@ void MenuState::onCreate()
 void MenuState::onRender(Screen* screen)
 {
 	screen->render(background, 0, 0);
+	screen->render(ad, (screen->getWidth() / 2) - (ad->getWidth() / 2), screen->getHeight() - ad->getHeight());
 	screen->render(logo,
 	               (screen->getWidth() / 2) - (logo->getWidth() / 2),
 	               40);
@@ -107,4 +116,11 @@ bool MenuState::onClick(Button* button)
 		exit(0);
 	}
 	return false;
+}
+
+void MenuState::chooseRandomAd()
+{
+	auto random = Math::random(1, 3);
+
+	ad = new Sprite("ad_" + std::to_string(random), 0, 0, 400, 130);
 }
