@@ -172,6 +172,7 @@
     <ClCompile Include="engine\widgets\Widget.cpp" />
     <ClCompile Include="engine\widgets\Label.cpp" />
     <ClCompile Include="game\states\TransitionState.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\AchievementsState.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="engine\widgets\Widget.h" />
     <ClInclude Include="engine\widgets\Label.h" />
     <ClInclude Include="game\states\TransitionState.h" />
+    <ClInclude Include="game\states\HelpState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

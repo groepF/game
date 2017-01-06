@@ -4,9 +4,8 @@
 #include "../../engine/core/StateContext.h"
 
 
-AchievementsState::AchievementsState(StateContext* context): State(context)
+AchievementsState::AchievementsState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
-
 }
 
 AchievementsState::~AchievementsState()
@@ -26,7 +25,7 @@ AchievementsState::~AchievementsState()
 void AchievementsState::onCreate()
 {
 	this->background = new Sprite("menu_background", 0, 0, 1300, 720);
-	this->logo = new Sprite("credits", 0, 0, 405, 93);
+	this->logo = new Sprite("achievements", 0, 0, 597, 78);
 
 	this->addWidget(new Button("back", 20, 60, 80, 40, "<", this));
 }
