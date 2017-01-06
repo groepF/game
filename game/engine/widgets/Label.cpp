@@ -19,7 +19,7 @@ void Label::onRender(Screen* screen)
 {
 	//sprite, x, y, 0, 255, width, height
 	//screen->render();
-	screen->renderText(text, color, x, y, screen->getWidth(), screen->getHeight(), 0, false, gravity);
+	screen->renderText(text, color, x, y, width, height, 0, false, gravity);
 }
 
 bool Label::onUpdate(Keyboard* keyboard, Mouse* mouse)

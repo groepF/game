@@ -32,8 +32,8 @@ void AchievementsState::onCreate()
 	for (auto index = 0; index < labels.size(); index++)
 	{
 		auto strings = String::split(labels.at(index), ':');
-		this->addWidget(new Label(-650, 200 + (index * 30), 0, 0, strings.at(0), Color{"white"}, 2));
-		this->addWidget(new Label(700, 200 + (index * 30), 0, 0, strings.at(1), Color{"red"}, 0));
+		this->addWidget(new Label(500, 200 + ((index + 2) * 30), 200, 80, strings.at(0) + ":", Color{"cyan"}, 2));
+		this->addWidget(new Label(725, 200 + ((index + 2) * 30), 200, 80, strings.at(1), Color{"white"}, 0));
 	}
 
 	this->background = new Sprite("menu_background", 0, 0, 1300, 720);

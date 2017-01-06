@@ -253,7 +253,7 @@ void Window::renderText(std::string message, Color color, int x, int y, int widt
 			Message_rect.y = y; // controls the rect's y coordinte		
 		} else if (gravity == GRAVITY_RIGHT)
 		{
-			Message_rect.x = x + width - w;  //controls the rect's x coordinate 		
+			Message_rect.x = x + (width - w);  //controls the rect's x coordinate 		
 			Message_rect.y = y; // controls the rect's y 
 		}
 		Message_rect.w = w; // controls the width of the rect		
