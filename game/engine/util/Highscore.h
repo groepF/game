@@ -23,5 +23,7 @@ public:
 	static int getFastestGoal();
 	static int getFastestWin();
 
+	static void parseValue(const std::string name, const int value);
+
 	static int mostGoalsInOneMatch, scoreDifference, mostBallposession, longestGame, fastestGoal, fastestWin;
 };
