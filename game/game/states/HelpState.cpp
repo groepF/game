@@ -63,10 +63,11 @@ void HelpState::onDestroy()
 	}
 }
 
-void HelpState::onClick(Button* button)
+bool HelpState::onClick(Button* button)
 {
 	if (button->getText() == "<")
 	{
 		context->setState(new MenuState(context));
 	}
+	return false;
 }

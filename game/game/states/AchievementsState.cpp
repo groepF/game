@@ -60,10 +60,11 @@ void AchievementsState::onDestroy()
 
 }
 
-void AchievementsState::onClick(Button* button)
+bool AchievementsState::onClick(Button* button)
 {
 	if (button->getText() == "<")
 	{
 		context->setState(new MenuState(context));
 	}
+	return false;
 }
