@@ -5,6 +5,7 @@
 #include "GameSelectionState.h"
 #include "CreditsState.h"
 #include "TransitionState.h"
+#include "AchievementsState.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
@@ -47,6 +48,10 @@ void MenuState::onCreate()
 
 	y += 60;
 
+	this->addWidget(new Button("achievements", centerX, y, buttonWidth, buttonHeight, "Achievements", this));
+
+	y += 60;
+
 	this->addWidget(new Button("quit", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
@@ -80,7 +85,11 @@ void MenuState::onClick(Button* button)
 		//context->setState(new GameSelectionState(context));
 		context->setState(new TransitionState(context));
 	}
-	else if(text == "Credits")
+	else if (text == "Achievements")
+	{
+		context->setState(new AchievementsState(context));
+	}
+	else if (text == "Credits")
 	{
 		context->setState(new CreditsState(context));
 	}

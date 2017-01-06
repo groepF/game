@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\states\AchievementsState.cpp" />
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
     <ClCompile Include="engine\core\AudioController.cpp" />
     <ClCompile Include="game\entities\Timer.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="game\states\TransitionState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\states\AchievementsState.h" />
     <ClInclude Include="engine\core\AudioController.h" />
     <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
     <ClInclude Include="engine\core-entities\DrawableEntity.h" />

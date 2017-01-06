@@ -42,6 +42,7 @@
     <ClCompile Include="game\entities\Timer.cpp" />
     <ClCompile Include="engine\core\AudioController.cpp" />
     <ClCompile Include="game\states\TransitionState.cpp" />
+    <ClCompile Include="game\states\AchievementsState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -93,5 +94,6 @@
     <ClInclude Include="game\entities\Timer.h" />
     <ClInclude Include="engine\core\AudioController.h" />
     <ClInclude Include="game\states\TransitionState.h" />
+    <ClInclude Include="game\states\AchievementsState.h" />
   </ItemGroup>
 </Project>
