@@ -70,9 +70,9 @@ void GameSelectionState::onCreate()
 	goalButtons.push_back(btn_goals10);
 
 	//Maps
-	Button* btn_level1 = new Button("level1", 500, 320, smallButtonWidth, smallButtonHeight, "Level 1", this);
-	Button* btn_level2 = new Button("level2", 600, 320, smallButtonWidth, smallButtonHeight, "Level 2", this);
-	Button* btn_level3 = new Button("level3", 700, 320, smallButtonWidth, smallButtonHeight, "Level 3", this);
+	Button* btn_level1 = new Button("level1", 500, 320, smallButtonWidth, smallButtonHeight, "Lvl 1", this);
+	Button* btn_level2 = new Button("level2", 600, 320, smallButtonWidth, smallButtonHeight, "Lvl 2", this);
+	Button* btn_level3 = new Button("level3", 700, 320, smallButtonWidth, smallButtonHeight, "Lvl 3", this);
 	mapButtons.push_back(btn_level1);
 	mapButtons.push_back(btn_level2);
 	mapButtons.push_back(btn_level3);
