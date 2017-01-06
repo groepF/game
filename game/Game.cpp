@@ -101,12 +101,12 @@ int Game::getTeamBGoals()
 	return goalsTeamB;
 }
 
-int Game::getTimeRemaining()
+int Game::getTimeRemaining() const
 {
 	return std::chrono::duration_cast<std::chrono::seconds>(timeLimit - std::chrono::system_clock::now()).count();
 }
 
-int Game::getElapsedTime()
+int Game::getElapsedTime() const
 {
 	return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - beginTime).count();
 }
@@ -132,6 +132,13 @@ void Game::teamBScored()
 bool Game::hasWinner() const
 {
 	return goalsTeamA - goalsTeamB != 0;
+}
+
+void Game::ballPossessionCheat()
+{
+	ballPossessionTeamA = 1;
+	ballPossessionTeamB = 0;
+	// makes it 100% for team A
 }
 
 std::chrono::system_clock::time_point Game::getTimeLimit()
@@ -178,11 +185,11 @@ void Game::endGame()
 	Highscore::setMostBallposession(ballPossession);
 	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
 	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
-	Highscore::setLongestGame(getElapsedTime() + 1);
+	Highscore::setLongestGame(getElapsedTime());
 	if (goalsTeamA > goalsTeamB)
 	{
-		Highscore::setFastestWin(getElapsedTime() + 1);
-		Highscore::setFastestGoal(firstGoalTime + 1);
+		Highscore::setFastestWin(getElapsedTime());
+		Highscore::setFastestGoal(firstGoalTime);
 	}
 
 	Highscore::save();

@@ -27,15 +27,17 @@ public:
 	int getTeamAGoals();
 	int getTeamBGoals();
 
-	int getTimeRemaining();
+	int getTimeRemaining() const;
 
-	int getElapsedTime();
+	int getElapsedTime() const;
 
 	void teamAScored();
 
 	void teamBScored();
 
 	bool hasWinner() const;
+
+	void ballPossessionCheat();
 
 	std::chrono::system_clock::time_point getTimeLimit();
 

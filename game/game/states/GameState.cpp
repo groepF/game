@@ -96,9 +96,10 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
-	if (game->getTimeRemaining() < 1 && !game->isOvertime)
+	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
 	{
 		game->isOvertime = true;
+		game->teamAScored();
 		game->teamAScored();
 		game->teamAScored();
 		if (game->hasWinner()) {
