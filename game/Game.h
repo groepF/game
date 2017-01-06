@@ -29,6 +29,12 @@ public:
 
 	int getTimeRemaining();
 
+	int getElapsedTime();
+
+	void teamAScored();
+
+	void teamBScored();
+
 	std::chrono::system_clock::time_point getTimeLimit();
 
 	void endGame();
@@ -46,6 +52,7 @@ private:
 	std::chrono::system_clock::time_point beginTime;
 	std::chrono::system_clock::time_point timeLimit;
 
+	int firstGoalTime;
 
 	int goalsTeamA;
 	int goalsTeamB;

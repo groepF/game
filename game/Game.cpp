@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "engine/util/Highscore.h"
 
 
 Game::Game()
@@ -105,6 +106,29 @@ int Game::getTimeRemaining()
 	return std::chrono::duration_cast<std::chrono::seconds>(timeLimit - std::chrono::system_clock::now()).count();
 }
 
+int Game::getElapsedTime()
+{
+	return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - beginTime).count();
+}
+
+void Game::teamAScored()
+{
+	if (goalsTeamA == 0 && goalsTeamB == 0)
+	{
+		firstGoalTime = getElapsedTime();
+	}
+	goalsTeamA++;
+}
+
+void Game::teamBScored()
+{
+	if (goalsTeamA == 0 && goalsTeamB == 0)
+	{
+		firstGoalTime = getElapsedTime();
+	}
+	goalsTeamB++;
+}
+
 std::chrono::system_clock::time_point Game::getTimeLimit()
 {
 	return timeLimit;
@@ -116,6 +140,9 @@ void Game::endGame()
 	// highscore class will only save the value if it is better
 
 	// only save ball possession of player A, since this is our player
+
+	Highscore::load(); // restore last highscore
+
 	int ballPossession = 0;
 	if (ballPossessionTeamA == 0 || ballPossessionTeamB == 0)
 	{
@@ -143,5 +170,16 @@ void Game::endGame()
 		ballPossession = round(p);
 	}
 
+	Highscore::setMostBallposession(ballPossession);
+	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
+	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
+	Highscore::setLongestGame(getElapsedTime());
+	if (goalsTeamA > goalsTeamB)
+	{
+		Highscore::setFastestWin(getElapsedTime());
+		Highscore::setFastestGoal(firstGoalTime);
+	}
+
+	Highscore::save();
 
 }
