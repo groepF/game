@@ -22,6 +22,8 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("button_pressed", "res/images/button_pressed.png");
 	engine.addSpritesheet("button_normal", "res/images/button_default.png");
 	engine.addSpritesheet("credits", "res/images/credits.png");
+	engine.addSpritesheet("achievements", "res/images/achievements.png");
+	engine.addSpritesheet("help", "res/images/help.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
 	engine.addMusic("menu", "res/sounds/menu.mp3");

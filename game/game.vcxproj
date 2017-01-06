@@ -173,6 +173,7 @@
     <ClCompile Include="engine\widgets\Label.cpp" />
     <ClCompile Include="game\states\TransitionState.cpp" />
     <ClCompile Include="engine\util\Highscore.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\AchievementsState.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="engine\widgets\Label.h" />
     <ClInclude Include="game\states\TransitionState.h" />
     <ClInclude Include="engine\util\Highscore.h" />
+	<ClInclude Include="game\states\HelpState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

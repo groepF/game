@@ -44,6 +44,7 @@
     <ClCompile Include="game\states\TransitionState.cpp" />
     <ClCompile Include="game\states\AchievementsState.cpp" />
     <ClCompile Include="engine\util\Highscore.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="game\states\TransitionState.h" />
     <ClInclude Include="game\states\AchievementsState.h" />
     <ClInclude Include="engine\util\Highscore.h" />
+	    <ClInclude Include="game\states\HelpState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />
