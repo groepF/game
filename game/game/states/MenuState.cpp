@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "GameSelectionState.h"
 #include "CreditsState.h"
+#include "TransitionState.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
@@ -76,7 +77,8 @@ void MenuState::onClick(Button* button)
 
 	if (text == "Play")
 	{
-		context->setState(new GameSelectionState(context));
+		//context->setState(new GameSelectionState(context));
+		context->setState(new TransitionState(context));
 	}
 	else if(text == "Credits")
 	{
