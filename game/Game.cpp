@@ -21,7 +21,6 @@ Game::Game()
 }
 
 
-
 Game::~Game()
 {
 }
@@ -56,8 +55,10 @@ void Game::begin()
 	// add a countdown?
 	this->goalsTeamA = 0;
 	this->goalsTeamB = 0;
+	this->ballPossessionTeamA = 0;
+	this->ballPossessionTeamB = 0;
 	beginTime = std::chrono::system_clock::now();
-	timeLimit = beginTime + std::chrono::duration<int>(gameTime*60);
+	timeLimit = beginTime + std::chrono::duration<int>(gameTime * 60);
 }
 
 void Game::setTime(int minutes)
@@ -107,4 +108,40 @@ int Game::getTimeRemaining()
 std::chrono::system_clock::time_point Game::getTimeLimit()
 {
 	return timeLimit;
+}
+
+void Game::endGame()
+{
+	// save statistics and highscores, just always call the methods in highscore class
+	// highscore class will only save the value if it is better
+
+	// only save ball possession of player A, since this is our player
+	int ballPossession = 0;
+	if (ballPossessionTeamA == 0 || ballPossessionTeamB == 0)
+	{
+		if (ballPossessionTeamA == 0 && ballPossessionTeamB == 0)
+		{
+			ballPossession = 0;
+		}
+		else if (ballPossessionTeamA > 0)
+		{
+			ballPossession = 100;
+		}
+	}
+	else if (ballPossessionTeamA > ballPossessionTeamB)
+	{
+		float a = ballPossessionTeamA;
+		float b = ballPossessionTeamB;
+		float p = 100.0 - b / a * 100.0;
+		ballPossession = round(p);
+	}
+	else
+	{
+		float a = ballPossessionTeamA;
+		float b = ballPossessionTeamB;
+		float p = a / b * 100.0;
+		ballPossession = round(p);
+	}
+
+
 }

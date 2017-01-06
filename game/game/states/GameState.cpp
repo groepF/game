@@ -100,6 +100,15 @@ void GameState::onUpdate(Keyboard *keyboard)
 		game->isOvertime = true;
 	}
 
+	if(ball->isHeldBy(ai))
+	{
+		game->ballPossessionTeamB++;
+	}
+	if(ball->isHeldBy(player))
+	{
+		game->ballPossessionTeamA++;
+	}
+
   if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
   
