@@ -1,7 +1,8 @@
 #include "Label.h"
 
 
-Label::Label(int x, int y, int width, int height, std::string text) : x(x), y(y), width(width), height(height), text(text)
+Label::Label(int x, int y, int width, int height, std::string text, Color color, int gravity) : 
+	x(x), y(y), width(width), height(height), text(text), color(color), gravity(gravity)
 {
 }
 
@@ -18,7 +19,7 @@ void Label::onRender(Screen* screen)
 {
 	//sprite, x, y, 0, 255, width, height
 	//screen->render();
-	screen->renderText(text, Color{ "white" }, x, y, width, height);
+	screen->renderText(text, color, x, y, width, height, 0, false, gravity);
 }
 
 bool Label::onUpdate(Keyboard* keyboard, Mouse* mouse)

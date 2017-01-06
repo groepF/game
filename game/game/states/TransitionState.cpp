@@ -51,7 +51,7 @@ void TransitionState::onDestroy()
 	Log::debug("OnDestroy TransitionState");
 }
 
-void TransitionState::onClick(Button* button)
+bool TransitionState::onClick(Button* button)
 {
 	//Start and Back button
 	if (button->getId() == "rematch")
@@ -66,4 +66,6 @@ void TransitionState::onClick(Button* button)
 	{
 		context->setState(new MenuState(context));
 	}
+
+	return false;
 }

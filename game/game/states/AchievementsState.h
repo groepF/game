@@ -2,12 +2,11 @@
 #include "../../engine/core/State.h"
 #include "../../engine/input/OnClickListener.h"
 
-class CreditsState : public State, public OnClickListener
+class AchievementsState : public State, public OnClickListener
 {
 public:
-
-	CreditsState(StateContext* context);
-	~CreditsState();
+	AchievementsState(StateContext* context);
+	~AchievementsState();
 
 	void onCreate() final;
 	void onRender(Screen *screen) final;
@@ -18,12 +17,5 @@ public:
 
 private:
 	Sprite *background, *logo;
-	double angle;
-	int width, height;
-	double currentY;
-	int targetY;
-	std::vector<std::string> remaining;
-	std::vector<std::string> shown;
-	std::string current;
 };
 
