@@ -3,9 +3,9 @@
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
 
-#define TARGET_SIZE 100
+#define TARGET_SIZE 96
 #define Y_OFFSET 80
-#define TEXT_PADDING 70
+#define TEXT_PADDING 80
 #define START_SIZE 1000
 
 CreditsState::CreditsState(StateContext* context): State(context), background(nullptr), logo(nullptr), angle(0), width(0), height(0), currentY(0), targetY(0)
@@ -96,9 +96,9 @@ void CreditsState::onUpdate(Keyboard* keyboard)
 {
 	if (current != "") {
 		if (width > TARGET_SIZE && height > TARGET_SIZE) {
-			angle += 1.6;
-			width -= 4;
-			height -= 4;
+			angle += 3.2;
+			width -= 8;
+			height -= 8;
 		}
 		else if (currentY < targetY)
 		{
