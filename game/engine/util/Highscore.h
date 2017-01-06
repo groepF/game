@@ -23,6 +23,5 @@ public:
 	static int getFastestGoal();
 	static int getFastestWin();
 
-private:
 	static int mostGoalsInOneMatch, scoreDifference, mostBallposession, longestGame, fastestGoal, fastestWin;
 };

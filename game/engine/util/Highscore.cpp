@@ -3,6 +3,13 @@
 #include <iostream>
 #include <string>
 
+int Highscore::mostGoalsInOneMatch = 0;
+int Highscore::scoreDifference = 0;
+int Highscore::mostBallposession = 0;
+int Highscore::longestGame = 0;
+int Highscore::fastestGoal = 0;
+int Highscore::fastestWin = 0;
+
 std::vector<std::string> Highscore::load()
 {
 	std::vector<std::string> labels;
@@ -29,12 +36,12 @@ void Highscore::save()
 	std::ofstream highscores(FILENAME, std::fstream::out);
 	if (highscores.is_open())
 	{
-		highscores << "Most goals in one match:" + std::to_string(mostGoalsInOneMatch) + "\n";
-		highscores << "Win with most score difference:" + std::to_string(scoreDifference) + "\n";
-		highscores << "Most ball posession ever:" + std::to_string(mostBallposession) + "%\n";
-		highscores << "Longest game:" + std::to_string(longestGame) + " seconds\n";
-		highscores << "Fastest goal:" + std::to_string(fastestGoal) + " seconds\n";
-		highscores << "Fastest win:" + std::to_string(fastestWin) + " seconds\n";
+		highscores << "Most goals in one match:" + std::to_string(Highscore::getMostGoalsInOneMatch()) + "\n";
+		highscores << "Win with most score difference:" + std::to_string(Highscore::getScoreDifference()) + "\n";
+		highscores << "Most ball posession ever:" + std::to_string(Highscore::getMostBallPosession()) + "%\n";
+		highscores << "Longest game:" + std::to_string(Highscore::getLongestGame()) + " seconds\n";
+		highscores << "Fastest goal:" + std::to_string(Highscore::getFastestGoal()) + " seconds\n";
+		highscores << "Fastest win:" + std::to_string(Highscore::getFastestWin()) + " seconds\n";
 		highscores.close();
 	}
 	else {
@@ -44,78 +51,78 @@ void Highscore::save()
 
 void Highscore::setMostGoalsInOneMatch(int value)
 {
-	if (value > mostGoalsInOneMatch)
+	if (value > Highscore::mostGoalsInOneMatch)
 	{
-		mostGoalsInOneMatch = value;
+		Highscore::mostGoalsInOneMatch = value;
 	}
 }
 
 void Highscore::setScoreDifference(int value)
 {
-	if (value > scoreDifference)
+	if (value > Highscore::scoreDifference)
 	{
-		scoreDifference = value;
+		Highscore::scoreDifference = value;
 	}
 }
 
 void Highscore::setMostBallposession(int value)
 {
-	if (value > mostBallposession)
+	if (value > Highscore::mostBallposession)
 	{
-		mostBallposession = value;
+		Highscore::mostBallposession = value;
 	}
 }
 
 void Highscore::setLongestGame(int value)
 {
-	if (value > longestGame)
+	if (value > Highscore::longestGame)
 	{
-		longestGame = value;
+		Highscore::longestGame = value;
 	}
 }
 
 void Highscore::setFastestGoal(int value)
 {
-	if (value > fastestGoal)
+	if (value > Highscore::fastestGoal)
 	{
-		fastestGoal = value;
+		Highscore::fastestGoal = value;
 	}
 }
 
 void Highscore::setFastestWin(int value)
 {
-	if (value > fastestWin)
+	if (value > Highscore::fastestWin)
 	{
-		fastestWin = value;
+		Highscore::fastestWin = value;
 	}
 }
 
 int Highscore::getMostGoalsInOneMatch()
 {
-	return mostGoalsInOneMatch;
+	return Highscore::mostGoalsInOneMatch;
 }
 
 int Highscore::getScoreDifference()
 {
-	return scoreDifference;
+	return Highscore::scoreDifference;
 }
 
 int Highscore::getMostBallPosession()
 {
-	return mostBallposession;
+	return Highscore::mostBallposession;
 }
 
 int Highscore::getLongestGame()
 {
-	return longestGame;
+	return Highscore::longestGame;
 }
 
 int Highscore::getFastestGoal()
 {
-	return fastestGoal;
+	return Highscore::fastestGoal;
 }
 
 int Highscore::getFastestWin()
 {
-	return fastestWin;
+	return Highscore::fastestWin;
 }
