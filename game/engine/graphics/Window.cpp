@@ -1,6 +1,10 @@
 #include "Window.h"
 #include <SDL/SDL_ttf.h>
 
+#define GRAVITY_LEFT 0
+#define GRAVITY_CENTER 1
+#define GRAVITY_RIGHT 2
+
 Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::string title) :
 	window(nullptr),
 	renderer(nullptr),
@@ -225,13 +229,13 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop) const
+void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop, int gravity) const
   
 {
 	if (font)
 	{
-		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		auto surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
+		auto Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 		int w = width, h = height;
 		if (!crop) {
@@ -239,8 +243,19 @@ void Window::renderText(std::string message, Color color, int x, int y, int widt
 		}
 
 		SDL_Rect Message_rect; //create a rect		
-		Message_rect.x = x + (width / 2) - (w / 2);  //controls the rect's x coordinate 		
-		Message_rect.y = y + (height / 2) - (h / 2); // controls the rect's y coordinte		
+		if (gravity == GRAVITY_CENTER)
+		{
+			Message_rect.x = x + (width / 2) - (w / 2);  //controls the rect's x coordinate 		
+			Message_rect.y = y + (height / 2) - (h / 2); // controls the rect's y coordinte		
+		} else if (gravity == GRAVITY_LEFT)
+		{
+			Message_rect.x = x;  //controls the rect's x coordinate 		
+			Message_rect.y = y; // controls the rect's y coordinte		
+		} else if (gravity == GRAVITY_RIGHT)
+		{
+			Message_rect.x = x + width - w;  //controls the rect's x coordinate 		
+			Message_rect.y = y; // controls the rect's y 
+		}
 		Message_rect.w = w; // controls the width of the rect		
 		Message_rect.h = h; // controls the height of the rect	
 

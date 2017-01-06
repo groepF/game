@@ -2,6 +2,9 @@
 #include "../../engine/widgets/Button.h"
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
+#include "../../engine/util/Highscore.h"
+#include "../../engine/widgets/Label.h"
+#include "../../engine/util/Config.h"
 
 
 AchievementsState::AchievementsState(StateContext* context): State(context)
@@ -25,6 +28,15 @@ AchievementsState::~AchievementsState()
 
 void AchievementsState::onCreate()
 {
+	auto labels = Highscore::load();
+
+	for (auto index = 0; index < labels.size(); index++)
+	{
+		auto strings = String::split(labels.at(index), ':');
+		this->addWidget(new Label(-650, 200 + (index * 30), 0, 0, strings.at(0), Color{"white"}, 2));
+		this->addWidget(new Label(700, 200 + (index * 30), 0, 0, strings.at(1), Color{"red"}, 0));
+	}
+
 	this->background = new Sprite("menu_background", 0, 0, 1300, 720);
 	this->logo = new Sprite("credits", 0, 0, 405, 93);
 

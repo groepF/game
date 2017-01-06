@@ -1,6 +1,7 @@
 #include "../engine/core/Engine.h"
 #include "states/SplashScreenState.h"
 #include "states/MenuState.h"
+#include "../engine/util/Highscore.h"
 
 int main(int argc, char* argv[])
 {
