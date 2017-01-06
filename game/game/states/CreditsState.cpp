@@ -107,12 +107,13 @@ void CreditsState::onUpdate(Keyboard* keyboard)
 	}
 }
 
-void CreditsState::onClick(Button* button)
+bool CreditsState::onClick(Button* button)
 {
 	if (button->getText() == "<")
 	{
 		context->setState(new MenuState(context));
 	}
+	return false;
 }
 
 void CreditsState::onDestroy()

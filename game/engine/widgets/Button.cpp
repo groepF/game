@@ -6,7 +6,7 @@
 Button::Button(std::string id, int x, int y, int width, int height, std::string text, OnClickListener* listener) : selected(false), hovering(false), x(x), y(y), width(width), height(height), text(text), hovered(nullptr), normal(nullptr), listener(listener)
 {
 	this->setId(id);
-} 
+}
 
 Button::~Button()
 {
@@ -37,14 +37,15 @@ void Button::onCreate()
 void Button::onRender(Screen* screen)
 {
 	Sprite* button = normal;
-	if(pressing)
-	{
-		button = pressed;
-	} else if(selected)
+	if (pressing)
 	{
 		button = pressed;
 	}
-	else if(hovering)
+	else if (selected)
+	{
+		button = pressed;
+	}
+	else if (hovering)
 	{
 		button = hovered;
 	}
@@ -60,18 +61,18 @@ bool Button::onUpdate(Keyboard* keyboard, Mouse* mouse)
 	int mouseY = mouse->getY();
 	hovering = inBounds(mouseX, mouseY);
 
-	if(pressing && inBounds(mouse->getLeftReleaseX(), mouse->getLeftReleaseY()))
+	if (pressing && inBounds(mouse->getLeftReleaseX(), mouse->getLeftReleaseY()))
 	{
 		mouse->setLeftPressed(false);
 		mouse->consumeEvent();
-		listener->onClick(this);
-		return false;
+		return listener->onClick(this);
 	}
 
 	if (hovering && mouse->isLeftPressed() && inBounds(mouse->getLeftPressX(), mouse->getLeftPressY()))
 	{
 		pressing = true;
-	} else
+	}
+	else
 	{
 		pressing = false;
 	}

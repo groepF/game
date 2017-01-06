@@ -83,7 +83,7 @@ void GameSelectionState::onCreate()
 	btn_goals5->select();
 	btn_level1->select();
 
-	
+
 	//Add game setting buttons
 	//Time
 	this->addWidget(btn_time1);
@@ -94,19 +94,18 @@ void GameSelectionState::onCreate()
 	this->addWidget(btn_goals3);
 	this->addWidget(btn_goals5);
 	this->addWidget(btn_goals10);
-	
+
 	//Maps
 	this->addWidget(btn_level1);
 	this->addWidget(btn_level2);
 	this->addWidget(btn_level3);
-	
+
 
 	//Add Start and Go Back buttons 
 	int y = height - widgetHeight - 200;
 
 	this->addWidget(new Button("start", centerX, y, widgetWidth, widgetHeight, "Start Game", this));
 	this->addWidget(new Button("back", centerX, y + 60, widgetWidth, widgetHeight, "Go Back", this));
-	
 }
 
 void GameSelectionState::onRender(Screen* screen)
@@ -123,7 +122,7 @@ void GameSelectionState::onDestroy()
 	Log::debug("OnDestroy GameSelectionState");
 }
 
-void GameSelectionState::onClick(Button* button)
+bool GameSelectionState::onClick(Button* button)
 {
 	//Settings
 
@@ -184,11 +183,15 @@ void GameSelectionState::onClick(Button* button)
 	if (button->getId() == "start")
 	{
 		context->setState(new GameState(context, game));
-	} 
-	else if(button->getId() == "back")
+		return false;
+	}
+	else if (button->getId() == "back")
 	{
 		context->setState(new MenuState(context));
+		return false;
 	}
+
+	return true;
 }
 
 void GameSelectionState::deselectAll(std::vector<Button*> buttons)

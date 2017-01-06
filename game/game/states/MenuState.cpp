@@ -81,7 +81,7 @@ void MenuState::onDestroy()
 	this->context->stopMusic();
 }
 
-void MenuState::onClick(Button* button)
+bool MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
 
@@ -106,4 +106,5 @@ void MenuState::onClick(Button* button)
 	{
 		exit(0);
 	}
+	return false;
 }
