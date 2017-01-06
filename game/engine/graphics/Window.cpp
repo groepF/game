@@ -12,7 +12,7 @@ Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::st
 	height(height),
 	fullscreen(fullscreen),
 	title(title),
-	font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
+	font(TTF_OpenFont("engine/res/fonts/VCR_OSD_MONO_1.001.ttf", 24))
 {
 	this->resize(title, width, height);
 

@@ -98,9 +98,12 @@
     <ClInclude Include="game\states\TransitionState.h" />
     <ClInclude Include="game\states\AchievementsState.h" />
     <ClInclude Include="engine\util\Highscore.h" />
-	    <ClInclude Include="game\states\HelpState.h" />
+    <ClInclude Include="game\states\HelpState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
   </ItemGroup>
 </Project>
