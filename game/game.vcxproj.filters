@@ -49,6 +49,7 @@
     <ClCompile Include="engine\location\Vertex.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="engine\location\Path.cpp" />
+    <ClCompile Include="GraphRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="engine\location\Vertex.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="engine\location\Path.h" />
+    <ClInclude Include="GraphRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "engine/util/Highscore.h"
+#include "GraphRepository.h"
 
 
 Game::Game()
@@ -49,6 +50,12 @@ Enemy* Game::getEnemy()
 Ball* Game::getBall()
 {
 	return this->ball;
+}
+
+Graph* Game::getGraph()
+{
+	GraphRepository graphRepository;
+	return graphRepository.getGraph(this->map);
 }
 
 void Game::begin()

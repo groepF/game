@@ -4,6 +4,7 @@
 #include "game/entities/Ball.h"
 #include "game/entities/Enemy.h"
 #include "chrono"
+#include "engine/location/Graph.h"
 
 
 class Game
@@ -17,6 +18,7 @@ public:
 	Player* getPlayer();
 	Enemy* getEnemy();
 	Ball* getBall();
+	Graph* getGraph();
 
 	void begin();
 
@@ -61,6 +63,7 @@ private:
 	int goalsTeamA;
 	int goalsTeamB;
 
+	Graph *graph;
 	World *world;
 	Player *player;
 	Enemy *ai;
