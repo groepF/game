@@ -147,9 +147,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//toggle hybrid view
 		if (keyboard->isKeydown(KEY_F2)) {}
 		//player 1 scoren
-		if (keyboard->isKeydown(KEY_F3)) {}
+		if (keyboard->isKeydown(KEY_F3)) { game->teamAScored(); }
 		//player 2 scoren
-		if (keyboard->isKeydown(KEY_F4)) {}
+		if (keyboard->isKeydown(KEY_F4)) { game->teamBScored(); }
 		//player 1 win
 		if (keyboard->isKeydown(KEY_F5)) {}
 		//player 2 win
@@ -159,9 +159,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//time remaining omhoog
 		if (keyboard->isKeydown(KEY_F8)) {}
 		//speler 1 100% balbezit
-		if (keyboard->isKeydown(KEY_F9)) {}
+		if (keyboard->isKeydown(KEY_F9)) { game->ballPossessionCheat(true); }
 		//speler 2 100% balbezit
-		if (keyboard->isKeydown(KEY_F10)) {}
+		if (keyboard->isKeydown(KEY_F10)) { game->ballPossessionCheat(false); }
 		//spel versnellen
 		if (keyboard->isKeydown(KEY_F11)) {}
 		//spel vertragen
@@ -172,7 +172,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//Cheat, get hit by AI
 		if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 	}
-		//cheats(keyboard);
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 
