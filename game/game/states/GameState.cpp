@@ -100,7 +100,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		game->isOvertime = true;
 	}
 
-  if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
   
 	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
@@ -118,10 +118,43 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }
 	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, false); } }
 	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }
-	//Cheat, give ball to AI
-	if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
-	//Cheat, get hit by AI
-	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
+	
+	
+
+	//cheats
+	if (Config::getBool("debug", false))
+	{
+		//toggle sprite boundary view
+		if (keyboard->isKeydown(KEY_F1)) {}
+		//toggle hybrid view
+		if (keyboard->isKeydown(KEY_F2)) {}
+		//player 1 scoren
+		if (keyboard->isKeydown(KEY_F3)) {}
+		//player 2 scoren
+		if (keyboard->isKeydown(KEY_F4)) {}
+		//player 1 win
+		if (keyboard->isKeydown(KEY_F5)) {}
+		//player 2 win
+		if (keyboard->isKeydown(KEY_F6)) {}
+		//time remaining omlaag
+		if (keyboard->isKeydown(KEY_F7)) {}
+		//time remaining omhoog
+		if (keyboard->isKeydown(KEY_F8)) {}
+		//speler 1 100% balbezit
+		if (keyboard->isKeydown(KEY_F9)) {}
+		//speler 2 100% balbezit
+		if (keyboard->isKeydown(KEY_F10)) {}
+		//spel versnellen
+		if (keyboard->isKeydown(KEY_F11)) {}
+		//spel vertragen
+		if (keyboard->isKeydown(KEY_F12)) {}
+
+		//Cheat, give ball to AI
+		if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
+		//Cheat, get hit by AI
+		if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
+	}
+		//cheats(keyboard);
 
 	player->move();
 	world->update();
