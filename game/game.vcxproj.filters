@@ -41,6 +41,14 @@
     <ClCompile Include="engine\widgets\Label.cpp" />
     <ClCompile Include="game\entities\Timer.cpp" />
     <ClCompile Include="engine\core\AudioController.cpp" />
+    <ClCompile Include="game\states\TransitionState.cpp" />
+    <ClCompile Include="game\states\AchievementsState.cpp" />
+    <ClCompile Include="engine\util\Highscore.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
+    <ClCompile Include="engine\location\Graph.cpp" />
+    <ClCompile Include="engine\location\Vertex.cpp" />
+    <ClCompile Include="engine\location\Edge.cpp" />
+    <ClCompile Include="engine\location\Path.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -91,5 +99,19 @@
     <ClInclude Include="engine\widgets\Label.h" />
     <ClInclude Include="game\entities\Timer.h" />
     <ClInclude Include="engine\core\AudioController.h" />
+    <ClInclude Include="game\states\TransitionState.h" />
+    <ClInclude Include="game\states\AchievementsState.h" />
+    <ClInclude Include="engine\util\Highscore.h" />
+    <ClInclude Include="game\states\HelpState.h" />
+    <ClInclude Include="engine\location\Graph.h" />
+    <ClInclude Include="engine\location\Vertex.h" />
+    <ClInclude Include="engine\location\Edge.h" />
+    <ClInclude Include="engine\location\Path.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="highscores.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
   </ItemGroup>
 </Project>

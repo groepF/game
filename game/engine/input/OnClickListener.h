@@ -12,7 +12,7 @@ public:
 	OnClickListener(OnClickListener const &) = delete;
 	OnClickListener & operator=(OnClickListener const &) = delete;
 
-	virtual void onClick(Button* button) = 0;
+	virtual bool onClick(Button* button) = 0;
 
 protected:
 	OnClickListener() = default;

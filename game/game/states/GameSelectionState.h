@@ -16,7 +16,7 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
-	void onClick(Button* button) final;
+	bool onClick(Button* button) final;
 private:
 	Game* game;
 	Sprite* background;

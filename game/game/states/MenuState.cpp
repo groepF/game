@@ -4,6 +4,9 @@
 #include "GameState.h"
 #include "GameSelectionState.h"
 #include "CreditsState.h"
+#include "TransitionState.h"
+#include "AchievementsState.h"
+#include "HelpState.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
@@ -22,11 +25,19 @@ MenuState::~MenuState()
 		delete logo;
 		logo = nullptr;
 	}
+
+	if (ad != nullptr)
+	{
+		delete ad;
+		ad = nullptr;
+	}
 }
 
 void MenuState::onCreate()
 {
 	this->background = new Sprite("menu_background", 0, 0, 1300, 720);
+
+	this->chooseRandomAd();
 
 	int buttonWidth = 300;
 	int buttonHeight = 50;
@@ -36,13 +47,21 @@ void MenuState::onCreate()
 
 	int centerX = (width / 2) - (buttonWidth / 2);
 	int centerY = (height / 2) - (buttonHeight / 2);
-	int y = centerY - 30;
+	int y = centerY - 120;
 
 	this->addWidget(new Button("play", centerX, y, buttonWidth, buttonHeight, "Play", this));
 
 	y += 60;
 
 	this->addWidget(new Button("credits", centerX, y, buttonWidth, buttonHeight, "Credits", this));
+
+	y += 60;
+
+	this->addWidget(new Button("achievements", centerX, y, buttonWidth, buttonHeight, "Achievements", this));
+
+	y += 60;
+
+	this->addWidget(new Button("help", centerX, y, buttonWidth, buttonHeight, "Help", this));
 
 	y += 60;
 
@@ -56,6 +75,7 @@ void MenuState::onCreate()
 void MenuState::onRender(Screen* screen)
 {
 	screen->render(background, 0, 0);
+	screen->render(ad, (screen->getWidth() / 2) - (ad->getWidth() / 2), screen->getHeight() - ad->getHeight());
 	screen->render(logo,
 	               (screen->getWidth() / 2) - (logo->getWidth() / 2),
 	               40);
@@ -70,20 +90,37 @@ void MenuState::onDestroy()
 	this->context->stopMusic();
 }
 
-void MenuState::onClick(Button* button)
+bool MenuState::onClick(Button* button)
 {
 	std::string text = button->getText();
 
 	if (text == "Play")
 	{
-		context->setState(new GameSelectionState(context));
+		//context->setState(new GameSelectionState(context));
+		context->setState(new TransitionState(context));
 	}
-	else if(text == "Credits")
+	else if (text == "Achievements")
+	{
+		context->setState(new AchievementsState(context));
+	}
+	else if (text == "Credits")
 	{
 		context->setState(new CreditsState(context));
+	}
+	else if (text == "Help")
+	{
+		context->setState(new HelpState(context));
 	}
 	else if (text == "Quit Game")
 	{
 		exit(0);
 	}
+	return false;
+}
+
+void MenuState::chooseRandomAd()
+{
+	auto random = Math::random(1, 3);
+
+	ad = new Sprite("ad_" + std::to_string(random), 0, 0, 400, 130);
 }

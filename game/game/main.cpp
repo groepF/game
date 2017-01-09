@@ -1,6 +1,7 @@
 #include "../engine/core/Engine.h"
 #include "states/SplashScreenState.h"
 #include "states/MenuState.h"
+#include "../engine/util/Highscore.h"
 
 int main(int argc, char* argv[])
 {
@@ -21,11 +22,20 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("button_pressed", "res/images/button_pressed.png");
 	engine.addSpritesheet("button_normal", "res/images/button_default.png");
 	engine.addSpritesheet("credits", "res/images/credits.png");
+	engine.addSpritesheet("achievements", "res/images/achievements.png");
+	engine.addSpritesheet("help", "res/images/help.png");
+
+	// Ads
+	engine.addSpritesheet("ad_1", "res/images/ads/mcdonalds.png");
+	engine.addSpritesheet("ad_2", "res/images/ads/subway.png");
+	engine.addSpritesheet("ad_3", "res/images/ads/ah.png");
 
 	engine.addMusic("background", "res/sounds/music.wav");
 	engine.addMusic("menu", "res/sounds/menu.mp3");
 
 	auto debug = Config::getBool("debug", false);
+
+	Highscore::load();
 
 	if (debug)
 	{

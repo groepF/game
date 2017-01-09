@@ -4,7 +4,7 @@
 class Label : public Widget
 {
 public:
-	Label(int x, int y, int width, int height, std::string text);
+	Label(int x, int y, int width, int height, std::string text, Color color = Color{ "white" }, int gravity = 1);
 	~Label();
 
 	void onCreate() final;
@@ -14,7 +14,8 @@ public:
 
 	std::string getText() const;
 private:
-	int x, y, width, height;
+	int x, y, width, height, gravity;
+	Color color;
 	std::string text;
 };
 
