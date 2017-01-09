@@ -2,19 +2,25 @@
 #include "../entities/Player.h"
 #include "../entities/Ball.h"
 #include "../map/LevelReader.h"
-#include "../../engine/Entities/FpsCounter.h"
+#include "../../engine/core-entities/FpsCounter.h"
+#include "../entities/Score.h"
+#include "../../engine/core-entities/DrawableEntity.h"
+#include "../entities/Timer.h"
+#include "MenuState.h"
 
-GameState::GameState(StateContext* context) :
-	State(context),
-	world(nullptr),
-	player(nullptr),
-	showingFPS(true)
+
+GameState::GameState(StateContext* context, Game* game) :	State(context),
+world(nullptr),
+player(nullptr),
+isDebug(Config::getBool("debug", false)),
+showGrid(false)
 {
+	this->game = game;
+	this->game->begin();
 }
 
 GameState::~GameState()
 {
-
 }
 
 /**
@@ -24,17 +30,24 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	this->fpsCounter = std::make_unique<FpsCounter>(FpsCounter());
-
 	world = new World(WORLD_GRAVITY);
 
-	LevelReader reader("res/maps/level1.tmx");
+	this->fpsCounter = new FpsCounter();	
+
+	world	= game->getWorld();
+	player	= game->getPlayer();
+	ai		= game->getEnemy();
+	ball	= game->getBall();
+
+	LevelReader reader(game->getMap());
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
-	
+
+  //Set Background.
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
+
 	auto size = 0.2f;
 	int counter = 0;
 	for (float x = 0; x < reader.getLevelHeight(); x++)
@@ -44,39 +57,73 @@ void GameState::onCreate()
 			if (tiles.at(counter) != 0)
 			{
 				//Retrieve the correct Tile from the TileSet
-				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter)-1);
-				
+				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
+
 				//Add the sprite to the world
-				world->add(new Body(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
+				world->add(new DrawableEntity(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
 			}
 			counter++;
 		}
 	}
 
-	player = new Player((size * 2) * 3 + 0.2f, (size * 2) * 1 + 0.2f);
-	ai = new Enemy((size * 2) * 61 + 0.2f, (size * 2) * 1 + 0.2f);
-	ball = new Ball((size * 2) * 32 + 0.2f, (size * 2) * 1 + 0.2f);
+	player = new Player((size * 2) * 3, (size * 2) * 1);
+	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
+	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	fpsCounter = new FpsCounter(true, 1200);
+  
+	//Add the player, ball and AI to the world
 	world->add(player);
 	world->add(ai);
+
+	world->add(fpsCounter);
+	world->add(new Score(game));
+	world->add(new Timer(game));
 	world->add(ball);
+
 	player->setFixedRotation(true);
 	ai->setFixedRotation(true);
 }
 
 void GameState::onRender(Screen *screen)
 {
-	world->render(screen);
-	if (showingFPS)
+	fpsCounter->CalculateCurrentFps();
+	if(showHybricGrid)
 	{
-		this->fpsCounter->outputFPS(*screen);
+		showGrid = !showGrid;
 	}
+	world->render(screen, showGrid);
 }
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
-	if (ball->isHeldBy(player)) { ball->pickUp(player); }
-	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
+	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
+	{
+		game->isOvertime = true;
+		game->teamAScored();
+		game->teamAScored();
+		game->teamAScored();
+		if (game->hasWinner()) {
+			game->endGame();
+			context->setState(new MenuState(context));
+			return;
+		}
+	}
 
+	if(ball->isHeldBy(ai))
+	{
+		game->ballPossessionTeamB++;
+	}
+	if(ball->isHeldBy(player))
+	{
+		game->ballPossessionTeamA++;
+	}
+
+  if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
+  
+	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
+	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
+	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
@@ -84,13 +131,11 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
-	if (keyboard->isKeydown(KEY_F)) { showingFPS = !showingFPS; }
 	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
 	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
-	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) ; }
-	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)); }
+	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }
+	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, false); } }
 	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }
-	
 	//Cheat, give ball to AI
 	if (keyboard->isKeydown(KEY_RCTRL)) { ball->pickUp(ai); }
 	//Cheat, get hit by AI
@@ -98,6 +143,8 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 
 	if(keyboard->isKeydown(KEY_ESCAPE)){/*pause game and show menu*/}
+
+	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 
 	player->move();
 	world->update();

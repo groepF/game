@@ -1,57 +1,40 @@
 #include "Body.h"
 
-Body::Body(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
-{
-	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
-	bodyDef.position.Set(x, y);
-	bodyDef.angularDamping = angularDamping;
-	bodyDef.linearDamping = linearDamping;
-
-	sprite = s; // new Sprite("metal", 0, 40, 20, 20);
-}
-
 Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);
 	bodyDef.angularDamping = angularDamping;
 	bodyDef.linearDamping = linearDamping;
-
-	sprite = std::make_shared<Sprite>(Sprite("metal", 0, 40, 20, 20));
 }
 
 Body::~Body()
 {
 }
 
-float Body::getX() const
+float Body::getBodyX() const
 {
 	return body->GetPosition().x;
 }
 
-float Body::getY() const
+float Body::getBodyY() const
 {
 	return body->GetPosition().y;
 }
 
-float Body::getWidth() const
+float Body::getBodyWidth() const
 {
 	return width * 2;
 }
 
-float Body::getHeight() const
+float Body::getBodyHeight() const
 {
 	return height * 2;
 }
 
-float Body::getAngle() const
+float Body::getBodyAngle() const
 {
 	return body->GetAngle() * (180 / M_PI);
-}
-
-std::shared_ptr<Sprite> Body::getSprite() const
-{
-	return sprite;
 }
 
 void Body::create(b2Body *body)

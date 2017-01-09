@@ -21,3 +21,8 @@ namespace String
 	/// Converts a string to an int.
 	int toInt(std::string string);
 }
+
+namespace Math
+{
+	int random(int low, int high);
+}

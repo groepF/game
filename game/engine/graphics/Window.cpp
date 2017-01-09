@@ -1,6 +1,10 @@
 #include "Window.h"
 #include <SDL/SDL_ttf.h>
 
+#define GRAVITY_LEFT 0
+#define GRAVITY_CENTER 1
+#define GRAVITY_RIGHT 2
+
 Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::string title) :
 	window(nullptr),
 	renderer(nullptr),
@@ -8,7 +12,7 @@ Window::Window(unsigned int width, unsigned int height, bool fullscreen, std::st
 	height(height),
 	fullscreen(fullscreen),
 	title(title),
-	font(TTF_OpenFont("engine/res/fonts/comic.ttf", 24))
+	font(TTF_OpenFont("engine/res/fonts/VCR_OSD_MONO_1.001.ttf", 24))
 {
 	this->resize(title, width, height);
 
@@ -32,15 +36,16 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 {
 	this->destroy();
 
-	if(this->fullscreen)
+	if (this->fullscreen)
 	{
 		window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	} else
+	}
+	else
 	{
 		SDL_CreateWindowAndRenderer(width, height, 0, &(this->window), &(this->renderer));
 	}
-	
+
 
 	if (!(this->window) || !(this->renderer))
 	{
@@ -224,22 +229,40 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 	SDL_RenderCopyEx(renderer, textures.at(sprite->getIdentifier()), &sourceRectangle, &destinationRectangle, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Window::renderText(std::string message, Color color, int x, int y, int width, int height) const
+void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop, int gravity) const
+  
 {
 	if (font)
 	{
-		SDL_Surface* surfaceMessage{ TTF_RenderText_Solid(font, message.c_str(), SDL_Color{ color.r(), color.g(), color.b() }) };
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		auto surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
+		auto Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+		int w = width, h = height;
+		if (!crop) {
+			SDL_QueryTexture(Message, nullptr, nullptr, &w, &h);
+		}
 
 		SDL_Rect Message_rect; //create a rect		
-		Message_rect.x = x;  //controls the rect's x coordinate 		
-		Message_rect.y = y; // controls the rect's y coordinte		
-		Message_rect.w = width; // controls the width of the rect		
-		Message_rect.h = height; // controls the height of the rect		
+		if (gravity == GRAVITY_CENTER)
+		{
+			Message_rect.x = x + (width / 2) - (w / 2);  //controls the rect's x coordinate 		
+			Message_rect.y = y + (height / 2) - (h / 2); // controls the rect's y coordinte		
+		} else if (gravity == GRAVITY_LEFT)
+		{
+			Message_rect.x = x;  //controls the rect's x coordinate 		
+			Message_rect.y = y; // controls the rect's y coordinte		
+		} else if (gravity == GRAVITY_RIGHT)
+		{
+			Message_rect.x = x + (width - w);  //controls the rect's x coordinate 		
+			Message_rect.y = y; // controls the rect's y 
+		}
+		Message_rect.w = w; // controls the width of the rect		
+		Message_rect.h = h; // controls the height of the rect	
 
-		SDL_RenderCopy(renderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture		
+		SDL_RenderCopyEx(renderer, Message, nullptr, &Message_rect, angle, nullptr, SDL_FLIP_NONE); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
 		SDL_DestroyTexture(Message);
-	}else
+	}
+	else
 	{
 		Log::error("Font was not correctly loaded. Can't output text on screen.");
 	}

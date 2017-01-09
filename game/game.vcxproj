@@ -72,6 +72,18 @@
     <IncludePath>$(SolutionDir)dependencies/includes/;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies/libraries/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)dependencies/includes/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies/libraries/;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)dependencies/includes/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies/libraries/;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>$(SolutionDir)dependencies/libraries/;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dependencies/includes/;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -89,38 +101,50 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\location\Edge.cpp" />
+    <ClCompile Include="game\states\AchievementsState.cpp" />
+    <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
+    <ClCompile Include="engine\core\AudioController.cpp" />
+    <ClCompile Include="game\entities\Timer.cpp" />
+    <ClCompile Include="game\states\CreditsState.cpp" />
+    <ClCompile Include="engine\widgets\Button.cpp" />
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
-    <ClCompile Include="engine\Entities\FpsCounter.cpp" />
+    <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
     <ClCompile Include="engine\input\Keyboard.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="game\states\GameSelectionState.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
     <ClCompile Include="engine\util\Color.cpp" />
@@ -139,15 +163,42 @@
     <ClCompile Include="engine\core\StateContext.cpp" />
     <ClCompile Include="engine\world\parser\TMXParser.cpp" />
     <ClCompile Include="game\map\LevelReader.cpp" />
+    <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
+    <ClCompile Include="game\entities\Score.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderTextStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.cpp" />
+    <ClCompile Include="game\states\MenuState.cpp" />
+    <ClCompile Include="engine\input\Mouse.cpp" />
+    <ClCompile Include="engine\widgets\Widget.cpp" />
+    <ClCompile Include="engine\widgets\Label.cpp" />
+    <ClCompile Include="game\states\TransitionState.cpp" />
+    <ClCompile Include="engine\util\Highscore.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
+    <ClCompile Include="engine\location\Graph.cpp" />
+    <ClCompile Include="engine\location\Vertex.cpp" />
+    <ClCompile Include="engine\location\Path.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\location\Edge.h" />
+    <ClInclude Include="game\states\AchievementsState.h" />
+    <ClInclude Include="engine\core\AudioController.h" />
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
+    <ClInclude Include="engine\core-entities\DrawableEntity.h" />
     <ClInclude Include="game\entities\Enemy.h" />
+    <ClInclude Include="engine\core-entities\FpsCounter.h" />
+    <ClInclude Include="game\entities\Timer.h" />
+    <ClInclude Include="game\states\CreditsState.h" />
+    <ClInclude Include="engine\input\OnClickListener.h" />
+    <ClInclude Include="engine\widgets\Button.h" />
     <ClInclude Include="engine\Entities\FpsCounter.h" />
     <ClInclude Include="engine\input\Keyboard.h" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="game\states\GameSelectionState.h" />
     <ClInclude Include="game\entities\Ball.h" />
     <ClInclude Include="engine\world\Body.h" />
     <ClInclude Include="engine\core\Entity.h" />
@@ -168,6 +219,29 @@
     <ClInclude Include="engine\core\StateContext.h" />
     <ClInclude Include="engine\world\parser\TMXParser.h" />
     <ClInclude Include="game\map\LevelReader.h" />
+    <ClInclude Include="engine\core-entities\TextualEntity.h" />
+    <ClInclude Include="game\entities\Score.h" />
+    <ClInclude Include="engine\graphics\render-strategies\IRenderStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderTextStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\ITextRenderDataPorvider.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.h" />
+    <ClInclude Include="game\states\MenuState.h" />
+    <ClInclude Include="engine\input\Mouse.h" />
+    <ClInclude Include="engine\widgets\Widget.h" />
+    <ClInclude Include="engine\widgets\Label.h" />
+    <ClInclude Include="game\states\TransitionState.h" />
+    <ClInclude Include="engine\util\Highscore.h" />
+    <ClInclude Include="game\states\HelpState.h" />
+    <ClInclude Include="engine\location\Graph.h" />
+    <ClInclude Include="engine\location\Vertex.h" />
+    <ClInclude Include="engine\location\Path.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="highscores.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
