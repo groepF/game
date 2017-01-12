@@ -43,6 +43,8 @@ public:
 
 	void endGame();
 
+	int getGoalLimit();
+
 
 	bool gameOver;
 	bool isOvertime;

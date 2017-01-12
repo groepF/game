@@ -198,3 +198,8 @@ void Game::endGame()
 	gameOver = true;
 	gameEnded = std::chrono::system_clock::now();
 }
+
+int Game::getGoalLimit()
+{
+	return maxGoals;
+}

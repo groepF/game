@@ -103,14 +103,14 @@ void GameState::onUpdate(Keyboard *keyboard)
 	{
 		// keep the score on screen for a couple of seconds.
 		int past_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - game->gameEnded).count();
-		if(past_seconds >= endGameScreenSeconds)
+		if (past_seconds >= endGameScreenSeconds)
 		{
 			context->setState(new TransitionState(context));
 		}
 		return;
 	}
 
-	if (game->getTimeRemaining() <= 0 && game->hasWinner()) {
+	if (game->getTimeRemaining() <= 0 && game->hasWinner() || game->getTeamAGoals() >= game->getGoalLimit() || game->getTeamBGoals() >= game->getGoalLimit()) {
 		game->endGame();
 		world->add(new EndGameStats(game));
 		return;
