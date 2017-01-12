@@ -43,9 +43,12 @@ public:
 
 	void endGame();
 
+
+	bool gameOver;
 	bool isOvertime;
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
+	std::chrono::system_clock::time_point gameEnded;
 
 private:
 	//Settings
@@ -55,6 +58,7 @@ private:
 	char* map;
 	std::chrono::system_clock::time_point beginTime;
 	std::chrono::system_clock::time_point timeLimit;
+
 
 	int firstGoalTime;
 

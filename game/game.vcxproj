@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="game\states\AchievementsState.cpp" />
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="engine\location\Path.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="game\states\AchievementsState.h" />
     <ClInclude Include="engine\core\AudioController.h" />
