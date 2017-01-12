@@ -12,7 +12,7 @@ EndGameStats::~EndGameStats()
 
 std::string EndGameStats::getText()
 {
-	if (!this->game->getTeamAGoals() > this->game->getTeamBGoals())
+	if (this->game->getTeamAGoals() > this->game->getTeamBGoals())
 	{
 		return "You win!";
 	}
