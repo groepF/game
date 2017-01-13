@@ -11,11 +11,4 @@ Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite(
 	this->type = CIRCLE;
 }
 
-/**
-* Makes the enemy drop the ball
-* @param b the ball to drop
-*/
-void Enemy::hitByPlayer(Ball* b) const
-{
-	b->drop();
-}
+
