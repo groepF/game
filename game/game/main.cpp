@@ -25,10 +25,13 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("achievements", "res/images/achievements.png");
 	engine.addSpritesheet("help", "res/images/help.png");
 
-	// Ads
-	engine.addSpritesheet("ad_1", "res/images/ads/mcdonalds.png");
-	engine.addSpritesheet("ad_2", "res/images/ads/subway.png");
-	engine.addSpritesheet("ad_3", "res/images/ads/ah.png");
+	// Advertisements.
+	auto files = engine.getFilesIn("../game/res/images/ads");
+
+	for (auto index = 0; index < files.size(); index++)
+	{
+		engine.addSpritesheet("ad_" + std::to_string(index + 1), files[index]);
+	}
 
 	engine.addMusic("background", "res/sounds/music.wav");
 	engine.addMusic("menu", "res/sounds/menu.mp3");

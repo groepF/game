@@ -24,3 +24,8 @@ void StateContext::setState(State* state)
 	currentState = state;
 	stateUpdated();
 }
+
+std::vector<std::string> StateContext::getFilesIn(const std::string path) const
+{
+	return {};
+}
