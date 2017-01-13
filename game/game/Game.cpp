@@ -28,6 +28,7 @@ Game::Game()
 
 Game::~Game()
 {
+	delete world;
 }
 
 char* Game::getMap() const
@@ -73,7 +74,6 @@ void Game::begin()
 	this->ballPossessionTeamB = 0;
 	beginTime = std::chrono::system_clock::now();
 	timeLimit = beginTime + std::chrono::duration<int>(gameTime * 60);
-	this->player = new Player((size * 2) * 3, (size * 2) * 1);
 }
 
 void Game::setTime(int minutes)

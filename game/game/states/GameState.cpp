@@ -29,9 +29,8 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	/*world = new World(WORLD_GRAVITY);
-	game->setWorld(world);*/
-	this->fpsCounter = new FpsCounter();
+	world = new World(WORLD_GRAVITY);
+	game->setWorld(world);
 
 	this->fpsCounter = new FpsCounter();
 
@@ -90,6 +89,7 @@ void GameState::onCreate()
 
 	player->setFixedRotation(true);
 	player2->setFixedRotation(true);
+	game->setWorld(world);
 }
 
 void GameState::onRender(Screen *screen)
@@ -244,9 +244,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 		if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce); }
 	}
 
-
-
-
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 
 	player->move();
@@ -257,5 +254,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 void GameState::onDestroy()
 {
 	//delete world;
+	game->setWorld(world);
+
 	Log::debug("OnDestroy GameState");
 }
