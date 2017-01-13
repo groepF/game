@@ -23,7 +23,7 @@ public:
 	PlayerState getPlayerState() const;
 	bool isInRangeOf(Body* b) const;
 	void hitByEnemy(Ball* b) const;
-
+	float getY() const override;
 
 private:
 	PlayerState state;

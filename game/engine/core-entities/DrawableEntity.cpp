@@ -3,7 +3,7 @@
 #include "../graphics/render-strategies/RenderDrawableStrategy.h"
 #include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 
-DrawableEntity::DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : Body(x, y, width, height, dynamic, angularDamping, linearDamping)
+DrawableEntity::DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping, bool isPlayer) : Body(x, y, width, height, dynamic, angularDamping, linearDamping, isPlayer)
 {
 	sprite = s;
 }
