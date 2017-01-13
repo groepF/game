@@ -50,6 +50,7 @@ void GameSelectionState::onCreate()
 	this->addWidget(new Label(300, 200, widgetWidth, widgetHeight, "Time:"));
 	this->addWidget(new Label(300, 260, widgetWidth, widgetHeight, "Goals:"));
 	this->addWidget(new Label(300, 320, widgetWidth, widgetHeight, "Map:"));
+	this->addWidget(new Label(300, 380, widgetWidth, widgetHeight, "Mode:"));
 
 	//Creating buttons and add them to a vector
 
@@ -77,11 +78,17 @@ void GameSelectionState::onCreate()
 	mapButtons.push_back(btn_level2);
 	mapButtons.push_back(btn_level3);
 
+	//Options
+	Button* btn_option1 = new Button("option_local", 500, 380, 140, smallButtonHeight, "Local", this);
+	Button* btn_option2 = new Button("option_ai", 650, 380, 140, smallButtonHeight, "AI", this);
+	optionButtons.push_back(btn_option1);
+	optionButtons.push_back(btn_option2);
 
 	//Set defaults
 	btn_time3->select();
 	btn_goals5->select();
 	btn_level1->select();
+	btn_option1->select();
 
 
 	//Add game setting buttons
@@ -99,6 +106,10 @@ void GameSelectionState::onCreate()
 	this->addWidget(btn_level1);
 	this->addWidget(btn_level2);
 	this->addWidget(btn_level3);
+
+	//Option
+	this->addWidget(btn_option1);
+	this->addWidget(btn_option2);
 
 
 	//Add Start and Go Back buttons 
@@ -175,6 +186,18 @@ bool GameSelectionState::onClick(Button* button)
 	{
 		deselectAll(mapButtons);
 		game->setMap(3);
+	}
+
+	//Map
+	if (button->getId() == "option_local")
+	{
+		deselectAll(optionButtons);
+		// Todo: Set the Local aspect of the game.
+	}
+	else if (button->getId() == "option_ai")
+	{
+		deselectAll(optionButtons);
+		// Todo: Set the AI aspect of the game.
 	}
 
 	button->select();
