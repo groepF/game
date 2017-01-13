@@ -49,6 +49,7 @@ public:
 	bool isOvertime;
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
+	bool playing = false;
 
 private:
 	//Settings
@@ -64,6 +65,8 @@ private:
 
 	int goalsTeamA;
 	int goalsTeamB;
+
+	
 
 	World *world;
 	Player *player;

@@ -8,6 +8,7 @@
 #include "../entities/Timer.h"
 #include "MenuState.h"
 #include "../../engine/widgets/Label.h"
+#include "PauseState.h"
 
 
 GameState::GameState(StateContext* context, Game* game) :	State(context),
@@ -17,7 +18,8 @@ isDebug(Config::getBool("debug", false)),
 showGrid(false)
 {
 	this->game = game;
-	this->game->begin();
+	if(!this->game->playing)
+		this->game->begin();
 }
 
 GameState::~GameState()
@@ -67,9 +69,19 @@ void GameState::onCreate()
 		}
 	}
 
-	player = new Player((size * 2) * 3, (size * 2) * 1);
-	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
-	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	if (!this->game->playing)
+	{
+		player = new Player((size * 2) * 3, (size * 2) * 1);
+		ai = new Enemy((size * 2) * 61, (size * 2) * 1);
+		ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	}
+	else
+	{
+		player = this->game->getPlayer();
+		ai = this->game->getEnemy();
+		ball = this->game->getBall();
+	}
+	
 	fpsCounter = new FpsCounter(true, 1200);
   
 	//Add the player, ball and AI to the world
@@ -99,9 +111,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 {
 	if (keyboard->isKeydown(KEY_ESCAPE))
 	{
-		game->pauseGame();
-		this->addWidget(new Label(0, 0, 720, 1300, "", Color{ "black" }, 1));
-
+		context->setState(new PauseState(context, game));
 		return;
 	}
 

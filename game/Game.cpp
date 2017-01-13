@@ -53,6 +53,7 @@ Ball* Game::getBall()
 
 void Game::begin()
 {
+	playing = true;
 	// add a countdown?
 	this->goalsTeamA = 0;
 	this->goalsTeamB = 0;
