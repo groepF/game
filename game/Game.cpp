@@ -20,6 +20,7 @@ Game::Game()
 	this->maxGoals = 5;
 
 	isOvertime = false;
+	gameOver = false;
 }
 
 
@@ -201,4 +202,11 @@ void Game::endGame()
 
 	Highscore::save();
 
+	gameOver = true;
+	gameEnded = std::chrono::system_clock::now();
+}
+
+int Game::getGoalLimit()
+{
+	return maxGoals;
 }

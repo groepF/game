@@ -50,6 +50,7 @@
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="engine\location\Path.cpp" />
     <ClCompile Include="GraphRepository.cpp" />
+    <ClCompile Include="game\entities\EndGameStats.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="engine\location\Path.h" />
     <ClInclude Include="GraphRepository.h" />
+    <ClInclude Include="game\entities\EndGameStats.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

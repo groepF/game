@@ -30,4 +30,5 @@ private:
 	bool isDebug;
 	bool showGrid;
 	bool showHybricGrid;
+	int endGameScreenSeconds;
 };
