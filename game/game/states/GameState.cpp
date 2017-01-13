@@ -122,8 +122,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
   
 	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
-	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
-	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
@@ -143,9 +141,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (Config::getBool("debug", false))
 	{
 		//toggle sprite boundary view
-		if (keyboard->isKeydown(KEY_F1)) {}
+		if (keyboard->isKeydown(KEY_F1)) { showGrid = !showGrid; showHybricGrid = false; }
 		//toggle hybrid view
-		if (keyboard->isKeydown(KEY_F2)) {}
+		if (keyboard->isKeydown(KEY_F2)) { showHybricGrid = !showHybricGrid;; showGrid = false; }
 		//player 1 scoren
 		if (keyboard->isKeydown(KEY_F3)) { game->teamAScored(); }
 		//player 2 scoren
