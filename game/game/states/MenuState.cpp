@@ -119,7 +119,8 @@ bool MenuState::onClick(Button* button)
 
 void MenuState::chooseRandomAd()
 {
-	auto random = Math::random(1, 3);
+	auto ads = this->context->getFilesIn("../game/res/images/ads");
+	auto random = Math::random(1, ads.size() + 1);
 
 	ad = new Sprite("ad_" + std::to_string(random), 0, 0, 400, 130);
 }
