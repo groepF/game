@@ -92,6 +92,11 @@ void Game::setMap(int id)
 	}
 }
 
+void Game::setWorld(World* world)
+{
+	this->world = world;
+}
+
 int Game::getTeamAGoals()
 {
 	return goalsTeamA;

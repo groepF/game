@@ -33,8 +33,8 @@ void GameState::onCreate()
 {
 	Log::debug("OnCreate GameState");
 
-	world = new World(WORLD_GRAVITY);
-
+	/*world = new World(WORLD_GRAVITY);
+	game->setWorld(world);*/
 	this->fpsCounter = new FpsCounter();	
 
 	world	= game->getWorld();
@@ -42,38 +42,52 @@ void GameState::onCreate()
 	ai		= game->getEnemy();
 	ball	= game->getBall();
 
-	LevelReader reader(game->getMap());
-	//Get Datalayer Tiles and TileSet Tiles
-	auto tiles = reader.getTiles();
-	auto tileSet = reader.getTileSet();
-
-  //Set Background.
-	auto background = new Sprite("background", 0, 0, 1300, 720);
-	world->addBackground(background);
-
-	auto size = 0.2f;
-	int counter = 0;
-	for (float x = 0; x < reader.getLevelHeight(); x++)
-	{
-		for (float y = 0; y < reader.getLevelWidth(); y++)
-		{
-			if (tiles.at(counter) != 0)
-			{
-				//Retrieve the correct Tile from the TileSet
-				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
-
-				//Add the sprite to the world
-				world->add(new DrawableEntity(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
-			}
-			counter++;
-		}
-	}
-
 	if (!this->game->playing)
 	{
+		LevelReader reader(game->getMap());
+		//Get Datalayer Tiles and TileSet Tiles
+		auto tiles = reader.getTiles();
+		auto tileSet = reader.getTileSet();
+
+		//Set Background.
+		auto background = new Sprite("background", 0, 0, 1300, 720);
+		world->addBackground(background);
+
+		auto size = 0.2f;
+		int counter = 0;
+		for (float x = 0; x < reader.getLevelHeight(); x++)
+		{
+			for (float y = 0; y < reader.getLevelWidth(); y++)
+			{
+				if (tiles.at(counter) != 0)
+				{
+					//Retrieve the correct Tile from the TileSet
+					std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
+
+					//Add the sprite to the world
+					world->add(new DrawableEntity(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
+				}
+				counter++;
+			}
+		}
+
 		player = new Player((size * 2) * 3, (size * 2) * 1);
 		ai = new Enemy((size * 2) * 61, (size * 2) * 1);
 		ball = new Ball((size * 2) * 32, (size * 2) * 1);
+
+		fpsCounter = new FpsCounter(true, 1200);
+
+		//Add the player, ball and AI to the world
+		world->add(player);
+		world->add(ai);
+
+		world->add(fpsCounter);
+		world->add(new Score(game));
+		world->add(new Timer(game));
+		world->add(ball);
+
+		player->setFixedRotation(true);
+		ai->setFixedRotation(true);
 	}
 	else
 	{
@@ -82,19 +96,6 @@ void GameState::onCreate()
 		ball = this->game->getBall();
 	}
 	
-	fpsCounter = new FpsCounter(true, 1200);
-  
-	//Add the player, ball and AI to the world
-	world->add(player);
-	world->add(ai);
-
-	world->add(fpsCounter);
-	world->add(new Score(game));
-	world->add(new Timer(game));
-	world->add(ball);
-
-	player->setFixedRotation(true);
-	ai->setFixedRotation(true);
 }
 
 void GameState::onRender(Screen *screen)
@@ -171,6 +172,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 void GameState::onDestroy()
 {
-	delete world;
+	//delete world;
 	Log::debug("OnDestroy GameState");
 }

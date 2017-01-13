@@ -23,6 +23,7 @@ public:
 	void setTime(int minutes);
 	void setGoals(int goals);
 	void setMap(int id);
+	void setWorld(World* world);
 
 	int getTeamAGoals();
 	int getTeamBGoals();
