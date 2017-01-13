@@ -41,6 +41,9 @@ public:
 
 	std::chrono::system_clock::time_point getTimeLimit();
 
+	void pauseGame();
+	void restartGame();
+
 	void endGame();
 
 	bool isOvertime;
@@ -55,6 +58,7 @@ private:
 	char* map;
 	std::chrono::system_clock::time_point beginTime;
 	std::chrono::system_clock::time_point timeLimit;
+	std::chrono::system_clock::time_point startPause;
 
 	int firstGoalTime;
 

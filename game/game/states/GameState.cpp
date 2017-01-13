@@ -7,6 +7,7 @@
 #include "../../engine/core-entities/DrawableEntity.h"
 #include "../entities/Timer.h"
 #include "MenuState.h"
+#include "../../engine/widgets/Label.h"
 
 
 GameState::GameState(StateContext* context, Game* game) :	State(context),
@@ -96,6 +97,14 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if (keyboard->isKeydown(KEY_ESCAPE))
+	{
+		game->pauseGame();
+		this->addWidget(new Label(0, 0, 720, 1300, "", Color{ "black" }, 1));
+
+		return;
+	}
+
 	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
 	{
 		game->isOvertime = true;
@@ -142,7 +151,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_RETURN)) { player->hitByEnemy(ball); }
 
 
-	if(keyboard->isKeydown(KEY_ESCAPE)){/*pause game and show menu*/}
+	
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 

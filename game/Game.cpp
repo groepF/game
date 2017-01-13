@@ -146,6 +146,24 @@ std::chrono::system_clock::time_point Game::getTimeLimit()
 	return timeLimit;
 }
 
+void Game::pauseGame()
+{
+	startPause = std::chrono::system_clock::now();
+	//build pause screen
+}
+
+void Game::restartGame()
+{
+	//calculate the paused time by the current time and the time when the pause started
+	std::chrono::system_clock::time_point restartTime = std::chrono::system_clock::now();
+	auto timeDifference = std::chrono::duration_cast<std::chrono::milliseconds>(restartTime - startPause);
+	//add the difference to beginTime and timeLimit 
+	beginTime += timeDifference;
+	timeLimit += timeDifference;
+
+	//'close' pause screen
+}
+
 void Game::endGame()
 {
 	// save statistics and highscores, just always call the methods in highscore class
