@@ -8,17 +8,18 @@ Game::Game()
 
 	//Default map
 	this->map = "./res/maps/level1.tmx";
+	this->size = 0.2f;
 
-	auto size = 0.2f;
 	player = new Player((size * 2) * 3, (size * 2) * 1);
-	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
+	player2 = new Enemy((size * 2) * 61, (size * 2) * 1);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 
 	//Default settings
 	this->gameTime = 3;
 	this->maxGoals = 5;
 
-	isOvertime = false;
+
+	this->isOvertime = false;
 }
 
 
@@ -26,27 +27,27 @@ Game::~Game()
 {
 }
 
-char* Game::getMap()
+char* Game::getMap() const
 {
 	return this->map;
 }
 
-World* Game::getWorld()
+World* Game::getWorld() const
 {
 	return this->world;
 }
 
-Player* Game::getPlayer()
+Player* Game::getPlayer() const
 {
 	return this->player;
 }
 
-Enemy* Game::getEnemy()
+Player* Game::getPlayer2() const
 {
-	return this->ai;
+	return this->player2;
 }
 
-Ball* Game::getBall()
+Ball* Game::getBall() const
 {
 	return this->ball;
 }
@@ -61,6 +62,7 @@ void Game::begin()
 	this->ballPossessionTeamB = 0;
 	beginTime = std::chrono::system_clock::now();
 	timeLimit = beginTime + std::chrono::duration<int>(gameTime * 60);
+	this->player = new Player((size * 2) * 3, (size * 2) * 1);
 }
 
 void Game::setTime(int minutes)
@@ -218,4 +220,9 @@ void Game::endGame()
 
 	Highscore::save();
 
+}
+
+float Game::getSize() const
+{
+	return size;
 }

@@ -47,7 +47,6 @@ void PauseState::onRender(Screen* screen)
 
 void PauseState::onUpdate(Keyboard* keyboard)
 {
-	auto x = 1;
 }
 
 bool PauseState::onClick(Button* button)

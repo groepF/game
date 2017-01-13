@@ -23,7 +23,7 @@ private:
 	Game *game;
 	World *world;
 	Player *player;
-	Enemy *ai;
+	Player *player2;
 	Ball *ball;
 	FpsCounter* fpsCounter;
 	const float WORLD_GRAVITY = 9.81f;

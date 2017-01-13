@@ -12,11 +12,11 @@ public:
 	Game();
 	~Game();
 
-	char* getMap();
-	World* getWorld();
-	Player* getPlayer();
-	Enemy* getEnemy();
-	Ball* getBall();
+	char* getMap() const;
+	World* getWorld() const;
+	Player* getPlayer() const;
+	Player* getPlayer2() const;
+	Ball* getBall() const;
 
 	void begin();
 
@@ -51,6 +51,7 @@ public:
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
 	bool playing = false;
+	float getSize() const;
 
 private:
 	//Settings
@@ -67,11 +68,11 @@ private:
 	int goalsTeamA;
 	int goalsTeamB;
 
-	
+	float size;
 
 	World *world;
 	Player *player;
-	Enemy *ai;
+	Player *player2;
 	Ball *ball;
 	
 	const float WORLD_GRAVITY = 9.81f;
