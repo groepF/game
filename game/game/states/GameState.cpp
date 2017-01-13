@@ -147,17 +147,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 	if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(player2)) { ball->pickUp(player2); }
-
+  
+	
 	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
-	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
-	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
-
 
 	// player 1
 	if (!keyboard->isKeydown(KEY_A) && !keyboard->isKeydown(KEY_D))
 	{
 		player->setPlayerState(PLAYER_STOP);
 	}
+
 	// TMP CHEAT
 	if (keyboard->isKeydown(KEY_SPACE))
 	{
@@ -239,7 +238,38 @@ void GameState::onUpdate(Keyboard *keyboard)
 			}
 		}
 		if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce); }
+
 	}
+
+	//cheats
+	if (Config::getBool("debug", false))
+	{
+		//toggle sprite boundary view
+		if (keyboard->isKeydown(KEY_F1)) { showGrid = !showGrid; showHybricGrid = false; }
+		//toggle hybrid view
+		if (keyboard->isKeydown(KEY_F2)) { showHybricGrid = !showHybricGrid;; showGrid = false; }
+		//player 1 scoren
+		if (keyboard->isKeydown(KEY_F3)) { game->teamAScored(); }
+		//player 2 scoren
+		if (keyboard->isKeydown(KEY_F4)) { game->teamBScored(); }
+		//player 1 win
+		if (keyboard->isKeydown(KEY_F5)) { game->teamAWin(); }
+		//player 2 win
+		if (keyboard->isKeydown(KEY_F6)) { game->teamBWin(); }
+		//time remaining omlaag
+		if (keyboard->isKeydown(KEY_F7)) { game->changeTimeRemaining(-10); }
+		//time remaining omhoog
+		if (keyboard->isKeydown(KEY_F8)) { game->changeTimeRemaining(10); }
+		//speler 1 100% balbezit
+		if (keyboard->isKeydown(KEY_F9)) { game->ballPossessionCheat(true); }
+		//speler 2 100% balbezit
+		if (keyboard->isKeydown(KEY_F10)) { game->ballPossessionCheat(false); }
+		//spel versnellen
+		if (keyboard->isKeydown(KEY_F11)) {}
+		//spel vertragen
+		if (keyboard->isKeydown(KEY_F12)) {}
+	}
+
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 

@@ -10,3 +10,8 @@ Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite(
 	this->friction = 0.5f;
 	this->type = CIRCLE;
 }
+
+float Enemy::getY() const
+{
+	return DrawableEntity::getY() + 0.28;
+}

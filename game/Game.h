@@ -37,9 +37,15 @@ public:
 
 	void teamBScored();
 
+	void teamAWin();
+
+	void teamBWin();
+
 	bool hasWinner() const;
 
-	void ballPossessionCheat();
+	void ballPossessionCheat(bool teamA);
+
+	void changeTimeRemaining(int seconds);
 
 	std::chrono::system_clock::time_point getTimeLimit();
 
