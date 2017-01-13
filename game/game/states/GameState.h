@@ -18,12 +18,12 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
-
+	enum Direction {UP, DOWN, LEFT, RIGHT};
 private:
 	Game *game;
 	World *world;
 	Player *player;
-	Enemy *ai;
+	Player *player2;
 	Ball *ball;
 	FpsCounter* fpsCounter;
 	const float WORLD_GRAVITY = 9.81f;
@@ -31,4 +31,7 @@ private:
 	bool showGrid;
 	bool showHybricGrid;
 	int endGameScreenSeconds;
+	Direction p1LastDirection;
+	Direction p2LastDirection;
+	double throwForce;
 };

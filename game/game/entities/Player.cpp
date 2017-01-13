@@ -50,7 +50,7 @@ PlayerState Player::getPlayerState() const
  * Checks if the player is close enough to the ball to pick it up
  * Body* b - The entity that should be picked up
  */
-bool Player::canPickup(Body* b) const
+bool Player::isInRangeOf(Body* b) const
 {
 
 	int xPlayer_1 = this->body->GetPosition().x;
