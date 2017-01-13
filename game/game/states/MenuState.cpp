@@ -96,8 +96,7 @@ bool MenuState::onClick(Button* button)
 
 	if (text == "Play")
 	{
-		//context->setState(new GameSelectionState(context));
-		context->setState(new TransitionState(context));
+		context->setState(new GameSelectionState(context));
 	}
 	else if (text == "Achievements")
 	{
@@ -120,7 +119,8 @@ bool MenuState::onClick(Button* button)
 
 void MenuState::chooseRandomAd()
 {
-	auto random = Math::random(1, 3);
+	auto ads = this->context->getFilesIn("../game/res/images/ads");
+	auto random = Math::random(1, ads.size());
 
 	ad = new Sprite("ad_" + std::to_string(random), 0, 0, 400, 130);
 }

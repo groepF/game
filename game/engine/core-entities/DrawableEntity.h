@@ -5,7 +5,7 @@
 class DrawableEntity : public Body, public IDrawableRenderDataProvider
 {
 public:
-	DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f);
+	DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f, bool isPlayer = false);
 	~DrawableEntity() = default;
 
 	void Render(Screen& screen, bool debug) const override;

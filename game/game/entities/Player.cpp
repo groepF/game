@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true, 0, 0, true)
 {
 
 	this->density = 0.4f;
@@ -50,7 +50,7 @@ PlayerState Player::getPlayerState() const
  * Checks if the player is close enough to the ball to pick it up
  * Body* b - The entity that should be picked up
  */
-bool Player::canPickup(Body* b) const
+bool Player::isInRangeOf(Body* b) const
 {
 
 	int xPlayer_1 = this->body->GetPosition().x;
@@ -80,4 +80,9 @@ bool Player::canPickup(Body* b) const
 void Player::hitByEnemy(Ball* b) const
 {
 	b->drop();
+}
+
+float Player::getY() const
+{
+	return DrawableEntity::getY() + 0.28;
 }

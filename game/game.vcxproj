@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="game\states\AchievementsState.cpp" />
     <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
@@ -178,8 +179,10 @@
     <ClCompile Include="engine\location\Graph.cpp" />
     <ClCompile Include="engine\location\Vertex.cpp" />
     <ClCompile Include="engine\location\Path.cpp" />
+    <ClCompile Include="GraphRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="game\states\AchievementsState.h" />
     <ClInclude Include="engine\core\AudioController.h" />
@@ -236,6 +239,7 @@
     <ClInclude Include="engine\location\Graph.h" />
     <ClInclude Include="engine\location\Vertex.h" />
     <ClInclude Include="engine\location\Path.h" />
+    <ClInclude Include="GraphRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

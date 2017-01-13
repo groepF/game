@@ -21,8 +21,9 @@ public:
 	void jump();
 	void setPlayerState(PlayerState state);
 	PlayerState getPlayerState() const;
-	bool canPickup(Body* b) const;
+	bool isInRangeOf(Body* b) const;
 	void hitByEnemy(Ball* b) const;
+	float getY() const override;
 
 private:
 	PlayerState state;
