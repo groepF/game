@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true, 0, 0, true)
 {
 
 	this->density = 0.4f;
