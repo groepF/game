@@ -7,9 +7,11 @@
 #include "../../engine/core-entities/DrawableEntity.h"
 #include "../entities/Timer.h"
 #include "MenuState.h"
+#include "../entities/EndGameStats.h"
+#include "TransitionState.h"
 
 
-GameState::GameState(StateContext* context, Game* game) :	State(context),
+GameState::GameState(StateContext* context, Game* game) : State(context),
 world(nullptr),
 player(nullptr),
 isDebug(Config::getBool("debug", false)),
@@ -17,6 +19,7 @@ showGrid(false)
 {
 	this->game = game;
 	this->game->begin();
+	this->endGameScreenSeconds = 4;
 }
 
 GameState::~GameState()
@@ -32,19 +35,19 @@ void GameState::onCreate()
 
 	world = new World(WORLD_GRAVITY);
 
-	this->fpsCounter = new FpsCounter();	
+	this->fpsCounter = new FpsCounter();
 
-	world	= game->getWorld();
-	player	= game->getPlayer();
-	ai		= game->getEnemy();
-	ball	= game->getBall();
+	world = game->getWorld();
+	player = game->getPlayer();
+	ai = game->getEnemy();
+	ball = game->getBall();
 
 	LevelReader reader(game->getMap());
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
 
-  //Set Background.
+	//Set Background.
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 
@@ -70,7 +73,7 @@ void GameState::onCreate()
 	ai = new Enemy((size * 2) * 61, (size * 2) * 1);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 	fpsCounter = new FpsCounter(true, 1200);
-  
+
 	//Add the player, ball and AI to the world
 	world->add(player);
 	world->add(ai);
@@ -87,7 +90,7 @@ void GameState::onCreate()
 void GameState::onRender(Screen *screen)
 {
 	fpsCounter->CalculateCurrentFps();
-	if(showHybricGrid)
+	if (showHybricGrid)
 	{
 		showGrid = !showGrid;
 	}
@@ -96,31 +99,48 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
-	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
+	if (game->gameOver)
 	{
-		game->isOvertime = true;
-		game->teamAScored();
-		game->teamAScored();
-		game->teamAScored();
-		if (game->hasWinner()) {
-			game->endGame();
-			context->setState(new MenuState(context));
-			return;
+		// keep the score on screen for a couple of seconds.
+		int past_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - game->gameEnded).count();
+		if (past_seconds >= endGameScreenSeconds)
+		{
+			context->setState(new TransitionState(context));
 		}
+		return;
 	}
 
-	if(ball->isHeldBy(ai))
+	if (game->getTimeRemaining() <= 0 && game->hasWinner() || game->getTeamAGoals() >= game->getGoalLimit() || game->getTeamBGoals() >= game->getGoalLimit()) {
+		game->endGame();
+		world->add(new EndGameStats(game));
+		return;
+	}
+
+
+	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
+	{
+		// tmp to foce winner
+		game->teamAScored();
+		game->teamAScored();
+		game->teamAScored();
+		// end tmp
+		game->isOvertime = true;
+	}
+
+
+
+	if (ball->isHeldBy(ai))
 	{
 		game->ballPossessionTeamB++;
 	}
-	if(ball->isHeldBy(player))
+	if (ball->isHeldBy(player))
 	{
 		game->ballPossessionTeamA++;
 	}
 
-  if (ball->isHeldBy(player)) { ball->pickUp(player); }
+	if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(ai)) { ball->pickUp(ai); }
-  
+
 	if (keyboard->isKeydown(KEY_F)) { fpsCounter->toggle(); }
 	if (keyboard->isKeydown(KEY_F1) && isDebug) { showGrid = !showGrid; showHybricGrid = false; }
 	if (keyboard->isKeydown(KEY_F2) && isDebug) { showHybricGrid = !showHybricGrid;; showGrid = false; }
@@ -132,7 +152,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); }
 	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); }
 	if (keyboard->isKeydown(KEY_SPACE)) { if (player->canPickup(ai)) ai->hitByPlayer(ball); }
-	if (keyboard->isKeydown(KEY_LCTRL)) { if(player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
+	if (keyboard->isKeydown(KEY_LCTRL)) { if (player->canPickup(ball) || ball->isHeldBy(player)) ball->pickUp(player); }
 	if (keyboard->isKeydown(KEY_LEFT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, true); } }
 	if (keyboard->isKeydown(KEY_RIGHT)) { if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, false); } }
 	if (keyboard->isKeydown(KEY_DOWN)) { if (ball->isHeldBy(player)) ball->drop(); }

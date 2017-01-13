@@ -96,8 +96,7 @@ bool MenuState::onClick(Button* button)
 
 	if (text == "Play")
 	{
-		//context->setState(new GameSelectionState(context));
-		context->setState(new TransitionState(context));
+		context->setState(new GameSelectionState(context));
 	}
 	else if (text == "Achievements")
 	{
