@@ -1,4 +1,6 @@
 #include "TransitionState.h"
+#include "MenuState.h"
+#include "../../engine/core/StateContext.h"
 
 
 TransitionState::TransitionState(StateContext* context): State(context)

@@ -1,6 +1,6 @@
 #pragma once
 #include "../../engine/core/State.h"
-#include "../../Game.h"
+#include "../Game.h"
 #include "../../engine/input/OnClickListener.h"
 #include "../../engine/core/StateContext.h"
 #include "GameState.h"

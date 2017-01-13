@@ -4,11 +4,8 @@
 #include "../../engine/world/World.h"
 #include "../entities/Player.h"
 #include "../../engine/core-entities/FpsCounter.h"
-#include "../../engine/core/StateContext.h"
 #include "../entities/Ball.h"
-#include "../entities/Enemy.h"
-#include "../../Game.h"
-#include "../entities/Enemy.h"
+#include "../Game.h"
 
 class GameState : public State {
 public:
@@ -18,7 +15,7 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
-
+	enum Direction {UP, DOWN, LEFT, RIGHT};
 private:
 	Game *game;
 	World *world;
@@ -30,4 +27,8 @@ private:
 	bool isDebug;
 	bool showGrid;
 	bool showHybricGrid;
+	int endGameScreenSeconds;
+	Direction p1LastDirection;
+	Direction p2LastDirection;
+	double throwForce;
 };

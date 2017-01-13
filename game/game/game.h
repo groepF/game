@@ -1,9 +1,10 @@
 #pragma once
-#include "engine/world/World.h"
-#include "game/entities/Player.h"
-#include "game/entities/Ball.h"
-#include "game/entities/Enemy.h"
+#include "../engine/world/World.h"
+#include "entities/Player.h"
+#include "entities/Ball.h"
+#include "entities/Enemy.h"
 #include "chrono"
+#include "../engine/location/Graph.h"
 
 
 class Game
@@ -17,6 +18,7 @@ public:
 	Player* getPlayer() const;
 	Player* getPlayer2() const;
 	Ball* getBall() const;
+	Graph* getGraph();
 
 	void begin();
 
@@ -47,11 +49,16 @@ public:
 
 	void endGame();
 
+	int getGoalLimit();
+
+
+	bool gameOver;
 	bool isOvertime;
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
 	bool playing = false;
 	float getSize() const;
+	std::chrono::system_clock::time_point gameEnded;
 
 private:
 	//Settings
@@ -63,12 +70,14 @@ private:
 	std::chrono::system_clock::time_point timeLimit;
 	std::chrono::system_clock::time_point startPause;
 
+
 	int firstGoalTime;
 
 	int goalsTeamA;
 	int goalsTeamB;
 
 	float size;
+	Graph *graph;
 
 	World *world;
 	Player *player;
