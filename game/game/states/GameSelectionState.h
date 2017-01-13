@@ -22,6 +22,7 @@ private:
 	std::vector<Button*> timeButtons;
 	std::vector<Button*> goalButtons;
 	std::vector<Button*> mapButtons;
+	std::vector<Button*> optionButtons;
 	void deselectAll(std::vector<Button*> buttons);
 };
 
