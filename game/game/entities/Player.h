@@ -24,6 +24,7 @@ public:
 	bool canPickup(Body* b) const;
 	void hitByEnemy(Ball* b) const;
 
+	float getY() const override;
 private:
 	PlayerState state;
 };

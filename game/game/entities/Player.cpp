@@ -81,3 +81,8 @@ void Player::hitByEnemy(Ball* b) const
 {
 	b->drop();
 }
+
+float Player::getY() const
+{
+	return DrawableEntity::getY() + 0.28;
+}

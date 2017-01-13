@@ -68,7 +68,7 @@ void Body::create(b2Body *body)
 	else
 	{
 		b2CircleShape circle;
-		circle.m_p.Set(0, height - width);
+		circle.m_p.Set(0, 0);
 		circle.m_radius = width;
 
 		b2FixtureDef fixtureDef;
@@ -79,7 +79,7 @@ void Body::create(b2Body *body)
 		fixtureDef.shape = &circle;
 		body->CreateFixture(&fixtureDef);
 
-		circle.m_p.Set(0, 0);
+		circle.m_p.Set(0, height);
 		circle.m_radius = width;
 
 		body->CreateFixture(&fixtureDef);
