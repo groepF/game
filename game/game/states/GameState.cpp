@@ -253,9 +253,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//player 2 scoren
 		if (keyboard->isKeydown(KEY_F4)) { game->teamBScored(); }
 		//player 1 win
-		if (keyboard->isKeydown(KEY_F5)) {}
+		if (keyboard->isKeydown(KEY_F5)) { game->teamAWin(); }
 		//player 2 win
-		if (keyboard->isKeydown(KEY_F6)) {}
+		if (keyboard->isKeydown(KEY_F6)) { game->teamBWin(); }
 		//time remaining omlaag
 		if (keyboard->isKeydown(KEY_F7)) { game->changeTimeRemaining(-10); }
 		//time remaining omhoog

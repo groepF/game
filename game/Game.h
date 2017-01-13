@@ -37,6 +37,10 @@ public:
 
 	void teamBScored();
 
+	void teamAWin();
+
+	void teamBWin();
+
 	bool hasWinner() const;
 
 	void ballPossessionCheat(bool teamA);

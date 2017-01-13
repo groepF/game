@@ -137,6 +137,20 @@ void Game::teamBScored()
 	goalsTeamB++;
 }
 
+void Game::teamAWin()
+{
+	goalsTeamA = 10;
+	goalsTeamB = 1;
+	timeLimit = std::chrono::system_clock::now();
+}
+
+void Game::teamBWin()
+{
+	goalsTeamA = 1;
+	goalsTeamB = 10;
+	timeLimit = std::chrono::system_clock::now();
+}
+
 bool Game::hasWinner() const
 {
 	return goalsTeamA - goalsTeamB != 0;
