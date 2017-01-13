@@ -50,6 +50,8 @@
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="engine\location\Path.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
+    <ClCompile Include="game\states\AI\AIStateFactory.cpp" />
+    <ClCompile Include="game\states\AI\AIBallState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -109,6 +111,8 @@
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="engine\location\Path.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
+    <ClInclude Include="game\states\AI\AIStateFactory.h" />
+    <ClInclude Include="game\states\AI\AIBallState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

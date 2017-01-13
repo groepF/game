@@ -127,7 +127,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		game->isOvertime = true;
 	}
 
-
+	ai->action(context, keyboard);
 
 	if (ball->isHeldBy(ai))
 	{
