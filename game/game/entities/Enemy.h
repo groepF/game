@@ -10,6 +10,4 @@ class Enemy : public DrawableEntity {
 public:
 	Enemy(float x, float y);
 	void hitByPlayer(Ball* b) const;
-
-	float getY() const override;
 };
