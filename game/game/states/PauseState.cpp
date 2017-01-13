@@ -1,6 +1,8 @@
 #include "PauseState.h"
 #include "../../engine/util/Config.h"
 #include "../../engine/widgets/Button.h"
+#include "MenuState.h"
+#include "GameSelectionState.h"
 
 PauseState::PauseState(StateContext* context, Game* game) : State(context)
 {
@@ -31,6 +33,11 @@ void PauseState::onCreate()
 	int y = centerY - 120;
 
 	this->addWidget(new Button("continue", centerX, y, buttonWidth, buttonHeight, "Continue", this));
+	y += 60;
+	this->addWidget(new Button("newgame", centerX, y, buttonWidth, buttonHeight, "New Game", this));
+	y += 60;
+	this->addWidget(new Button("quitgame", centerX, y, buttonWidth, buttonHeight, "Quit Game", this));
+
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
 
@@ -58,7 +65,15 @@ bool PauseState::onClick(Button* button)
 		//context->setState(new GameSelectionState(context));
 		game->restartGame();
 		context->setState(new GameState(context, game));
-	};
+	}
+	else if (text == "New Game")
+	{
+		context->setState(new GameSelectionState(context));
+	}
+	else if(text == "Quit Game")
+	{
+		context->setState(new MenuState(context));
+	}
 	return false;
 }
 
