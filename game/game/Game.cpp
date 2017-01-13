@@ -148,16 +148,44 @@ void Game::teamBScored()
 	goalsTeamB++;
 }
 
+void Game::teamAWin()
+{
+	goalsTeamA = 10;
+	goalsTeamB = 1;
+	timeLimit = std::chrono::system_clock::now();
+}
+
+void Game::teamBWin()
+{
+	goalsTeamA = 1;
+	goalsTeamB = 10;
+	timeLimit = std::chrono::system_clock::now();
+}
+
 bool Game::hasWinner() const
 {
 	return goalsTeamA - goalsTeamB != 0;
 }
 
-void Game::ballPossessionCheat()
+void Game::ballPossessionCheat(bool teamA)
 {
-	ballPossessionTeamA = 1;
-	ballPossessionTeamB = 0;
-	// makes it 100% for team A
+	if(teamA)
+	{
+		ballPossessionTeamA = 1;
+		ballPossessionTeamB = 0;
+		// makes it 100% for team A
+	}
+	else
+	{
+		ballPossessionTeamA = 0;
+		ballPossessionTeamB = 1;
+		// makes it 100% for team B
+	}
+}
+
+void Game::changeTimeRemaining(int seconds)
+{
+	timeLimit += std::chrono::duration<int>(seconds);
 }
 
 std::chrono::system_clock::time_point Game::getTimeLimit()
