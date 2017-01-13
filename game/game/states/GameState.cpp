@@ -7,6 +7,7 @@
 #include "../../engine/core-entities/DrawableEntity.h"
 #include "../entities/Timer.h"
 #include "MenuState.h"
+#include "../../engine/location/Graph.h"
 #include "../entities/EndGameStats.h"
 #include "TransitionState.h"
 
@@ -47,6 +48,10 @@ void GameState::onCreate()
 	p2LastDirection = LEFT;
 
 	LevelReader reader(game->getMap());
+
+	//Graph ophalen
+	Graph* graph = game->getGraph();
+
 	//Get Datalayer Tiles and TileSet Tiles
 	auto tiles = reader.getTiles();
 	auto tileSet = reader.getTileSet();
