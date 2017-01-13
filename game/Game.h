@@ -39,6 +39,8 @@ public:
 
 	void ballPossessionCheat(bool teamA);
 
+	void changeTimeRemaining(int seconds);
+
 	std::chrono::system_clock::time_point getTimeLimit();
 
 	void endGame();

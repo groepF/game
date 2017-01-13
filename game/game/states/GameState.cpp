@@ -153,9 +153,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//player 2 win
 		if (keyboard->isKeydown(KEY_F6)) {}
 		//time remaining omlaag
-		if (keyboard->isKeydown(KEY_F7)) {}
+		if (keyboard->isKeydown(KEY_F7)) { game->changeTimeRemaining(-10); }
 		//time remaining omhoog
-		if (keyboard->isKeydown(KEY_F8)) {}
+		if (keyboard->isKeydown(KEY_F8)) { game->changeTimeRemaining(10); }
 		//speler 1 100% balbezit
 		if (keyboard->isKeydown(KEY_F9)) { game->ballPossessionCheat(true); }
 		//speler 2 100% balbezit

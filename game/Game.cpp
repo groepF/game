@@ -150,6 +150,11 @@ void Game::ballPossessionCheat(bool teamA)
 	}
 }
 
+void Game::changeTimeRemaining(int seconds)
+{
+	timeLimit += std::chrono::duration<int>(seconds);
+}
+
 std::chrono::system_clock::time_point Game::getTimeLimit()
 {
 	return timeLimit;
