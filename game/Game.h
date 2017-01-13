@@ -15,7 +15,7 @@ public:
 	char* getMap();
 	World* getWorld();
 	Player* getPlayer();
-	Enemy* getEnemy();
+	Player* getPlayer2();
 	Ball* getBall();
 
 	void begin();
@@ -69,7 +69,7 @@ private:
 
 	World *world;
 	Player *player;
-	Enemy *ai;
+	Player *player2;
 	Ball *ball;
 	
 	const float WORLD_GRAVITY = 9.81f;
