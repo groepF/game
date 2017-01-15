@@ -22,30 +22,27 @@ GameState::~GameState()
 {
 }
 
-/**
-* Function gets called when state changes
-*/
-void GameState::onCreate()
+void GameState::setGameStateItems()
 {
-	Log::debug("OnCreate GameState");
-
-	world = new World(WORLD_GRAVITY);
-	game->setWorld(world);
-
-	this->fpsCounter = new FpsCounter();
-
 	world = game->getWorld();
 	player = game->getPlayer();
 	player2 = game->getPlayer2();
 	ball = game->getBall();
 
+}
+
+void GameState::populateWord()
+{
+	world = new World(WORLD_GRAVITY);
+	game->setWorld(world);
+
+	setGameStateItems();
+
+
 	p1LastDirection = RIGHT;
 	p2LastDirection = LEFT;
 
-	if (!this->game->playing)
-	{
-		game->begin();
-	}
+	
 	LevelReader reader(game->getMap());
 
 	//Graph ophalen
@@ -76,20 +73,45 @@ void GameState::onCreate()
 		}
 	}
 
-	fpsCounter = new FpsCounter(true, 1200);
+	
 
 	//Add the player, ball and AI to the world
+
+
 	world->add(player);
 	world->add(player2);
 
-	world->add(fpsCounter);
+	
 	world->add(new Score(game));
 	world->add(new Timer(game));
 	world->add(ball);
 
 	player->setFixedRotation(true);
 	player2->setFixedRotation(true);
-	game->setWorld(world);
+}
+
+void GameState::createFpsCounter()
+{
+	fpsCounter = new FpsCounter(true, 1200);
+	world->add(fpsCounter);
+}
+
+/**
+* Function gets called when state changes
+*/
+void GameState::onCreate()
+{
+	Log::debug("OnCreate GameState");
+	if (!this->game->playing)
+	{
+		game->begin();
+		populateWord();
+	}
+	else
+	{
+		setGameStateItems();
+	}
+	createFpsCounter();
 }
 
 void GameState::onRender(Screen *screen)
@@ -166,7 +188,10 @@ void GameState::onUpdate(Keyboard *keyboard)
 	}
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); p1LastDirection = UP; }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
-	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
+	if (keyboard->isKeydown(KEY_D))
+	{
+		player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT;
+	}
 	if (keyboard->isKeydown(KEY_E)) {
 		if (player->isInRangeOf(ball) && !ball->isHeldBy(player)) { ball->pickUp(player); }
 		else if (ball->isHeldBy(player)) { ball->drop(); }

@@ -11,6 +11,7 @@ DrawableEntity::DrawableEntity(std::shared_ptr<Sprite> s, float x, float y, floa
 
 void DrawableEntity::Render(Screen& screen, bool debug) const
 {
+
 	if (debug && renderDebugStrategy != nullptr)
 	{
 		renderDebugStrategy->Render(screen);

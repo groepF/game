@@ -11,6 +11,9 @@ class GameState : public State {
 public:
 	GameState(StateContext* context, Game* game);
 	~GameState();
+	void setGameStateItems();
+	void populateWord();
+	void createFpsCounter();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
