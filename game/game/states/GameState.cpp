@@ -5,6 +5,7 @@
 #include "PauseState.h"
 #include "TransitionState.h"
 #include "../entities/EndGameStats.h"
+#include "../entities/PossessionMeter.h"
 
 
 GameState::GameState(StateContext* context, Game* game) : State(context),
@@ -96,6 +97,12 @@ void GameState::createFpsCounter()
 	world->add(fpsCounter);
 }
 
+void GameState::createPossessionMeter() const
+{
+	world->add(new PossessionMeter("p1possession",PossessionMeter::PLAYER1,this->game,50,590,100,50,Color("blue")));
+	world->add(new PossessionMeter("p2possession",PossessionMeter::PLAYER2,this->game,50,610,100,50,Color("red")));
+}
+
 /**
 * Function gets called when state changes
 */
@@ -112,6 +119,7 @@ void GameState::onCreate()
 		setGameStateItems();
 	}
 	createFpsCounter();
+	createPossessionMeter();
 }
 
 void GameState::onRender(Screen *screen)
@@ -160,14 +168,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		game->isOvertime = true;
 	}
 
-	if (ball->isHeldBy(player2))
-	{
-		game->ballPossessionTeamB++;
-	}
-	if (ball->isHeldBy(player))
-	{
-		game->ballPossessionTeamA++;
-	}
+	game->calculateBallPossession();
 
 	if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(player2)) { ball->pickUp(player2); }

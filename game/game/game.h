@@ -56,7 +56,7 @@ public:
 	void endGame();
 
 	int getGoalLimit();
-
+	void calculateBallPossession();
 
 	bool gameOver;
 	bool isOvertime;
@@ -66,6 +66,11 @@ public:
 	float getSize() const;
 	std::chrono::system_clock::time_point gameEnded;
 
+	enum HoldingPlayer {PLAYER1,PLAYER2,NONE};
+	HoldingPlayer ballLastHeldBy;
+	std::chrono::system_clock::time_point p1startBallpossession;
+	std::chrono::system_clock::time_point p2startBallpossession;
+	int getBallPossession(HoldingPlayer targetPlayer) const;
 private:
 	//Settings
 	int gameTime; //Default 180(seconden)
