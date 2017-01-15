@@ -99,8 +99,9 @@ void GameState::createFpsCounter()
 
 void GameState::createPossessionMeter() const
 {
-	world->add(new PossessionMeter("p1possession",PossessionMeter::PLAYER1,this->game,50,590,100,50,Color("blue")));
-	world->add(new PossessionMeter("p2possession",PossessionMeter::PLAYER2,this->game,50,610,100,50,Color("red")));
+	world->add(new TextualEntity("possession", 75, 683, 100, 50, Color("black"), "Ball possession"));
+	world->add(new PossessionMeter("p1possession",PossessionMeter::PLAYER1,this->game,230,683,100,50,Color("red")));
+	world->add(new PossessionMeter("p2possession",PossessionMeter::PLAYER2,this->game,280,683,100,50,Color("blue")));
 }
 
 /**
