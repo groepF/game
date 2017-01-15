@@ -7,7 +7,6 @@
 PauseState::PauseState(StateContext* context, Game* game) : State(context)
 {
 	this->game = game;
-	this->game->begin();
 }
 
 
@@ -62,7 +61,6 @@ bool PauseState::onClick(Button* button)
 
 	if (text == "Continue")
 	{
-		//context->setState(new GameSelectionState(context));
 		game->restartGame();
 		context->setState(new GameState(context, game));
 	}
