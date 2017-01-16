@@ -8,14 +8,15 @@
 class TransitionState : public State, public OnClickListener
 {
 public:
-	TransitionState(StateContext* context);
+	TransitionState(StateContext* context, Game* game);
 	~TransitionState();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
-	bool onClick(Button* button) final;
+	bool onClick(Widget* button) final;
 private:
 	Sprite* background;
+	Game* previousGame;
 };
 

@@ -8,6 +8,11 @@ Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("s
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
+	this->queueTaskRespawn = false;
+}
+
+Ball::~Ball()
+{
 }
 
 /*
@@ -58,4 +63,23 @@ void Ball::pickUp(Body* p)
 		
 	
 
+}
+
+void Ball::set(float x, float y)
+{
+	this->body->SetActive(false);
+	this->body->SetTransform(b2Vec2(x, y), 0);
+	this->body->SetAngularVelocity(0);
+	this->body->SetLinearVelocity(b2Vec2(0,0));
+	this->body->SetActive(true);
+}
+
+void Ball::setQueueTaskRespawn(bool value)
+{
+	queueTaskRespawn = value;
+}
+
+bool Ball::isQueueTaskRespawn() const
+{
+	return queueTaskRespawn;
 }

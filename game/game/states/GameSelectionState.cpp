@@ -4,6 +4,8 @@
 #include "GameState.h"
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
+#include "../../engine/widgets/ImageButton.h"
+#include "../../LevelUnlocker.h"
 
 
 class StateContext;
@@ -11,7 +13,6 @@ class StateContext;
 GameSelectionState::GameSelectionState(StateContext* context) : State(context)
 {
 }
-
 
 GameSelectionState::~GameSelectionState()
 {
@@ -29,6 +30,13 @@ void GameSelectionState::onCreate()
 {
 	Log::debug("OnCreate GameSelectionState");
 
+	//Unlocker
+
+	LevelUnlocker unlocker;
+	bool level1Unlocked = unlocker.getLevelUnlocked(1);
+	bool level2Unlocked = unlocker.getLevelUnlocked(2);
+	bool level3Unlocked = unlocker.getLevelUnlocked(3);
+
 	//Create a new game
 	game = new Game();
 
@@ -44,46 +52,51 @@ void GameSelectionState::onCreate()
 	int widgetHeight = 50;
 	int smallButtonWidth = 90;
 	int smallButtonHeight = 50;
+	int largeButtonWidth = 300;
+	int largeButtonHeight = 166;
 
 	//Determine center x position
 	int centerX = (width / 2) - (widgetWidth / 2);
 
+	int startY = 80;
 
 	//Add game setting labels
-	this->addWidget(new Label(300, 200, widgetWidth, widgetHeight, "Time:"));
-	this->addWidget(new Label(300, 260, widgetWidth, widgetHeight, "Goals:"));
-	this->addWidget(new Label(300, 320, widgetWidth, widgetHeight, "Map:"));
-	this->addWidget(new Label(300, 380, widgetWidth, widgetHeight, "Mode:"));
+	this->addWidget(new Label(200, startY, widgetWidth, widgetHeight, "Select Time:"));
+	this->addWidget(new Label(200, startY + 60, widgetWidth, widgetHeight, "Select Goals:"));
+	this->addWidget(new Label(200, startY + 320, widgetWidth, widgetHeight, "Select Mode:"));
 
 	//Creating buttons and add them to a vector
 
 	//Time
-	Button* btn_time1 = new Button("time1", 500, 200, smallButtonWidth, smallButtonHeight, "1:00", this);
-	Button* btn_time3 = new Button("time3", 600, 200, smallButtonWidth, smallButtonHeight, "3:00", this);
-	Button* btn_time5 = new Button("time5", 700, 200, smallButtonWidth, smallButtonHeight, "5:00", this);
+	Button* btn_time1 = new Button("time1", 500, startY, smallButtonWidth, smallButtonHeight, "1:00", this);
+	Button* btn_time3 = new Button("time3", 600, startY, smallButtonWidth, smallButtonHeight, "3:00", this);
+	Button* btn_time5 = new Button("time5", 700, startY, smallButtonWidth, smallButtonHeight, "5:00", this);
 	timeButtons.push_back(btn_time1);
 	timeButtons.push_back(btn_time3);
 	timeButtons.push_back(btn_time5);
 
 	//Goals
-	Button* btn_goals3 = new Button("goals3", 500, 260, smallButtonWidth, smallButtonHeight, "3", this);
-	Button* btn_goals5 = new Button("goals5", 600, 260, smallButtonWidth, smallButtonHeight, "5", this);
-	Button* btn_goals10 = new Button("goals10", 700, 260, smallButtonWidth, smallButtonHeight, "10", this);
+	Button* btn_goals3 = new Button("goals3", 500, startY + 60, smallButtonWidth, smallButtonHeight, "3", this);
+	Button* btn_goals5 = new Button("goals5", 600, startY + 60, smallButtonWidth, smallButtonHeight, "5", this);
+	Button* btn_goals10 = new Button("goals10", 700, startY + 60, smallButtonWidth, smallButtonHeight, "10", this);
 	goalButtons.push_back(btn_goals3);
 	goalButtons.push_back(btn_goals5);
 	goalButtons.push_back(btn_goals10);
 
 	//Maps
-	Button* btn_level1 = new Button("level1", 500, 320, smallButtonWidth, smallButtonHeight, "Lvl 1", this);
-	Button* btn_level2 = new Button("level2", 600, 320, smallButtonWidth, smallButtonHeight, "Lvl 2", this);
-	Button* btn_level3 = new Button("level3", 700, 320, smallButtonWidth, smallButtonHeight, "Lvl 3", this);
+
+	int mapCenterX = width / 2 - largeButtonWidth / 2;
+
+	ImageButton* btn_level1 = new ImageButton("level1", "level1", mapCenterX - largeButtonWidth - 20, startY + 130, largeButtonWidth, largeButtonHeight, !level1Unlocked, this);
+	ImageButton* btn_level2 = new ImageButton("level2", "level2", mapCenterX, startY + 130, largeButtonWidth, largeButtonHeight, !level2Unlocked, this);
+	ImageButton* btn_level3 = new ImageButton("level3", "level3", mapCenterX + largeButtonWidth + 20, startY + 130, largeButtonWidth, largeButtonHeight, !level3Unlocked, this);
 	mapButtons.push_back(btn_level1);
 	mapButtons.push_back(btn_level2);
 	mapButtons.push_back(btn_level3);
 
 	//Options
-	Button* btn_option1 = new Button("option_local", 500, 380, 140, smallButtonHeight, "Local", this);
-	Button* btn_option2 = new Button("option_ai", 650, 380, 140, smallButtonHeight, "AI", this);
+	Button* btn_option1 = new Button("option_local", 500, startY + 320, 140, smallButtonHeight, "Local", this);
+	Button* btn_option2 = new Button("option_ai", 650, startY + 320, 140, smallButtonHeight, "AI", this);
 	optionButtons.push_back(btn_option1);
 	optionButtons.push_back(btn_option2);
 
@@ -92,7 +105,6 @@ void GameSelectionState::onCreate()
 	btn_goals5->select();
 	btn_level1->select();
 	btn_option1->select();
-
 
 	//Add game setting buttons
 	//Time
@@ -136,7 +148,7 @@ void GameSelectionState::onDestroy()
 	Log::debug("OnDestroy GameSelectionState");
 }
 
-bool GameSelectionState::onClick(Button* button)
+bool GameSelectionState::onClick(Widget* button)
 {
 	//Settings
 
@@ -203,7 +215,14 @@ bool GameSelectionState::onClick(Button* button)
 		game->setAI(true);
 	}
 
-	button->select();
+	if (Button* b = dynamic_cast<Button*>(button))
+	{
+		b->select();
+	}
+	else if (ImageButton* b = dynamic_cast<ImageButton*>(button))
+	{
+		b->select();
+	}
 
 	//Start and Back button
 	if (button->getId() == "start")
@@ -223,6 +242,14 @@ bool GameSelectionState::onClick(Button* button)
 void GameSelectionState::deselectAll(std::vector<Button*> buttons)
 {
 	for (Button* button : buttons)
+	{
+		button->deselect();
+	}
+}
+
+void GameSelectionState::deselectAll(std::vector<ImageButton*> buttons)
+{
+	for (ImageButton* button : buttons)
 	{
 		button->deselect();
 	}

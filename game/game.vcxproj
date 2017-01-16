@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="game\states\AI\AIBallState.cpp" />
     <ClCompile Include="game\states\AI\AIStateFactory.cpp" />
+    <ClCompile Include="engine\world\ContactListener.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="game\Game.cpp" />
@@ -183,11 +184,14 @@
     <ClCompile Include="engine\location\Path.cpp" />
     <ClCompile Include="game\states\PauseState.cpp" />
     <ClCompile Include="GraphRepository.cpp" />
+    <ClCompile Include="engine\widgets\ImageButton.cpp" />
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
+    <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\AI\AIBallState.h" />
     <ClInclude Include="game\states\AI\AIStateFactory.h" />
+    <ClInclude Include="engine\world\ContactListener.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="game\game.h" />
@@ -247,13 +251,18 @@
     <ClInclude Include="engine\location\Path.h" />
     <ClInclude Include="game\states\PauseState.h" />
     <ClInclude Include="GraphRepository.h" />
+    <ClInclude Include="engine\widgets\ImageButton.h" />
     <ClInclude Include="game\entities\PossessionMeter.h" />
+    <ClInclude Include="LevelUnlocker.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\level1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

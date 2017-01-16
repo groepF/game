@@ -3,16 +3,14 @@
 #include "../GraphRepository.h"
 #include "entities/Player.h"
 
-
 Game::Game()
 {
-	this->world = new World(WORLD_GRAVITY);
+	this->world = new World(this, WORLD_GRAVITY);
 
 	//Default map
+	this->mapID = 1;
 	this->map = "./res/maps/level1.tmx";
 	this->size = 0.2f;
-
-	auto size = 0.2f;
 
 	player = new Player((size * 2) * 3, (size * 2) * 1, false);
 	player2 = new Player((size * 2) * 61, (size * 2) * 1, false);
@@ -20,11 +18,10 @@ Game::Game()
 
 	//Default settings
 	this->gameTime = 3;
-	this->maxGoals = 5;
+	this->maxGoals = 5;	
 
 	this->isOvertime = false;
-	isOvertime = false;
-	gameOver = false;
+	this->gameOver = false;
 }
 
 
@@ -48,9 +45,7 @@ Player* Game::getPlayer() const
 	return this->player;
 }
 
-
 Player* Game::getPlayer2() const
-
 {
 	return this->player2;
 }
@@ -91,9 +86,19 @@ void Game::setTime(int minutes)
 	gameTime = minutes;
 }
 
+int Game::getGameTime()
+{
+	return this->gameTime;
+}
+
 void Game::setGoals(int goals)
 {
 	maxGoals = goals;
+}
+
+int Game::getMaxGoals()
+{
+	return this->maxGoals;
 }
 
 void Game::setMap(int id)
@@ -102,22 +107,41 @@ void Game::setMap(int id)
 	{
 	case 1:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	case 2:
 		this->map = "./res/maps/level2.tmx";
+		this->mapID = 2;
 		break;
 	case 3:
 		this->map = "./res/maps/level3.tmx";
+		this->mapID = 3;
 		break;
 	default:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	}
+}
+
+char* Game::getMap()
+{
+	return this->map;
+}
+
+int Game::getMapId()
+{
+	return this->mapID;
 }
 
 void Game::setWorld(World* world)
 {
 	this->world = world;
+}
+
+void Game::deleteTheBall() const
+{
+	ball->setQueueTaskRespawn(true);
 }
 
 int Game::getTeamAGoals()
@@ -142,20 +166,30 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	if (!ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamA++;
 	}
-	goalsTeamA++;
+
+	deleteTheBall();
 }
 
 void Game::teamBScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	if (!ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamB++;
 	}
-	goalsTeamB++;
+
+	deleteTheBall();
 }
 
 void Game::teamAWin()
