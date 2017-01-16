@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL/SDL.h>
+#include <vector>
 
 enum Keycode {
 	KEY_UNKNOWN = 0,
@@ -239,7 +240,11 @@ public:
 	Keyboard();
 	~Keyboard();
 	
-	bool isKeydown(Keycode key) const;
+	bool isKeyPressed(SDL_Scancode key);
+	bool isKeyHeld(SDL_Scancode key) const;
+	void keyPressed(SDL_Scancode scancode);
+	void keyReleased(SDL_Scancode scancode);
 private:
-	const Uint8 *keyboardState;
+	std::vector<SDL_Scancode> singlePressKeys;
+	std::vector<SDL_Scancode> heldKeys;
 };

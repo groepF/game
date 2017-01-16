@@ -7,6 +7,7 @@
 
 class Game;
 class Ball;
+class Keyboard;
 
 class Enemy : public Player {
 public:

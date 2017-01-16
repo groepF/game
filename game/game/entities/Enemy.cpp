@@ -22,5 +22,3 @@ void Enemy::action(StateContext* context, Keyboard *keyboard, Game *game)
 
 
 }
-
-

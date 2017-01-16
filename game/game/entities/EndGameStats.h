@@ -1,6 +1,6 @@
 #pragma once
 #include "../../engine/core-entities/TextualEntity.h"
-#include "../../Game.h"
+#include "../game.h"
 
 class EndGameStats : public TextualEntity
 {

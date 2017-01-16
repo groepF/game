@@ -1,6 +1,7 @@
 #include "Game.h"
-#include "engine/util/Highscore.h"
-#include "GraphRepository.h"
+#include "../engine/util/Highscore.h"
+#include "../GraphRepository.h"
+#include "entities/Player.h"
 
 
 Game::Game()
@@ -9,16 +10,19 @@ Game::Game()
 
 	//Default map
 	this->map = "./res/maps/level1.tmx";
+	this->size = 0.2f;
 
 	auto size = 0.2f;
 	player = new Player((size * 2) * 3, (size * 2) * 1, false);
 	player2 = new Enemy((size * 2) * 61, (size * 2) * 1, true);
+
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 
 	//Default settings
 	this->gameTime = 3;
 	this->maxGoals = 5;
 
+	this->isOvertime = false;
 	isOvertime = false;
 	gameOver = false;
 }
@@ -26,29 +30,32 @@ Game::Game()
 
 Game::~Game()
 {
+	delete world;
 }
 
-char* Game::getMap()
+char* Game::getMap() const
 {
 	return this->map;
 }
 
-World* Game::getWorld()
+World* Game::getWorld() const
 {
 	return this->world;
 }
 
-Player* Game::getPlayer()
+Player* Game::getPlayer() const
 {
 	return this->player;
 }
 
-Player* Game::getPlayer2()
+
+Player* Game::getPlayer2() const
+
 {
 	return this->player2;
 }
 
-Ball* Game::getBall()
+Ball* Game::getBall() const
 {
 	return this->ball;
 }
@@ -61,6 +68,7 @@ Graph* Game::getGraph()
 
 void Game::begin()
 {
+	playing = true;
 	// add a countdown?
 	this->goalsTeamA = 0;
 	this->goalsTeamB = 0;
@@ -97,6 +105,11 @@ void Game::setMap(int id)
 		this->map = "./res/maps/level1.tmx";
 		break;
 	}
+}
+
+void Game::setWorld(World* world)
+{
+	this->world = world;
 }
 
 int Game::getTeamAGoals()
@@ -137,21 +150,67 @@ void Game::teamBScored()
 	goalsTeamB++;
 }
 
+void Game::teamAWin()
+{
+	goalsTeamA = 10;
+	goalsTeamB = 1;
+	timeLimit = std::chrono::system_clock::now();
+}
+
+void Game::teamBWin()
+{
+	goalsTeamA = 1;
+	goalsTeamB = 10;
+	timeLimit = std::chrono::system_clock::now();
+}
+
 bool Game::hasWinner() const
 {
 	return goalsTeamA - goalsTeamB != 0;
 }
 
-void Game::ballPossessionCheat()
+void Game::ballPossessionCheat(bool teamA)
 {
-	ballPossessionTeamA = 1;
-	ballPossessionTeamB = 0;
-	// makes it 100% for team A
+	if (teamA)
+	{
+		ballPossessionTeamA = 1;
+		ballPossessionTeamB = 0;
+		// makes it 100% for team A
+	}
+	else
+	{
+		ballPossessionTeamA = 0;
+		ballPossessionTeamB = 1;
+		// makes it 100% for team B
+	}
+}
+
+void Game::changeTimeRemaining(int seconds)
+{
+	timeLimit += std::chrono::duration<int>(seconds);
 }
 
 std::chrono::system_clock::time_point Game::getTimeLimit()
 {
 	return timeLimit;
+}
+
+void Game::pauseGame()
+{
+	startPause = std::chrono::system_clock::now();
+	//build pause screen
+}
+
+void Game::restartGame()
+{
+	//calculate the paused time by the current time and the time when the pause started
+	std::chrono::system_clock::time_point restartTime = std::chrono::system_clock::now();
+	auto timeDifference = std::chrono::duration_cast<std::chrono::milliseconds>(restartTime - startPause);
+	//add the difference to beginTime and timeLimit 
+	beginTime += timeDifference;
+	timeLimit += timeDifference;
+
+	//'close' pause screen
 }
 
 void Game::endGame()
@@ -162,6 +221,39 @@ void Game::endGame()
 	// only save ball possession of player A, since this is our player
 
 	Highscore::load(); // restore last highscore
+
+	Highscore::setMostBallposession(player->ballpossession);
+	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
+	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
+	Highscore::setLongestGame(getElapsedTime());
+	if (goalsTeamA > goalsTeamB)
+	{
+		Highscore::setFastestWin(getElapsedTime());
+		Highscore::setFastestGoal(firstGoalTime);
+	}
+
+	Highscore::save();
+
+	gameOver = true;
+	gameEnded = std::chrono::system_clock::now();
+}
+
+int Game::getGoalLimit()
+{
+	return maxGoals;
+}
+
+void Game::calculateBallPossession()
+{
+
+	if (ball->isHeldBy(player2))
+	{
+		ballPossessionTeamB++;
+	}
+	if (ball->isHeldBy(player))
+	{
+		ballPossessionTeamA++;
+	}
 
 	int ballPossession = 0;
 	if (ballPossessionTeamA == 0 || ballPossessionTeamB == 0)
@@ -189,24 +281,36 @@ void Game::endGame()
 		float p = a / b * 100.0;
 		ballPossession = round(p);
 	}
-
-	Highscore::setMostBallposession(ballPossession);
-	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
-	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
-	Highscore::setLongestGame(getElapsedTime());
-	if (goalsTeamA > goalsTeamB)
+	player->ballpossession = ballPossession;
+	if (ballPossessionTeamB > 0)
 	{
-		Highscore::setFastestWin(getElapsedTime());
-		Highscore::setFastestGoal(firstGoalTime);
+		player2->ballpossession = 100 - ballPossession;
+	}
+	else
+	{
+		player2->ballpossession = 0;
 	}
 
-	Highscore::save();
-
-	gameOver = true;
-	gameEnded = std::chrono::system_clock::now();
 }
 
-int Game::getGoalLimit()
+float Game::getSize() const
 {
-	return maxGoals;
+	return size;
+}
+
+int Game::getBallPossession(HoldingPlayer targetPlayer) const
+{
+	if (targetPlayer == NONE) { return 0; }
+	if (getElapsedTime() <= 0) { return 0; }
+
+	int possession = 0;
+	if (targetPlayer == PLAYER1)
+	{
+		possession = player->ballpossession;
+	}
+	if (targetPlayer == PLAYER2)
+	{
+		possession = player2->ballpossession;
+	}
+	return possession;
 }

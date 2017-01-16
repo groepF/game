@@ -4,9 +4,9 @@
 #include "GameState.h"
 #include "GameSelectionState.h"
 #include "CreditsState.h"
-#include "TransitionState.h"
 #include "AchievementsState.h"
 #include "HelpState.h"
+#include "../../engine/core/StateContext.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {

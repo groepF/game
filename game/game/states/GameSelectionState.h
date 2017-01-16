@@ -1,7 +1,6 @@
 #pragma once
-
+#include "../Game.h";
 #include "../../engine/core/State.h"
-#include "../../Game.h";
 #include "../../engine/world/World.h"
 #include "../../engine/input/OnClickListener.h"
 
@@ -23,6 +22,7 @@ private:
 	std::vector<Button*> timeButtons;
 	std::vector<Button*> goalButtons;
 	std::vector<Button*> mapButtons;
+	std::vector<Button*> optionButtons;
 	void deselectAll(std::vector<Button*> buttons);
 };
 

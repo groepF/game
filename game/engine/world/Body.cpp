@@ -1,6 +1,6 @@
 #include "Body.h"
 
-Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping) : width(width), height(height), type(BOX), body(nullptr), density(0.0f), friction(0.0f), restitution(0.0f)
+Body::Body(float x, float y, float width, float height, bool dynamic, float angularDamping, float linearDamping, bool isPlayer) : width(width), height(height), type(BOX), body(nullptr), isPlayer(isPlayer), density(0.0f), friction(0.0f), restitution(0.0f)
 {
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.position.Set(x, y);
@@ -39,29 +39,53 @@ float Body::getBodyAngle() const
 
 void Body::create(b2Body *body)
 {
-	b2PolygonShape box;
-	box.SetAsBox(width, height);
-
-	b2CircleShape circle;
-	circle.m_p.Set(0, 0);
-	circle.m_radius = width;
-
-	b2FixtureDef fixtureDef;
-	if (type == BOX)
+	if (!isPlayer)
 	{
-		fixtureDef.shape = &box;
-	}
-	if (type == CIRCLE)
+		b2PolygonShape box;
+		box.SetAsBox(width, height);
+
+		b2CircleShape circle;
+		circle.m_p.Set(0, 0);
+		circle.m_radius = width;
+
+		b2FixtureDef fixtureDef;
+		if (type == BOX)
+		{
+			fixtureDef.shape = &box;
+		}
+		if (type == CIRCLE)
+		{
+			fixtureDef.shape = &circle;
+		}
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		fixtureDef.restitution = restitution;
+
+		body->CreateFixture(&fixtureDef);
+
+		this->body = body;
+	} 
+	else
 	{
+		b2CircleShape circle;
+		circle.m_p.Set(0, 0);
+		circle.m_radius = width;
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		fixtureDef.restitution = restitution;
+
 		fixtureDef.shape = &circle;
+		body->CreateFixture(&fixtureDef);
+
+		circle.m_p.Set(0, height);
+		circle.m_radius = width;
+
+		body->CreateFixture(&fixtureDef);
+
+		this->body = body;
 	}
-	fixtureDef.density = density;
-	fixtureDef.friction = friction;
-	fixtureDef.restitution = restitution;
-
-	body->CreateFixture(&fixtureDef);
-
-	this->body = body;
 }
 
 void Body::setVelocity(float x, float y) const

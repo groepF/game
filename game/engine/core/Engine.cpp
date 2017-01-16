@@ -61,18 +61,14 @@ void Engine::start()
 		{
 			switch (sdlEvent.type)
 			{
+			case SDL_KEYDOWN:
+				keyboard.keyPressed(sdlEvent.key.keysym.scancode);
+				break;
+			case SDL_KEYUP:
+				keyboard.keyReleased(sdlEvent.key.keysym.scancode);
+				break;
 			case SDL_QUIT:
 				running = false;
-				break;
-			case SDL_KEYDOWN:
-				switch (sdlEvent.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-					running = false;
-					break;
-				default:
-					break;
-				}
 				break;
 			case SDL_MOUSEMOTION:
 				mouse->setPosition(sdlEvent.motion.x, sdlEvent.motion.y);
@@ -135,7 +131,6 @@ void Engine::render(Screen *screen) const
 
 void Engine::update(float delta)
 {
-	Keyboard keyboard;
 	if (currentState != nullptr)
 	{
 		currentState->onUpdate(&keyboard);

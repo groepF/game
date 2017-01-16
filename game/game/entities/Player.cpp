@@ -3,6 +3,7 @@
 #include "Ball.h"
 
 Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+
 {
 
 	this->density = 0.4f;
@@ -12,6 +13,8 @@ Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Spri
 	this->state = PLAYER_STOP;
 	this->type = CIRCLE;
 	this->ai = ai;
+	this->ballpossession = 0;
+
 }
 
 void Player::move() const
@@ -86,4 +89,9 @@ void Player::hitByEnemy(Ball* b) const
 const bool Player::isAI() const
 {
 	return this->ai;
+}
+
+	float Player::getY() const
+{
+	return DrawableEntity::getY() + 0.28;
 }
