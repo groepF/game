@@ -2,17 +2,20 @@
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
 #include "GameState.h"
+#include "../../LevelUnlocker.h"
 
 
 TransitionState::TransitionState(StateContext* context, Game* game): State(context)
 {
 	this->previousGame = game;
+	LevelUnlocker unlocker;
 	//1x winnen: level2 unlocken
 	if(game->hasWinner())
 	{
 		if(game->getTeamAGoals() > game->getTeamBGoals()) // Team A Heeft gewonnen
 		{
 			//Unlock level 2
+			unlocker.unlockLevel2();
 		}
 	}
 
@@ -20,6 +23,7 @@ TransitionState::TransitionState(StateContext* context, Game* game): State(conte
 	if(game->getPlayer()->ballpossession >= 60)
 	{
 		// Unlock level 3
+		unlocker.unlockLevel3();
 	}
 }
 
@@ -74,7 +78,7 @@ void TransitionState::onDestroy()
 	Log::debug("OnDestroy TransitionState");
 }
 
-bool TransitionState::onClick(Button* button)
+bool TransitionState::onClick(Widget* button)
 {
 	//Start and Back button
 	if (button->getId() == "rematch")

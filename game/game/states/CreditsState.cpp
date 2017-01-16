@@ -107,9 +107,9 @@ void CreditsState::onUpdate(Keyboard* keyboard)
 	}
 }
 
-bool CreditsState::onClick(Button* button)
+bool CreditsState::onClick(Widget* button)
 {
-	if (button->getText() == "<")
+	if (button->getId() == "back")
 	{
 		context->setState(new MenuState(context));
 	}

@@ -35,4 +35,5 @@ private:
 	Direction p1LastDirection;
 	Direction p2LastDirection;
 	double throwForce;
+	float gameSpeed;
 };

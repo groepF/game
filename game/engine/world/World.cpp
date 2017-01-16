@@ -58,3 +58,8 @@ void World::addBackground(Sprite* background)
 {
 	this->background = background;
 }
+
+void World::stepWithSpeed(float speed) const
+{
+	world->Step(speed, 1, 1);
+}
