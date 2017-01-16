@@ -18,11 +18,17 @@ public:
 	StateContext* context_;
 
 	bool onClick(Button *button) final;
-
+	void addToiletFrames();
 
 private:
 	Game *game;
 	Sprite* background;
 	Sprite* logo;
+	Sprite* toilet;
+
+	int frames = 0;
+	int explosionFrame = 0;
+
+	std::vector<Sprite*> toiletAnimation;
 };
 
