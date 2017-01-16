@@ -31,6 +31,8 @@ public:
 	int getMapId();
 	void setWorld(World* world);
 
+	void deleteTheBall() const;
+
 	int getTeamAGoals();
 	int getTeamBGoals();
 

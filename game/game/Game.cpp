@@ -3,10 +3,9 @@
 #include "../GraphRepository.h"
 #include "entities/Player.h"
 
-
 Game::Game()
 {
-	this->world = new World(WORLD_GRAVITY);
+	this->world = new World(this, WORLD_GRAVITY);
 
 	//Default map
 	this->mapID = 1;
@@ -134,6 +133,11 @@ void Game::setWorld(World* world)
 	this->world = world;
 }
 
+void Game::deleteTheBall() const
+{
+	ball->setQueueTaskRespawn(true);
+}
+
 int Game::getTeamAGoals()
 {
 	return goalsTeamA;
@@ -156,20 +160,30 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamA++;
 	}
-	goalsTeamA++;
 }
 
 void Game::teamBScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamB++;
 	}
-	goalsTeamB++;
 }
 
 void Game::teamAWin()

@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\world\ContactListener.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="game\Game.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\world\ContactListener.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="game\game.h" />

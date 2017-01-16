@@ -12,6 +12,11 @@ Body::~Body()
 {
 }
 
+b2Body* Body::getBody() const
+{
+	return body;
+}
+
 float Body::getBodyX() const
 {
 	return body->GetPosition().x;
@@ -64,6 +69,7 @@ void Body::create(b2Body *body)
 		body->CreateFixture(&fixtureDef);
 
 		this->body = body;
+		this->body->SetUserData(this);
 	} 
 	else
 	{

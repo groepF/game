@@ -17,6 +17,7 @@ public:
 	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f, bool isPlayer = false);
 	virtual ~Body();
 
+	b2Body* getBody() const;
 	float getBodyX() const;
 	float getBodyY() const;
 	float getBodyWidth() const;
@@ -30,6 +31,11 @@ public:
 	virtual void setDefaultRenderStrategy() = 0;
 
 	b2BodyDef* getBodyDef();
+
+	void setUserData(void* item) const
+	{
+		body->SetUserData(item);
+	}
 
 	virtual void Render(Screen& screen, bool debug = false) const = 0;
 
