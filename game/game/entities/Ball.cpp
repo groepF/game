@@ -32,11 +32,9 @@ bool Ball::isHeldBy(Body* p) const
  * Body* body - Entity that shoots
  * bool left - if is shot left
  */
-void Ball::shoot(Body* from, bool left)
+void Ball::shoot(Body* from, double sideForce, double downForce)
 {
-	
-	auto sideForce = (left ? -50.0 : 50.0);
-	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getBodyX(), from->getBodyY()), false);
+	this->body->ApplyForce(b2Vec2(sideForce, downForce), b2Vec2(from->getBodyX(), from->getBodyY()), false);
 
 }
 

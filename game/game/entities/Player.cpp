@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
 {
 
 	this->density = 0.4f;
@@ -11,6 +11,7 @@ Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprit
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
 	this->type = CIRCLE;
+	this->ai = ai;
 }
 
 void Player::move() const
@@ -50,7 +51,7 @@ PlayerState Player::getPlayerState() const
  * Checks if the player is close enough to the ball to pick it up
  * Body* b - The entity that should be picked up
  */
-bool Player::canPickup(Body* b) const
+bool Player::isInRangeOf(Body* b) const
 {
 
 	int xPlayer_1 = this->body->GetPosition().x;
@@ -80,4 +81,9 @@ bool Player::canPickup(Body* b) const
 void Player::hitByEnemy(Ball* b) const
 {
 	b->drop();
+}
+
+const bool Player::isAI() const
+{
+	return this->ai;
 }

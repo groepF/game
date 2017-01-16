@@ -3,14 +3,15 @@
 #include "../../engine/world/Body.h"
 #include "../../engine/core-entities/DrawableEntity.h"
 #include "../../engine/core/State.h"
+#include "Player.h"
 
+class Game;
 class Ball;
-class Player;
 
-class Enemy : public DrawableEntity {
+class Enemy : public Player {
 public:
-	Enemy(float x, float y);
-	void action(StateContext*, Keyboard*);
+	Enemy(float x, float y, bool ai);
+	void action(StateContext*, Keyboard*, Game*);
 	void hitByPlayer(Ball* b) const;
 
 private:

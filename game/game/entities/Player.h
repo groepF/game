@@ -15,15 +15,18 @@ enum PlayerState
 
 class Player : public DrawableEntity {
 public:
-	Player(float x, float y);
+	Player(float x, float y, bool ai);
 
 	void move() const;
 	void jump();
 	void setPlayerState(PlayerState state);
 	PlayerState getPlayerState() const;
-	bool canPickup(Body* b) const;
+	bool isInRangeOf(Body* b) const;
 	void hitByEnemy(Ball* b) const;
+
+	const bool isAI() const;
 
 private:
 	PlayerState state;
+	bool ai;
 };
