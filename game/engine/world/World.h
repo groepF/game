@@ -17,6 +17,7 @@ public:
 	void render(Screen *screen, const bool debug = false);
 	void add(Body * body);
 	void addBackground(Sprite* s);
+	void stepWithSpeed(float speed) const;
 private:
 	b2World *world;
 	std::vector<Body*> bodies;
