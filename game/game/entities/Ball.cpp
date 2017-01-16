@@ -65,6 +65,7 @@ bool Ball::scoreAnimation()
 	}
 	else if(explosionFrame >= this->explosionSprites.size())
 	{
+		this->body->SetActive(true);
 		return true;
 	}
 	frames++;

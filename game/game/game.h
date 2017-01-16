@@ -65,6 +65,7 @@ public:
 	void calculateBallPossession();
 
 	bool gameOver;
+	bool scored = false;
 	bool isOvertime;
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
