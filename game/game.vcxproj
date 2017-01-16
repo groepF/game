@@ -182,6 +182,7 @@
     <ClCompile Include="engine\location\Path.cpp" />
     <ClCompile Include="game\states\PauseState.cpp" />
     <ClCompile Include="GraphRepository.cpp" />
+    <ClCompile Include="engine\widgets\ImageButton.cpp" />
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +246,7 @@
     <ClInclude Include="engine\location\Path.h" />
     <ClInclude Include="game\states\PauseState.h" />
     <ClInclude Include="GraphRepository.h" />
+    <ClInclude Include="engine\widgets\ImageButton.h" />
     <ClInclude Include="game\entities\PossessionMeter.h" />
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\level1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

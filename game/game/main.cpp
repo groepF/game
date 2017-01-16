@@ -5,8 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
 	Engine engine{ "config.ini" };
 
 	engine.addSpritesheet("splashscreen", "res/images/splashscreen.png");
@@ -26,6 +24,11 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("achievements", "res/images/achievements.png");
 	engine.addSpritesheet("help", "res/images/help.png");
 	engine.addSpritesheet("pause_background", "res/images/pauseback.png");
+	engine.addSpritesheet("level1", "res/images/level1.png");
+	engine.addSpritesheet("level2", "res/images/level2.png");
+	engine.addSpritesheet("level3", "res/images/level3.png");
+	engine.addSpritesheet("level_lock", "res/images/level_lock.png");
+	engine.addSpritesheet("check", "res/images/check.png");
 
 	// Advertisements.
 	auto files = engine.getFilesIn("../game/res/images/ads");

@@ -17,7 +17,7 @@ public:
 	void onDestroy() override;
 	StateContext* context_;
 
-	bool onClick(Button *button) final;
+	bool onClick(Widget *button) final;
 
 
 private:

@@ -18,8 +18,10 @@ public:
 	void render(Screen *screen, const bool debug = false);
 	void add(Body * body, std::string id = "");
 	void addBackground(Sprite* s);
-
+  
 	void setContactListener(ContactListener* listener);
+	void stepWithSpeed(float speed) const;
+
 private:
 	b2World *world;
 	Game* game;

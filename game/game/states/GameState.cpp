@@ -16,6 +16,7 @@ showGrid(false)
 	this->game = game;
 	this->endGameScreenSeconds = 4;
 	this->throwForce = 50;
+	this->gameSpeed = 0.0f;
 }
 
 GameState::~GameState()
@@ -82,7 +83,7 @@ void GameState::populateWord()
 		}
 	}
 
-	
+
 
 	//Add the player, ball and AI to the world
 
@@ -111,8 +112,8 @@ void GameState::createFpsCounter()
 void GameState::createPossessionMeter() const
 {
 	world->add(new TextualEntity("possession", 75, 683, 100, 50, Color("black"), "Ball possession"));
-	world->add(new PossessionMeter("p1possession",PossessionMeter::PLAYER1,this->game,230,683,100,50,Color("red")));
-	world->add(new PossessionMeter("p2possession",PossessionMeter::PLAYER2,this->game,280,683,100,50,Color("blue")));
+	world->add(new PossessionMeter("p1possession", PossessionMeter::PLAYER1, this->game, 230, 683, 100, 50, Color("red")));
+	world->add(new PossessionMeter("p2possession", PossessionMeter::PLAYER2, this->game, 280, 683, 100, 50, Color("blue")));
 }
 
 /**
@@ -172,11 +173,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
 	{
-		// tmp to foce winner
-		game->teamAScored();
-		game->teamAScored();
-		game->teamAScored();
-		// end tmp
 		game->isOvertime = true;
 	}
 
@@ -184,8 +180,8 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 	if (ball->isHeldBy(player)) { ball->pickUp(player); }
 	else if (ball->isHeldBy(player2)) { ball->pickUp(player2); }
-  
-	
+
+
 	if (keyboard->isKeyPressed(SDL_SCANCODE_F)) { fpsCounter->toggle(); }
 
 	// player 1
@@ -297,11 +293,23 @@ void GameState::onUpdate(Keyboard *keyboard)
 		//speler 2 100% balbezit
 		if (keyboard->isKeyPressed(SDL_SCANCODE_F10)) { game->ballPossessionCheat(false); }
 		//spel versnellen
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F11)) {}
+		if (keyboard->isKeyHeld(SDL_SCANCODE_EQUALS))
+		{
+			if (this->gameSpeed < 0.04f)
+			{
+				this->gameSpeed += 0.001f;
+			}
+		}
 		//spel vertragen
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F12)) {}
+		if (keyboard->isKeyHeld(SDL_SCANCODE_MINUS))
+		{
+			if (this->gameSpeed > 0.001f)
+			{
+				this->gameSpeed -= 0.001f;
+			}
+		}
+		world->stepWithSpeed(gameSpeed);
 	}
-
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
 
