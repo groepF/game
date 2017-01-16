@@ -275,7 +275,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 			if (p2xforce == 0 && p2yforce == 0)
 			{
-				switch (p1LastDirection)
+				switch (p2LastDirection)
 				{
 
 				case UP:
