@@ -1,9 +1,9 @@
 #pragma once
-
+#include "../Game.h";
 #include "../../engine/core/State.h"
-#include "../../Game.h";
 #include "../../engine/world/World.h"
 #include "../../engine/input/OnClickListener.h"
+#include "../../engine/widgets/ImageButton.h"
 
 class Button;
 
@@ -16,13 +16,15 @@ public:
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
-	bool onClick(Button* button) final;
+	bool onClick(Widget* button) final;
 private:
 	Game* game;
 	Sprite* background;
 	std::vector<Button*> timeButtons;
 	std::vector<Button*> goalButtons;
-	std::vector<Button*> mapButtons;
+	std::vector<ImageButton*> mapButtons;
+	std::vector<Button*> optionButtons;
 	void deselectAll(std::vector<Button*> buttons);
+	void deselectAll(std::vector<ImageButton*> buttons);
 };
 

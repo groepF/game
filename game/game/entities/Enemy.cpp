@@ -2,8 +2,10 @@
 #include "Ball.h"
 
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
+#include "../states/AI/AIStateFactory.h"
+#include "../../engine/location/Graph.h"
 
-Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 19, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Enemy::Enemy(float x, float y, bool ai) : Player(x,y,ai)
 {
 	this->density = 0.4f;
 	this->restitution = 0.0f;
@@ -11,11 +13,22 @@ Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite(
 	this->type = CIRCLE;
 }
 
-/**
-* Makes the enemy drop the ball
-* @param b the ball to drop
-*/
-void Enemy::hitByPlayer(Ball* b) const
+void Enemy::action(StateContext* context, Keyboard *keyboard, Game *game)
 {
-	b->drop();
+
+	currentState = AIStateFactory::getInstance()->getState("BallState", context, game);
+
+	currentState->onUpdate(keyboard);
+
+
+}
+
+bool Enemy::isMoving() const
+{
+
+	auto xVel = body->GetLinearVelocity().x;
+	auto yVel = body->GetLinearVelocity().y;
+
+	return (xVel > 0 || yVel > 0);
+
 }

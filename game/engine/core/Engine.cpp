@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "../input/Keyboard.h"
+#include <Windows.h>
 
 Engine::Engine(const std::string config) : running(true)
 {
@@ -60,18 +61,14 @@ void Engine::start()
 		{
 			switch (sdlEvent.type)
 			{
+			case SDL_KEYDOWN:
+				keyboard.keyPressed(sdlEvent.key.keysym.scancode);
+				break;
+			case SDL_KEYUP:
+				keyboard.keyReleased(sdlEvent.key.keysym.scancode);
+				break;
 			case SDL_QUIT:
 				running = false;
-				break;
-			case SDL_KEYDOWN:
-				switch (sdlEvent.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-					running = false;
-					break;
-				default:
-					break;
-				}
 				break;
 			case SDL_MOUSEMOTION:
 				mouse->setPosition(sdlEvent.motion.x, sdlEvent.motion.y);
@@ -134,7 +131,6 @@ void Engine::render(Screen *screen) const
 
 void Engine::update(float delta)
 {
-	Keyboard keyboard;
 	if (currentState != nullptr)
 	{
 		currentState->onUpdate(&keyboard);
@@ -159,6 +155,26 @@ void Engine::playMusic(std::string key)
 void Engine::stopMusic()
 {
 	window->stopMusic();
+}
+
+std::vector<std::string> Engine::getFilesIn(const std::string path) const
+{
+	auto location = SDL_GetBasePath() + path;
+
+	std::vector<std::string> names;
+	auto search_path = location + "/*.*";
+	WIN32_FIND_DATA fd;
+	auto hFind = ::FindFirstFile(search_path.c_str(), &fd);
+	if (hFind != INVALID_HANDLE_VALUE) {
+		do {
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+				names.push_back(location + "/" + fd.cFileName);
+			}
+		} while (::FindNextFile(hFind, &fd));
+		::FindClose(hFind);
+	}
+
+	return names;
 }
 
 void Engine::stateUpdated()

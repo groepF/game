@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
 {
 
 	this->density = 0.4f;
@@ -11,6 +11,9 @@ Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprit
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
 	this->type = CIRCLE;
+	this->ai = ai;
+	this->ballpossession = 0;
+
 }
 
 void Player::move() const
@@ -50,7 +53,7 @@ PlayerState Player::getPlayerState() const
  * Checks if the player is close enough to the ball to pick it up
  * Body* b - The entity that should be picked up
  */
-bool Player::canPickup(Body* b) const
+bool Player::isInRangeOf(Body* b) const
 {
 
 	int xPlayer_1 = this->body->GetPosition().x;
@@ -77,7 +80,51 @@ bool Player::canPickup(Body* b) const
 * Makes the player drop the ball
 * @param b the ball to drop
 */
-void Player::hitByEnemy(Ball* b) const
+void Player::hitByEnemy(Ball* b, Player* dropper) const
 {
 	b->drop();
+	b->shoot(dropper, -20, 20, false);
+}
+
+const bool Player::isAI() const
+{
+	return this->ai;
+}
+
+const bool Player::canDoAction()
+{
+
+	return actionDelay == 0;
+
+}
+
+const bool Player::canPickkup()
+{
+	return pickupDelay == 0;
+}
+
+void Player::doAction()
+{
+	actionDelay = 300;
+}
+
+void Player::doPickup()
+{
+
+	pickupDelay = 100;
+
+}
+
+void Player::subtractActionDelay()
+{
+	if(actionDelay > 0)
+		actionDelay--;
+
+	if (pickupDelay > 0)
+		pickupDelay--;
+}
+
+float Player::getY() const
+{
+	return DrawableEntity::getY() + 0.28;
 }

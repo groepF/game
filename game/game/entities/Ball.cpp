@@ -8,6 +8,11 @@ Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("s
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
+	this->queueTaskRespawn = false;
+}
+
+Ball::~Ball()
+{
 }
 
 /*
@@ -32,12 +37,15 @@ bool Ball::isHeldBy(Body* p) const
  * Body* body - Entity that shoots
  * bool left - if is shot left
  */
-void Ball::shoot(Body* from, bool left)
+void Ball::shoot(Body* from, double sideForce, double downForce, bool action)
 {
+	if(!action || static_cast<Player*>(from)->canDoAction())
+	{
+		this->body->ApplyForce(b2Vec2(sideForce, downForce), b2Vec2(from->getBodyX(), from->getBodyY()), false);
+		if(action)
+			static_cast<Player*>(from)->doAction();
+	}
 	
-	auto sideForce = (left ? -50.0 : 50.0);
-	this->body->ApplyForce(b2Vec2(sideForce, -10.0), b2Vec2(from->getBodyX(), from->getBodyY()), false);
-
 }
 
 /*
@@ -46,7 +54,32 @@ void Ball::shoot(Body* from, bool left)
  */
 void Ball::pickUp(Body* p)
 {
+	if(static_cast<Player*>(p)->canPickkup())
+	{
+		this->body->SetActive(false);
+		this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
+		this->heldBy = p;
+	}
+		
+	
+
+}
+
+void Ball::set(float x, float y)
+{
 	this->body->SetActive(false);
-	this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
-	this->heldBy = p;
+	this->body->SetTransform(b2Vec2(x, y), 0);
+	this->body->SetAngularVelocity(0);
+	this->body->SetLinearVelocity(b2Vec2(0,0));
+	this->body->SetActive(true);
+}
+
+void Ball::setQueueTaskRespawn(bool value)
+{
+	queueTaskRespawn = value;
+}
+
+bool Ball::isQueueTaskRespawn() const
+{
+	return queueTaskRespawn;
 }

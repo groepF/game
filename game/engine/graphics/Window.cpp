@@ -64,13 +64,13 @@ void Window::resize(std::string title, unsigned int width, unsigned int height)
 
 void Window::destroy()
 {
-	for (const auto &texture : textures)
+	for (const auto& texture : textures)
 	{
 		SDL_DestroyTexture(texture.second);
 	}
 	textures.clear();
 
-	for (const auto &fragment : music)
+	for (const auto& fragment : music)
 	{
 		Mix_FreeMusic(fragment.second);
 	}
@@ -107,10 +107,10 @@ void Window::restore() const
 void Window::fill(Color color) const
 {
 	SDL_SetRenderDrawColor(this->renderer,
-		color.r(),
-		color.g(),
-		color.b(),
-		color.a());
+	                       color.r(),
+	                       color.g(),
+	                       color.b(),
+	                       color.a());
 
 	SDL_RenderClear(this->renderer);
 }
@@ -180,10 +180,12 @@ void Window::addMusic(std::string key, std::string filename)
 void Window::playMusic(std::string key)
 {
 	auto position = music.find(key);
-	if (position == music.end()) {
+	if (position == music.end())
+	{
 		Log::error("Failed to play music: " + key);
 	}
-	else {
+	else
+	{
 		auto value = position->second;
 		Mix_PlayMusic(value, -1);
 	}
@@ -230,30 +232,33 @@ void Window::render(Sprite* sprite, float x, float y, double angle, int alpha, f
 }
 
 void Window::renderText(std::string message, Color color, int x, int y, int width, int height, double angle, bool crop, int gravity) const
-  
+
 {
 	if (font)
 	{
-		auto surfaceMessage{ TTF_RenderText_Solid(font, message.c_str() , SDL_Color{ color.r(), color.g(), color.b() }) };
+		auto surfaceMessage{TTF_RenderText_Solid(font, message.c_str(), SDL_Color{color.r(), color.g(), color.b()})};
 		auto Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 		int w = width, h = height;
-		if (!crop) {
+		if (!crop)
+		{
 			SDL_QueryTexture(Message, nullptr, nullptr, &w, &h);
 		}
 
 		SDL_Rect Message_rect; //create a rect		
 		if (gravity == GRAVITY_CENTER)
 		{
-			Message_rect.x = x + (width / 2) - (w / 2);  //controls the rect's x coordinate 		
+			Message_rect.x = x + (width / 2) - (w / 2); //controls the rect's x coordinate 		
 			Message_rect.y = y + (height / 2) - (h / 2); // controls the rect's y coordinte		
-		} else if (gravity == GRAVITY_LEFT)
+		}
+		else if (gravity == GRAVITY_LEFT)
 		{
-			Message_rect.x = x;  //controls the rect's x coordinate 		
+			Message_rect.x = x; //controls the rect's x coordinate 		
 			Message_rect.y = y; // controls the rect's y coordinte		
-		} else if (gravity == GRAVITY_RIGHT)
+		}
+		else if (gravity == GRAVITY_RIGHT)
 		{
-			Message_rect.x = x + (width - w);  //controls the rect's x coordinate 		
+			Message_rect.x = x + (width - w); //controls the rect's x coordinate 		
 			Message_rect.y = y; // controls the rect's y 
 		}
 		Message_rect.w = w; // controls the width of the rect		
@@ -268,11 +273,22 @@ void Window::renderText(std::string message, Color color, int x, int y, int widt
 	}
 }
 
-void Window::renderRect(float x, float y, float width, float height) const
+void Window::renderRect(float x, float y, float width, float height, bool fill, Color color) const
 {
-	SDL_Rect outlineRect = { x, y, width, height };
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
-	SDL_RenderDrawRect(renderer, &outlineRect);
+	SDL_Rect outlineRect = {x, y, width, height};
+	if (color.a() < 255)
+	{
+		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	}
+	SDL_SetRenderDrawColor(renderer, color.r(), color.g(), color.b(), color.a());
+	if (fill)
+	{
+		SDL_RenderFillRect(renderer, &outlineRect);
+	}
+	else
+	{
+		SDL_RenderDrawRect(renderer, &outlineRect);
+	}
 }
 
 unsigned Window::getWidth() const { return width; }

@@ -5,8 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
 	Engine engine{ "config.ini" };
 
 	engine.addSpritesheet("splashscreen", "res/images/splashscreen.png");
@@ -16,6 +14,7 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("metal", "res/images/metal.png");
 	engine.addSpritesheet("color_tiles3", "res/images/team_colors.png");
 	engine.addSpritesheet("player", "res/images/players.png");
+	engine.addSpritesheet("players", "res/images/player.png");
 	engine.addSpritesheet("menu_background", "res/images/back_blurred.png");
 	engine.addSpritesheet("foxtrot_menu", "res/images/foxtrot_menu.png");
 	engine.addSpritesheet("button_hovered", "res/images/button_hovered.png");
@@ -24,11 +23,20 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("credits", "res/images/credits.png");
 	engine.addSpritesheet("achievements", "res/images/achievements.png");
 	engine.addSpritesheet("help", "res/images/help.png");
+	engine.addSpritesheet("pause_background", "res/images/pauseback.png");
+	engine.addSpritesheet("level1", "res/images/level1.png");
+	engine.addSpritesheet("level2", "res/images/level2.png");
+	engine.addSpritesheet("level3", "res/images/level3.png");
+	engine.addSpritesheet("level_lock", "res/images/level_lock.png");
+	engine.addSpritesheet("check", "res/images/check.png");
 
-	// Ads
-	engine.addSpritesheet("ad_1", "res/images/ads/mcdonalds.png");
-	engine.addSpritesheet("ad_2", "res/images/ads/subway.png");
-	engine.addSpritesheet("ad_3", "res/images/ads/ah.png");
+	// Advertisements.
+	auto files = engine.getFilesIn("../game/res/images/ads");
+
+	for (auto index = 0; index < files.size(); index++)
+	{
+		engine.addSpritesheet("ad_" + std::to_string(index + 1), files[index]);
+	}
 
 	engine.addMusic("background", "res/sounds/music.wav");
 	engine.addMusic("menu", "res/sounds/menu.mp3");

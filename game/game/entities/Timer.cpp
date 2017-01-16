@@ -1,6 +1,6 @@
 #include "Timer.h"
 #include "../../engine/graphics/render-strategies/RenderTextStrategy.h"
-#include "../../Game.h"
+#include "../Game.h"
 
 
 Timer::Timer(Game* game, int x, int y, int width, int height, Color color, Color colorOvertime) : TextualEntity("score", x, y, width, height, color),

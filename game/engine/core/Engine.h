@@ -23,6 +23,8 @@ public:
 
 	void playMusic(std::string key) override;
 	void stopMusic() override;
+
+	std::vector<std::string> getFilesIn(const std::string path) const override;
 protected:
 	void stateUpdated() override;
 private:
@@ -31,4 +33,5 @@ private:
 	Mouse *mouse;
 	void update(float delta);
 	void render(Screen *screen) const;
+	Keyboard keyboard;
 };

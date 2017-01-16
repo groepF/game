@@ -4,9 +4,9 @@
 #include "GameState.h"
 #include "GameSelectionState.h"
 #include "CreditsState.h"
-#include "TransitionState.h"
 #include "AchievementsState.h"
 #include "HelpState.h"
+#include "../../engine/core/StateContext.h"
 
 MenuState::MenuState(StateContext* context): State(context), background(nullptr), logo(nullptr)
 {
@@ -90,28 +90,27 @@ void MenuState::onDestroy()
 	this->context->stopMusic();
 }
 
-bool MenuState::onClick(Button* button)
+bool MenuState::onClick(Widget* button)
 {
-	std::string text = button->getText();
+	std::string text = button->getId();
 
-	if (text == "Play")
+	if (text == "play")
 	{
-		//context->setState(new GameSelectionState(context));
-		context->setState(new TransitionState(context));
+		context->setState(new GameSelectionState(context));
 	}
-	else if (text == "Achievements")
+	else if (text == "achievements")
 	{
 		context->setState(new AchievementsState(context));
 	}
-	else if (text == "Credits")
+	else if (text == "credits")
 	{
 		context->setState(new CreditsState(context));
 	}
-	else if (text == "Help")
+	else if (text == "help")
 	{
 		context->setState(new HelpState(context));
 	}
-	else if (text == "Quit Game")
+	else if (text == "quit")
 	{
 		exit(0);
 	}
@@ -120,7 +119,8 @@ bool MenuState::onClick(Button* button)
 
 void MenuState::chooseRandomAd()
 {
-	auto random = Math::random(1, 3);
+	auto ads = this->context->getFilesIn("../game/res/images/ads");
+	auto random = Math::random(1, ads.size());
 
 	ad = new Sprite("ad_" + std::to_string(random), 0, 0, 400, 130);
 }
