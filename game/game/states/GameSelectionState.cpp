@@ -195,12 +195,12 @@ bool GameSelectionState::onClick(Button* button)
 	if (button->getId() == "option_local")
 	{
 		deselectAll(optionButtons);
-		// Todo: Set the Local aspect of the game.
+		game->setAI(false);
 	}
 	else if (button->getId() == "option_ai")
 	{
 		deselectAll(optionButtons);
-		// Todo: Set the AI aspect of the game.
+		game->setAI(true);
 	}
 
 	button->select();

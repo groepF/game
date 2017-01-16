@@ -73,11 +73,8 @@ void GameState::populateWord()
 	fpsCounter = new FpsCounter(true, 1200);
 
 	//Add the player, ball and AI to the world
-
-
 	world->add(player);
 	world->add(player2);
-
 	
 	world->add(new Score(game));
 	world->add(new Timer(game));
@@ -193,13 +190,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 		player->setPlayerState(PLAYER_STOP);
 	}
 
+	player->subtractActionDelay();
+
 	if (keyboard->isKeyHeld(SDL_SCANCODE_W)) { player->jump(); p1LastDirection = UP; }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
 	if (keyboard->isKeyPressed(SDL_SCANCODE_E)) {
-		if (player->isInRangeOf(ball) && !ball->isHeldBy(player)) { ball->pickUp(player); }
+		if (player->isInRangeOf(ball) && !ball->isHeldBy(player) && !ball->isHeldBy(player2)) { ball->pickUp(player); }
 		else if (ball->isHeldBy(player)) { ball->drop(); }
-		else if (player->isInRangeOf(player2)) player2->hitByEnemy(ball);
+		else if (player->isInRangeOf(player2)) { player2->hitByEnemy(ball, player2); player2->doAction(); player2->doPickup(); player->doPickup(); }
+		
 	}
 
 	if (keyboard->isKeyPressed(SDL_SCANCODE_LSHIFT))
@@ -226,51 +226,60 @@ void GameState::onUpdate(Keyboard *keyboard)
 			default: break;
 			}
 		}
-		if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, p1xforce, -p1yforce); }
+		if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, p1xforce, -p1yforce, true); }
 	}
 
-	//player 2
-	if (!keyboard->isKeyHeld(SDL_SCANCODE_LEFT) && !keyboard->isKeyHeld(SDL_SCANCODE_RIGHT))
+	if(!player2->isAI())
 	{
-		player2->setPlayerState(PLAYER_STOP);
-	}
-	if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) { player2->jump(); p2LastDirection = UP; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) { player2->setPlayerState(PLAYER_LEFT); p2LastDirection = LEFT; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) { player2->setPlayerState(PLAYER_RIGHT); p2LastDirection = RIGHT; }
-
-	if (keyboard->isKeyPressed(SDL_SCANCODE_RCTRL)) {
-		if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2)) { ball->pickUp(player2); }
-		else if (ball->isHeldBy(player2)) { ball->drop(); }
-		else if (player2->isInRangeOf(ball)) player->hitByEnemy(ball);
-	}
-
-	if (keyboard->isKeyPressed(SDL_SCANCODE_RSHIFT))
-	{
-		double p2xforce = 0;
-		double p2yforce = 0;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) p2yforce += throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_DOWN)) p2yforce -= throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) p2xforce += throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) p2xforce -= throwForce;
-
-		if (p2xforce == 0 && p2yforce == 0)
+		//player 2
+		if (!keyboard->isKeyHeld(SDL_SCANCODE_LEFT) && !keyboard->isKeyHeld(SDL_SCANCODE_RIGHT))
 		{
-			switch (p1LastDirection)
-			{
-			case UP:
-				p2yforce += throwForce;
-			case DOWN:
-				p2yforce -= throwForce;
-			case RIGHT:
-				p2xforce += throwForce;
-			case LEFT:
-				p2xforce -= throwForce;
-			default: break;
-			}
+			player2->setPlayerState(PLAYER_STOP);
 		}
-		if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce); }
+
+		player2->subtractActionDelay();
+
+		if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) { player2->jump(); p2LastDirection = UP; }
+		if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) { player2->setPlayerState(PLAYER_LEFT); p2LastDirection = LEFT; }
+		if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) { player2->setPlayerState(PLAYER_RIGHT); p2LastDirection = RIGHT; }
+
+		if (keyboard->isKeyPressed(SDL_SCANCODE_RCTRL)) {
+			if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2)) { ball->pickUp(player2); }
+			else if (ball->isHeldBy(player2)) { ball->drop(); }
+			else if (player2->isInRangeOf(ball)) { player->hitByEnemy(ball, player); player->doAction(); }
+		}
+
+		if (keyboard->isKeyPressed(SDL_SCANCODE_RSHIFT))
+		{
+			double p2xforce = 0;
+			double p2yforce = 0;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) p2yforce += throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_DOWN)) p2yforce -= throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) p2xforce += throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) p2xforce -= throwForce;
+
+			if (p2xforce == 0 && p2yforce == 0)
+			{
+				switch (p1LastDirection)
+				{
+				case UP:
+					p2yforce += throwForce;
+				case DOWN:
+					p2yforce -= throwForce;
+				case RIGHT:
+					p2xforce += throwForce;
+				case LEFT:
+					p2xforce -= throwForce;
+				default: break;
+				}
+			}
+			if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce, true); }
+
+		}
 
 	}
+
+	
 
 	//cheats
 	if (Config::getBool("debug", false))

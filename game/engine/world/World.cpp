@@ -10,6 +10,7 @@ World::World(float gravity) : world(nullptr), background(nullptr)
 
 World::~World()
 {
+
 	if (world)
 	{
 		delete world;

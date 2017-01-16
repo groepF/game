@@ -3,7 +3,6 @@
 #include "Ball.h"
 
 Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
-
 {
 
 	this->density = 0.4f;
@@ -81,9 +80,10 @@ bool Player::isInRangeOf(Body* b) const
 * Makes the player drop the ball
 * @param b the ball to drop
 */
-void Player::hitByEnemy(Ball* b) const
+void Player::hitByEnemy(Ball* b, Player* dropper) const
 {
 	b->drop();
+	b->shoot(dropper, -20, 20, false);
 }
 
 const bool Player::isAI() const
@@ -91,7 +91,40 @@ const bool Player::isAI() const
 	return this->ai;
 }
 
-	float Player::getY() const
+const bool Player::canDoAction()
+{
+
+	return actionDelay == 0;
+
+}
+
+const bool Player::canPickkup()
+{
+	return pickupDelay == 0;
+}
+
+void Player::doAction()
+{
+	actionDelay = 300;
+}
+
+void Player::doPickup()
+{
+
+	pickupDelay = 100;
+
+}
+
+void Player::subtractActionDelay()
+{
+	if(actionDelay > 0)
+		actionDelay--;
+
+	if (pickupDelay > 0)
+		pickupDelay--;
+}
+
+float Player::getY() const
 {
 	return DrawableEntity::getY() + 0.28;
 }

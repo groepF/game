@@ -2,7 +2,8 @@
 #include <map>
 #include <functional>
 #include "../../../engine/core/State.h"
-#include "../../../Game.h"
+#include "../../Game.h"
+
 
 class AIStateFactory
 {

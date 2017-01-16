@@ -22,3 +22,13 @@ void Enemy::action(StateContext* context, Keyboard *keyboard, Game *game)
 
 
 }
+
+bool Enemy::isMoving() const
+{
+
+	auto xVel = body->GetLinearVelocity().x;
+	auto yVel = body->GetLinearVelocity().y;
+
+	return (xVel > 0 || yVel > 0);
+
+}

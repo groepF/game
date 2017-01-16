@@ -15,6 +15,9 @@ public:
 	void action(StateContext*, Keyboard*, Game*);
 	void hitByPlayer(Ball* b) const;
 
+	bool isMoving() const;
+
 private:
 	State* currentState;
+
 };
