@@ -63,9 +63,9 @@ void HelpState::onDestroy()
 	}
 }
 
-bool HelpState::onClick(Button* button)
+bool HelpState::onClick(Widget* button)
 {
-	if (button->getText() == "<")
+	if (button->getId() == "back")
 	{
 		context->setState(new MenuState(context));
 	}

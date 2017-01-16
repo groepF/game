@@ -38,7 +38,7 @@ public:
 	void stopMusic() const;
 
 	void render(Sprite* sprite, float x, float y, double angle = 0, int alpha = 255, float width = -1, float height = -1) const override;
-	void renderRect(float x, float y, float width, float height) const override;
+	void renderRect(float x, float y, float width, float height, bool fill = false, Color color = Color("red")) const override;
 
 	void renderText(std::string message, Color color, int x, int y, int width, int height, double angle = 0, bool crop = false, int gravity = 1) const override;
 	

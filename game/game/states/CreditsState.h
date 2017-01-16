@@ -14,7 +14,7 @@ public:
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
 
-	bool onClick(Button* button) final;
+	bool onClick(Widget* button) final;
 
 private:
 	Sprite *background, *logo;

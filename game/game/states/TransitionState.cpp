@@ -53,7 +53,7 @@ void TransitionState::onDestroy()
 	Log::debug("OnDestroy TransitionState");
 }
 
-bool TransitionState::onClick(Button* button)
+bool TransitionState::onClick(Widget* button)
 {
 	//Start and Back button
 	if (button->getId() == "rematch")

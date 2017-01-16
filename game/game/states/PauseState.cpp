@@ -55,20 +55,20 @@ void PauseState::onUpdate(Keyboard* keyboard)
 {
 }
 
-bool PauseState::onClick(Button* button)
+bool PauseState::onClick(Widget* button)
 {
-	std::string text = button->getText();
+	std::string text = button->getId();
 
-	if (text == "Continue")
+	if (text == "continue")
 	{
 		game->restartGame();
 		context->setState(new GameState(context, game));
 	}
-	else if (text == "New Game")
+	else if (text == "newgame")
 	{
 		context->setState(new GameSelectionState(context));
 	}
-	else if(text == "Quit Game")
+	else if(text == "quitgame")
 	{
 		context->setState(new MenuState(context));
 	}
