@@ -12,19 +12,18 @@ Game::Game()
 	this->map = "./res/maps/level1.tmx";
 	this->size = 0.2f;
 
-	player = new Player(Sprite("player", 0, 0, 19, 40),(size * 2) * 3, (size * 2) * 1);
+	player = new Player(Sprite("player", 0, 0, 19, 40), size * 6, size * 2);
 	player->setSprites(Sprite("player", 0, 0, 19, 40), Sprite("player", 19, 0, 19, 40));
-	player2 = new Player(Sprite("player", 38, 0, 19, 40),(size * 2) * 61, (size * 2) * 1);
+	player2 = new Player(Sprite("player", 38, 0, 19, 40), size * 2 * 61, size * 2);
 	player2->setSprites(Sprite("player", 38, 0, 19, 40), Sprite("player", 57, 0, 19, 40));
-	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	ball = new Ball(size * 64, size * 2);
 
 	//Default settings
 	this->gameTime = 3;
 	this->maxGoals = 5;
 
 	this->isOvertime = false;
-	isOvertime = false;
-	gameOver = false;
+	this->gameOver = false;
 }
 
 

@@ -17,8 +17,9 @@ public:
 	void onDestroy() override;
 	StateContext* context_;
 
-	bool onClick(Button *button) final;
 	void addToiletFrames();
+	bool onClick(Widget *button) final;
+
 
 private:
 	Game *game;

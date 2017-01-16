@@ -60,9 +60,9 @@ void AchievementsState::onDestroy()
 
 }
 
-bool AchievementsState::onClick(Button* button)
+bool AchievementsState::onClick(Widget* button)
 {
-	if (button->getText() == "<")
+	if (button->getId() == "back")
 	{
 		context->setState(new MenuState(context));
 	}
