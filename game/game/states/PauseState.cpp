@@ -77,5 +77,4 @@ bool PauseState::onClick(Widget* button)
 
 void PauseState::onDestroy()
 {
-	this->context->stopMusic();
 }

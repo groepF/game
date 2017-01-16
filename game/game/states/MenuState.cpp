@@ -87,7 +87,6 @@ void MenuState::onUpdate(Keyboard* keyboard)
 
 void MenuState::onDestroy()
 {
-	this->context->stopMusic();
 }
 
 bool MenuState::onClick(Widget* button)
