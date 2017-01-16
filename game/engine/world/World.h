@@ -18,6 +18,8 @@ public:
 	void render(Screen *screen, const bool debug = false);
 	void add(Body * body, std::string id = "");
 	void addBackground(Sprite* s);
+
+	void setContactListener(ContactListener* listener);
 private:
 	b2World *world;
 	ContactListener* contacts;

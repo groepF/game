@@ -3,10 +3,10 @@
 #include "../GraphRepository.h"
 #include "entities/Player.h"
 
-
 Game::Game()
 {
 	this->world = new World(WORLD_GRAVITY);
+	this->world->setContactListener(new ContactListener(this));
 
 	//Default map
 	this->map = "./res/maps/level1.tmx";

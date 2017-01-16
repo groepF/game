@@ -53,6 +53,7 @@
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
+    <ClCompile Include="engine\world\ContactListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />

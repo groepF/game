@@ -3,13 +3,11 @@
 #include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 #include "ContactListener.h"
 
-World::World(float gravity) : world(nullptr), background(nullptr)
+World::World(float gravity) : world(nullptr), contacts(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
 
-	contacts = new ContactListener();
 	world = new b2World(vec);
-	world->SetContactListener(contacts);
 }
 
 World::~World()
@@ -54,7 +52,14 @@ void World::add(Body* body, std::string id)
 {
 	auto item = world->CreateBody(body->getBodyDef());
 	body->create(item);
-	body->setUserData((void*)id.c_str());
+	if (id == "blue_goal")
+	{
+		body->setUserData("blue_goal");
+	}
+	if (id == "red_goal")
+	{
+		body->setUserData("red_goal");
+	}
 	body->setDefaultRenderStrategy();
 	bodies.push_back(body);
 }
@@ -62,4 +67,10 @@ void World::add(Body* body, std::string id)
 void World::addBackground(Sprite* background)
 {
 	this->background = background;
+}
+
+void World::setContactListener(ContactListener* listener)
+{
+	contacts = listener;
+	world->SetContactListener(contacts);
 }
