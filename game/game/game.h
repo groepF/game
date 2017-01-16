@@ -68,6 +68,8 @@ public:
 
 	enum HoldingPlayer {PLAYER1,PLAYER2,NONE};
 	int getBallPossession(HoldingPlayer targetPlayer) const;
+
+	void respawnBall();
 private:
 	//Settings
 	int gameTime; //Default 180(seconden)

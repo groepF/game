@@ -131,6 +131,13 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if(ball->scoreAnimation())
+	{
+		game->respawnBall();
+		ball = game->getBall();
+		world->add(ball);
+	}
+
 	if (keyboard->isKeyPressed(SDL_SCANCODE_ESCAPE))
 	{
 		context->setState(new PauseState(context, game));

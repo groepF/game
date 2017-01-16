@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("achievements", "res/images/achievements.png");
 	engine.addSpritesheet("help", "res/images/help.png");
 	engine.addSpritesheet("pause_background", "res/images/pauseback.png");
+	engine.addSpritesheet("explosion_ball", "res/images/explosion.png");
 
 	// Advertisements.
 	auto files = engine.getFilesIn("../game/res/images/ads");

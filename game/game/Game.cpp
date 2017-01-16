@@ -314,3 +314,9 @@ int Game::getBallPossession(HoldingPlayer targetPlayer) const
 	}
 	return possession;
 }
+
+void Game::respawnBall()
+{
+	delete ball;
+	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+}

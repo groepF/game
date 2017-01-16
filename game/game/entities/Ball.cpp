@@ -8,6 +8,16 @@ Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("s
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
+
+	setExplosionSprites();
+}
+
+void Ball::setExplosionSprites()
+{
+	for(int i = 0; i < 12; i++)
+	{
+		this->explosionSprites.push_back(Sprite("explosion_ball", i*70, 0, 70, 70));
+	}
 }
 
 /*
@@ -36,6 +46,23 @@ void Ball::shoot(Body* from, double sideForce, double downForce)
 {
 	this->body->ApplyForce(b2Vec2(sideForce, downForce), b2Vec2(from->getBodyX(), from->getBodyY()), false);
 
+}
+
+bool Ball::scoreAnimation()
+{
+	this->body->SetActive(false);
+	if(frames > 5 && explosionFrame < this->explosionSprites.size())
+	{
+		this->sprite = std::make_shared<Sprite>(this->explosionSprites.at(explosionFrame));
+		explosionFrame++;
+		frames = 0;
+	}
+	else if(explosionFrame >= this->explosionSprites.size())
+	{
+		return true;
+	}
+	frames++;
+	return false;
 }
 
 /*
