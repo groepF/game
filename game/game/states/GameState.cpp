@@ -146,9 +146,10 @@ void GameState::onUpdate(Keyboard *keyboard)
 {
 	if(game->scored == true)
 	{
-		if(!ball->scoreAnimation())
+		if(ball->scoreAnimation())
 		{
 			game->scored = false;
+			game->deleteTheBall();
 		}
 	}
 

@@ -172,7 +172,7 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (!ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn() && !scored)
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -180,13 +180,12 @@ void Game::teamAScored()
 		}
 		goalsTeamA++;
 	}
-
-	deleteTheBall();
+	scored = true;
 }
 
 void Game::teamBScored()
 {
-	if (!ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn() && !scored)
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -195,7 +194,7 @@ void Game::teamBScored()
 		goalsTeamB++;
 	}
 
-	deleteTheBall();
+	scored = true;
 }
 
 void Game::teamAWin()

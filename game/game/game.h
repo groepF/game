@@ -78,6 +78,8 @@ public:
 	enum HoldingPlayer {PLAYER1,PLAYER2,NONE};
 	int getBallPossession(HoldingPlayer targetPlayer) const;
 
+	bool teamAHasScored;
+	bool teamBHasScored;
 	void respawnBall();
 private:
 	//Settings
@@ -104,6 +106,7 @@ private:
 	Player *player2;
 	Ball *ball;
 	
+
 	const float WORLD_GRAVITY = 9.81f;
 };
 

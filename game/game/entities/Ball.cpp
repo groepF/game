@@ -4,6 +4,7 @@
 
 Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70)), x, y, 0.3f, 0.3f, true, 1.0f, 1.0f)
 {
+	this->original_sprite = this->sprite;
 	this->density = 0.3f;
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
@@ -70,7 +71,10 @@ bool Ball::scoreAnimation()
 	}
 	else if(explosionFrame >= this->explosionSprites.size())
 	{
+		this->sprite = original_sprite;
 		this->body->SetActive(true);
+		explosionFrame = 0;
+		frames = 0;
 		return true;
 	}
 	frames++;
@@ -94,7 +98,7 @@ void Ball::pickUp(Body* p)
 
 }
 
-void Ball::set(float x, float y)
+void Ball::set(float x, float y) const
 {
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(x, y), 0);

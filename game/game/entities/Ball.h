@@ -14,7 +14,7 @@ public:
 	bool isHeldBy(Body*) const;
 	void shoot(Body* from, double sideForce, double downForce, bool action);
 
-	void set(float x, float y);
+	void set(float x, float y) const;
 
 	void setQueueTaskRespawn(bool value);
 	bool isQueueTaskRespawn() const;
@@ -24,7 +24,7 @@ private:
 	Body* heldBy;
 
 	std::vector<Sprite> explosionSprites;
-
+	std::shared_ptr<Sprite> original_sprite;
 	int frames = 0;
 	int explosionFrame = 0;
 	bool queueTaskRespawn;
