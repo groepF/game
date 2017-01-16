@@ -90,27 +90,27 @@ void MenuState::onDestroy()
 	this->context->stopMusic();
 }
 
-bool MenuState::onClick(Button* button)
+bool MenuState::onClick(Widget* button)
 {
-	std::string text = button->getText();
+	std::string text = button->getId();
 
-	if (text == "Play")
+	if (text == "play")
 	{
 		context->setState(new GameSelectionState(context));
 	}
-	else if (text == "Achievements")
+	else if (text == "achievements")
 	{
 		context->setState(new AchievementsState(context));
 	}
-	else if (text == "Credits")
+	else if (text == "credits")
 	{
 		context->setState(new CreditsState(context));
 	}
-	else if (text == "Help")
+	else if (text == "help")
 	{
 		context->setState(new HelpState(context));
 	}
-	else if (text == "Quit Game")
+	else if (text == "quit")
 	{
 		exit(0);
 	}

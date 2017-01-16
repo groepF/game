@@ -52,6 +52,7 @@
     <ClCompile Include="GraphRepository.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="game\Game.cpp" />
+    <ClCompile Include="engine\widgets\ImageButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -113,11 +114,15 @@
     <ClInclude Include="GraphRepository.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="game\game.h" />
+    <ClInclude Include="engine\widgets\ImageButton.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\level1.png" />
   </ItemGroup>
 </Project>
