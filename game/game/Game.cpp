@@ -9,6 +9,7 @@ Game::Game()
 	this->world = new World(WORLD_GRAVITY);
 
 	//Default map
+	this->mapID = 1;
 	this->map = "./res/maps/level1.tmx";
 	this->size = 0.2f;
 
@@ -18,7 +19,7 @@ Game::Game()
 
 	//Default settings
 	this->gameTime = 3;
-	this->maxGoals = 5;
+	this->maxGoals = 5;	
 
 	this->isOvertime = false;
 	isOvertime = false;
@@ -81,9 +82,19 @@ void Game::setTime(int minutes)
 	gameTime = minutes;
 }
 
+int Game::getGameTime()
+{
+	return this->gameTime;
+}
+
 void Game::setGoals(int goals)
 {
 	maxGoals = goals;
+}
+
+int Game::getMaxGoals()
+{
+	return this->maxGoals;
 }
 
 void Game::setMap(int id)
@@ -92,17 +103,31 @@ void Game::setMap(int id)
 	{
 	case 1:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	case 2:
 		this->map = "./res/maps/level2.tmx";
+		this->mapID = 2;
 		break;
 	case 3:
 		this->map = "./res/maps/level3.tmx";
+		this->mapID = 3;
 		break;
 	default:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	}
+}
+
+char* Game::getMap()
+{
+	return this->map;
+}
+
+int Game::getMapId()
+{
+	return this->mapID;
 }
 
 void Game::setWorld(World* world)

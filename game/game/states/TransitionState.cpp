@@ -1,10 +1,26 @@
 #include "TransitionState.h"
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
+#include "GameState.h"
 
 
-TransitionState::TransitionState(StateContext* context): State(context)
+TransitionState::TransitionState(StateContext* context, Game* game): State(context)
 {
+	this->previousGame = game;
+	//1x winnen: level2 unlocken
+	if(game->hasWinner())
+	{
+		if(game->getTeamAGoals() > game->getTeamBGoals()) // Team A Heeft gewonnen
+		{
+			//Unlock level 2
+		}
+	}
+
+	//60% balbezit behaald: level3 unlocken
+	if(game->getPlayer()->ballpossession >= 60)
+	{
+		// Unlock level 3
+	}
 }
 
 
@@ -14,6 +30,11 @@ TransitionState::~TransitionState()
 	{
 		delete background;
 		background = nullptr;
+	}
+	if(previousGame != nullptr)
+	{
+		delete previousGame;
+		previousGame = nullptr;
 	}
 }
 
@@ -58,7 +79,12 @@ bool TransitionState::onClick(Button* button)
 	//Start and Back button
 	if (button->getId() == "rematch")
 	{
-		context->setState(new GameSelectionState(context)); //Game starten met de vorige settings
+		Game* game = new Game();
+		game->setTime(previousGame->getGameTime());
+		game->setGoals(previousGame->getMaxGoals());
+		game->setMap(previousGame->getMapId());
+
+		context->setState(new GameState(context, game));
 	}
 	else if (button->getId() == "nextmatch")
 	{

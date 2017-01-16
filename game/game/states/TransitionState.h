@@ -8,7 +8,7 @@
 class TransitionState : public State, public OnClickListener
 {
 public:
-	TransitionState(StateContext* context);
+	TransitionState(StateContext* context, Game* game);
 	~TransitionState();
 	void onCreate() final;
 	void onRender(Screen *screen) final;
@@ -17,5 +17,6 @@ public:
 	bool onClick(Button* button) final;
 private:
 	Sprite* background;
+	Game* previousGame;
 };
 
