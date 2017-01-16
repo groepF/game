@@ -90,7 +90,7 @@ void Highscore::setLongestGame(int value)
 
 void Highscore::setFastestGoal(int value)
 {
-	if (value > Highscore::fastestGoal)
+	if (value < Highscore::fastestGoal || Highscore::fastestGoal == 0)
 	{
 		Highscore::fastestGoal = value;
 	}
@@ -98,7 +98,7 @@ void Highscore::setFastestGoal(int value)
 
 void Highscore::setFastestWin(int value)
 {
-	if (value > Highscore::fastestWin)
+	if (value < Highscore::fastestWin || Highscore::fastestWin == 0)
 	{
 		Highscore::fastestWin = value;
 	}
