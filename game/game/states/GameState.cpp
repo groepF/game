@@ -1,15 +1,10 @@
 #include "GameState.h"
-#include "../entities/Player.h"
-#include "../entities/Ball.h"
 #include "../map/LevelReader.h"
-#include "../../engine/core-entities/FpsCounter.h"
 #include "../entities/Score.h"
-#include "../../engine/core-entities/DrawableEntity.h"
 #include "../entities/Timer.h"
-#include "MenuState.h"
-#include "../../engine/location/Graph.h"
-#include "../entities/EndGameStats.h"
+#include "PauseState.h"
 #include "TransitionState.h"
+#include "../entities/EndGameStats.h"
 
 
 GameState::GameState(StateContext* context, Game* game) : State(context),
@@ -19,7 +14,6 @@ isDebug(Config::getBool("debug", false)),
 showGrid(false)
 {
 	this->game = game;
-	this->game->begin();
 	this->endGameScreenSeconds = 4;
 	this->throwForce = 50;
 }
@@ -28,17 +22,8 @@ GameState::~GameState()
 {
 }
 
-/**
-* Function gets called when state changes
-*/
-void GameState::onCreate()
+void GameState::setGameStateItems()
 {
-	Log::debug("OnCreate GameState");
-
-	world = new World(WORLD_GRAVITY);
-
-	this->fpsCounter = new FpsCounter();
-
 	world = game->getWorld();
 	player = game->getPlayer();
 	player2 = game->getPlayer2();
@@ -46,6 +31,14 @@ void GameState::onCreate()
 
 	p1LastDirection = RIGHT;
 	p2LastDirection = LEFT;
+}
+
+void GameState::populateWord()
+{
+	world = new World(WORLD_GRAVITY);
+	game->setWorld(world);
+
+	setGameStateItems();
 
 	LevelReader reader(game->getMap());
 
@@ -60,7 +53,6 @@ void GameState::onCreate()
 	auto background = new Sprite("background", 0, 0, 1300, 720);
 	world->addBackground(background);
 
-	auto size = 0.2f;
 	int counter = 0;
 	for (float x = 0; x < reader.getLevelHeight(); x++)
 	{
@@ -72,28 +64,51 @@ void GameState::onCreate()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
 
 				//Add the sprite to the world
-				world->add(new DrawableEntity(sprite, (size * 2.0f) * y + 0.2f, (size * 2.0f) * x + 0.2f, size, size));
+				world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()));
 			}
 			counter++;
 		}
 	}
 
-	player = new Player((size * 2) * 3, (size * 2) * 1);
-	player2 = new Player((size * 2) * 61, (size * 2) * 1);
-	ball = new Ball((size * 2) * 32, (size * 2) * 1);
-	fpsCounter = new FpsCounter(true, 1200);
+	
 
 	//Add the player, ball and AI to the world
+
+
 	world->add(player);
 	world->add(player2);
 
-	world->add(fpsCounter);
+	
 	world->add(new Score(game));
 	world->add(new Timer(game));
 	world->add(ball);
 
 	player->setFixedRotation(true);
 	player2->setFixedRotation(true);
+}
+
+void GameState::createFpsCounter()
+{
+	fpsCounter = new FpsCounter(true, 1200);
+	world->add(fpsCounter);
+}
+
+/**
+* Function gets called when state changes
+*/
+void GameState::onCreate()
+{
+	Log::debug("OnCreate GameState");
+	if (!this->game->playing)
+	{
+		game->begin();
+		populateWord();
+	}
+	else
+	{
+		setGameStateItems();
+	}
+	createFpsCounter();
 }
 
 void GameState::onRender(Screen *screen)
@@ -108,6 +123,12 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if (keyboard->isKeydown(KEY_ESCAPE))
+	{
+		context->setState(new PauseState(context, game));
+		return;
+	}
+
 	if (game->gameOver)
 	{
 		// keep the score on screen for a couple of seconds.
@@ -280,6 +301,8 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 void GameState::onDestroy()
 {
-	delete world;
+	//delete world;
+	game->setWorld(world);
+
 	Log::debug("OnDestroy GameState");
 }

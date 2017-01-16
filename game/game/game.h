@@ -1,10 +1,10 @@
 #pragma once
-#include "engine/world/World.h"
-#include "game/entities/Player.h"
-#include "game/entities/Ball.h"
-#include "game/entities/Enemy.h"
+#include "../engine/world/World.h"
+#include "entities/Player.h"
+#include "entities/Ball.h"
+#include "entities/Enemy.h"
 #include "chrono"
-#include "engine/location/Graph.h"
+#include "../engine/location/Graph.h"
 
 
 class Game
@@ -13,11 +13,11 @@ public:
 	Game();
 	~Game();
 
-	char* getMap();
-	World* getWorld();
-	Player* getPlayer();
-	Player* getPlayer2();
-	Ball* getBall();
+	char* getMap() const;
+	World* getWorld() const;
+	Player* getPlayer() const;
+	Player* getPlayer2() const;
+	Ball* getBall() const;
 	Graph* getGraph();
 
 	void begin();
@@ -25,6 +25,7 @@ public:
 	void setTime(int minutes);
 	void setGoals(int goals);
 	void setMap(int id);
+	void setWorld(World* world);
 
 	int getTeamAGoals();
 	int getTeamBGoals();
@@ -49,6 +50,9 @@ public:
 
 	std::chrono::system_clock::time_point getTimeLimit();
 
+	void pauseGame();
+	void restartGame();
+
 	void endGame();
 
 	int getGoalLimit();
@@ -58,6 +62,8 @@ public:
 	bool isOvertime;
 	int ballPossessionTeamA;
 	int ballPossessionTeamB;
+	bool playing = false;
+	float getSize() const;
 	std::chrono::system_clock::time_point gameEnded;
 
 private:
@@ -68,6 +74,7 @@ private:
 	char* map;
 	std::chrono::system_clock::time_point beginTime;
 	std::chrono::system_clock::time_point timeLimit;
+	std::chrono::system_clock::time_point startPause;
 
 
 	int firstGoalTime;
@@ -75,7 +82,9 @@ private:
 	int goalsTeamA;
 	int goalsTeamB;
 
+	float size;
 	Graph *graph;
+
 	World *world;
 	Player *player;
 	Player *player2;

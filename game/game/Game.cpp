@@ -1,6 +1,7 @@
 #include "Game.h"
-#include "engine/util/Highscore.h"
-#include "GraphRepository.h"
+#include "../engine/util/Highscore.h"
+#include "../GraphRepository.h"
+#include "entities/Player.h"
 
 
 Game::Game()
@@ -9,8 +10,8 @@ Game::Game()
 
 	//Default map
 	this->map = "./res/maps/level1.tmx";
+	this->size = 0.2f;
 
-	auto size = 0.2f;
 	player = new Player((size * 2) * 3, (size * 2) * 1);
 	player2 = new Player((size * 2) * 61, (size * 2) * 1);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
@@ -19,6 +20,7 @@ Game::Game()
 	this->gameTime = 3;
 	this->maxGoals = 5;
 
+	this->isOvertime = false;
 	isOvertime = false;
 	gameOver = false;
 }
@@ -26,29 +28,32 @@ Game::Game()
 
 Game::~Game()
 {
+	delete world;
 }
 
-char* Game::getMap()
+char* Game::getMap() const
 {
 	return this->map;
 }
 
-World* Game::getWorld()
+World* Game::getWorld() const
 {
 	return this->world;
 }
 
-Player* Game::getPlayer()
+Player* Game::getPlayer() const
 {
 	return this->player;
 }
 
-Player* Game::getPlayer2()
+
+Player* Game::getPlayer2() const
+
 {
 	return this->player2;
 }
 
-Ball* Game::getBall()
+Ball* Game::getBall() const
 {
 	return this->ball;
 }
@@ -61,6 +66,7 @@ Graph* Game::getGraph()
 
 void Game::begin()
 {
+	playing = true;
 	// add a countdown?
 	this->goalsTeamA = 0;
 	this->goalsTeamB = 0;
@@ -97,6 +103,11 @@ void Game::setMap(int id)
 		this->map = "./res/maps/level1.tmx";
 		break;
 	}
+}
+
+void Game::setWorld(World* world)
+{
+	this->world = world;
 }
 
 int Game::getTeamAGoals()
@@ -182,6 +193,24 @@ std::chrono::system_clock::time_point Game::getTimeLimit()
 	return timeLimit;
 }
 
+void Game::pauseGame()
+{
+	startPause = std::chrono::system_clock::now();
+	//build pause screen
+}
+
+void Game::restartGame()
+{
+	//calculate the paused time by the current time and the time when the pause started
+	std::chrono::system_clock::time_point restartTime = std::chrono::system_clock::now();
+	auto timeDifference = std::chrono::duration_cast<std::chrono::milliseconds>(restartTime - startPause);
+	//add the difference to beginTime and timeLimit 
+	beginTime += timeDifference;
+	timeLimit += timeDifference;
+
+	//'close' pause screen
+}
+
 void Game::endGame()
 {
 	// save statistics and highscores, just always call the methods in highscore class
@@ -237,4 +266,9 @@ void Game::endGame()
 int Game::getGoalLimit()
 {
 	return maxGoals;
+}
+
+float Game::getSize() const
+{
+	return size;
 }

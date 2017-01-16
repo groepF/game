@@ -8,7 +8,6 @@
     <ClCompile Include="game\entities\Enemy.cpp" />
     <ClCompile Include="engine\core\State.cpp" />
     <ClCompile Include="engine\input\Keyboard.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="game\states\GameSelectionState.cpp" />
     <ClCompile Include="game\entities\Ball.cpp" />
     <ClCompile Include="engine\world\Body.cpp" />
@@ -49,8 +48,10 @@
     <ClCompile Include="engine\location\Vertex.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
     <ClCompile Include="engine\location\Path.cpp" />
+    <ClCompile Include="game\states\PauseState.cpp" />
     <ClCompile Include="GraphRepository.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
+    <ClCompile Include="game\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -63,7 +64,6 @@
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
     <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="game\states\GameSelectionState.h" />
     <ClInclude Include="game\entities\Ball.h" />
     <ClInclude Include="engine\world\Body.h" />
@@ -109,8 +109,10 @@
     <ClInclude Include="engine\location\Vertex.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="engine\location\Path.h" />
+    <ClInclude Include="game\states\PauseState.h" />
     <ClInclude Include="GraphRepository.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
+    <ClInclude Include="game\game.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

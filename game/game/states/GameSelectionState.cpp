@@ -3,7 +3,10 @@
 #include "../../engine/widgets/Label.h"
 #include "GameState.h"
 #include "MenuState.h"
+#include "../../engine/core/StateContext.h"
 
+
+class StateContext;
 
 GameSelectionState::GameSelectionState(StateContext* context) : State(context)
 {
