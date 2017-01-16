@@ -297,6 +297,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 			}
 
 		}
+	}
 
 
 
@@ -351,7 +352,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 		player2->move();
 		world->update();
 	}
-}
 void GameState::onDestroy()
 {
 	//delete world;
