@@ -23,8 +23,12 @@ public:
 	void begin();
 
 	void setTime(int minutes);
+	int getGameTime();
 	void setGoals(int goals);
+	int getMaxGoals();
 	void setMap(int id);
+	char* getMap();
+	int getMapId();
 	void setWorld(World* world);
 
 	void deleteTheBall() const;
@@ -74,6 +78,7 @@ private:
 	//Settings
 	int gameTime; //Default 180(seconden)
 	int maxGoals;
+	int mapID;
 	float gravity;
 	char* map;
 	std::chrono::system_clock::time_point beginTime;

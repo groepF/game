@@ -159,7 +159,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		int past_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - game->gameEnded).count();
 		if (past_seconds >= endGameScreenSeconds)
 		{
-			context->setState(new TransitionState(context));
+			context->setState(new TransitionState(context, game));
 		}
 		return;
 	}
@@ -214,12 +214,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 			{
 			case UP:
 				p1yforce += throwForce;
+				break;
 			case DOWN:
 				p1yforce -= throwForce;
+				break;
 			case RIGHT:
 				p1xforce += throwForce;
+				break;
 			case LEFT:
 				p1xforce -= throwForce;
+				break;
 			default: break;
 			}
 		}
@@ -256,12 +260,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 			{
 			case UP:
 				p2yforce += throwForce;
+				break;
 			case DOWN:
 				p2yforce -= throwForce;
+				break;
 			case RIGHT:
 				p2xforce += throwForce;
+				break;
 			case LEFT:
 				p2xforce -= throwForce;
+				break;
 			default: break;
 			}
 		}
@@ -308,7 +316,10 @@ void GameState::onUpdate(Keyboard *keyboard)
 				this->gameSpeed -= 0.001f;
 			}
 		}
-		world->stepWithSpeed(gameSpeed);
+		if (gameSpeed != 0.0f)
+		{
+			world->stepWithSpeed(gameSpeed);
+		}
 	}
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored

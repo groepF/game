@@ -55,6 +55,7 @@
     <ClCompile Include="engine\widgets\ImageButton.cpp" />
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
     <ClCompile Include="engine\world\ContactListener.cpp" />
+    <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -119,6 +120,7 @@
     <ClInclude Include="engine\widgets\ImageButton.h" />
     <ClInclude Include="game\entities\PossessionMeter.h" />
     <ClInclude Include="engine\world\ContactListener.h" />
+    <ClInclude Include="LevelUnlocker.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />
