@@ -2,7 +2,7 @@
 #include "../graphics/render-strategies/RenderTextStrategy.h"
 #include "../util/Log.h"
 
-TextualEntity::TextualEntity(std::string identifier, int x, int y, int width, int height, Color color): Body(x, y, width, height)
+TextualEntity::TextualEntity(std::string identifier, int x, int y, int width, int height, Color color, std::string text): Body(x, y, width, height)
 {
 	this->identifier = identifier;
 	this->x = x;
@@ -10,6 +10,7 @@ TextualEntity::TextualEntity(std::string identifier, int x, int y, int width, in
 	this->width = width;
 	this->height = height;
 	this->color = color;
+	this->text = text;
 }
 
 void TextualEntity::Render(Screen& screen, bool debug) const
@@ -29,7 +30,7 @@ std::string TextualEntity::get_identifier() const
 
 std::string TextualEntity::getText()
 {
-	return "";
+	return text;
 }
 
 Color TextualEntity::getColor()
