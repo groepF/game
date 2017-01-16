@@ -14,8 +14,8 @@ std::string EndGameStats::getText()
 {
 	if (this->game->getTeamAGoals() > this->game->getTeamBGoals())
 	{
-		return "You win!";
+		return " Player 1 wins!";
 	}
-	return "You lose";
+	return " Player 2 wins!";
 
 }
