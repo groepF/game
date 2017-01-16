@@ -83,14 +83,11 @@ void GameState::populateWord()
 		}
 	}
 
-
+	fpsCounter = new FpsCounter(true, 1200);
 
 	//Add the player, ball and AI to the world
-
-
 	world->add(player);
 	world->add(player2);
-
 	world->add(new Score(game));
 	world->add(new Timer(game));
 	world->add(ball);
@@ -176,6 +173,20 @@ void GameState::onUpdate(Keyboard *keyboard)
 		game->isOvertime = true;
 	}
 
+	if (player2->isAI())
+	{
+		static_cast<Enemy*>(player2)->action(context, keyboard, game);
+	}
+
+	if (ball->isHeldBy(player2))
+	{
+		game->ballPossessionTeamB++;
+	}
+	if (ball->isHeldBy(player))
+	{
+		game->ballPossessionTeamA++;
+	}
+
 	game->calculateBallPossession();
 
 	if (ball->isHeldBy(player)) { ball->pickUp(player); }
@@ -190,13 +201,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 		player->setPlayerState(PLAYER_STOP);
 	}
 
+	player->subtractActionDelay();
+
 	if (keyboard->isKeyHeld(SDL_SCANCODE_W)) { player->jump(); p1LastDirection = UP; }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
 	if (keyboard->isKeyPressed(SDL_SCANCODE_E)) {
-		if (player->isInRangeOf(ball) && !ball->isHeldBy(player)) { ball->pickUp(player); }
+		if (player->isInRangeOf(ball) && !ball->isHeldBy(player) && !ball->isHeldBy(player2)) { ball->pickUp(player); }
 		else if (ball->isHeldBy(player)) { ball->drop(); }
-		else if (player->isInRangeOf(player2)) player2->hitByEnemy(ball);
+		else if (player->isInRangeOf(player2)) { player2->hitByEnemy(ball, player2); player2->doAction(); player2->doPickup(); player->doPickup(); }
+
 	}
 
 	if (keyboard->isKeyPressed(SDL_SCANCODE_LSHIFT))
@@ -227,108 +241,117 @@ void GameState::onUpdate(Keyboard *keyboard)
 			default: break;
 			}
 		}
-		if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, p1xforce, -p1yforce); }
+		if (ball->isHeldBy(player)) { ball->drop(); ball->shoot(player, p1xforce, -p1yforce, true); }
 	}
 
-	//player 2
-	if (!keyboard->isKeyHeld(SDL_SCANCODE_LEFT) && !keyboard->isKeyHeld(SDL_SCANCODE_RIGHT))
+	if (!player2->isAI())
 	{
-		player2->setPlayerState(PLAYER_STOP);
-	}
-	if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) { player2->jump(); p2LastDirection = UP; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) { player2->setPlayerState(PLAYER_LEFT); p2LastDirection = LEFT; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) { player2->setPlayerState(PLAYER_RIGHT); p2LastDirection = RIGHT; }
-
-	if (keyboard->isKeyPressed(SDL_SCANCODE_RCTRL)) {
-		if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2)) { ball->pickUp(player2); }
-		else if (ball->isHeldBy(player2)) { ball->drop(); }
-		else if (player2->isInRangeOf(ball)) player->hitByEnemy(ball);
-	}
-
-	if (keyboard->isKeyPressed(SDL_SCANCODE_RSHIFT))
-	{
-		double p2xforce = 0;
-		double p2yforce = 0;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) p2yforce += throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_DOWN)) p2yforce -= throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) p2xforce += throwForce;
-		if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) p2xforce -= throwForce;
-
-		if (p2xforce == 0 && p2yforce == 0)
+		//player 2
+		if (!keyboard->isKeyHeld(SDL_SCANCODE_LEFT) && !keyboard->isKeyHeld(SDL_SCANCODE_RIGHT))
 		{
-			switch (p1LastDirection)
+			player2->setPlayerState(PLAYER_STOP);
+		}
+
+		player2->subtractActionDelay();
+
+		if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) { player2->jump(); p2LastDirection = UP; }
+		if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) { player2->setPlayerState(PLAYER_LEFT); p2LastDirection = LEFT; }
+		if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) { player2->setPlayerState(PLAYER_RIGHT); p2LastDirection = RIGHT; }
+
+		if (keyboard->isKeyPressed(SDL_SCANCODE_RCTRL)) {
+			if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2) && !ball->isHeldBy(player)) { ball->pickUp(player2); }
+			else if (ball->isHeldBy(player2)) { ball->drop(); }
+			else if (player2->isInRangeOf(ball)) { player->hitByEnemy(ball, player); player->doAction(); player->doPickup(); player2->doPickup(); }
+		}
+
+		if (keyboard->isKeyPressed(SDL_SCANCODE_RSHIFT))
+		{
+			double p2xforce = 0;
+			double p2yforce = 0;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_UP)) p2yforce += throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_DOWN)) p2yforce -= throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) p2xforce += throwForce;
+			if (keyboard->isKeyHeld(SDL_SCANCODE_LEFT)) p2xforce -= throwForce;
+
+			if (p2xforce == 0 && p2yforce == 0)
 			{
-			case UP:
-				p2yforce += throwForce;
-				break;
-			case DOWN:
-				p2yforce -= throwForce;
-				break;
-			case RIGHT:
-				p2xforce += throwForce;
-				break;
-			case LEFT:
-				p2xforce -= throwForce;
-				break;
-			default: break;
+				switch (p2LastDirection)
+				{
+
+				case UP:
+					p2yforce += throwForce;
+					break;
+				case DOWN:
+					p2yforce -= throwForce;
+					break;
+				case RIGHT:
+					p2xforce += throwForce;
+					break;
+				case LEFT:
+					p2xforce -= throwForce;
+					break;
+				default: break;
+				}
+				if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce, true); }
+
+			}
+
+		}
+	}
+
+
+
+		//cheats
+		if (Config::getBool("debug", false))
+		{
+			//toggle sprite boundary view
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F1)) { showGrid = !showGrid; showHybricGrid = false; }
+			//toggle hybrid view
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F2)) { showHybricGrid = !showHybricGrid;; showGrid = false; }
+			//player 1 scoren
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F3)) { game->teamAScored(); }
+			//player 2 scoren
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F4)) { game->teamBScored(); }
+			//player 1 win
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F5)) { game->teamAWin(); }
+			//player 2 win
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F6)) { game->teamBWin(); }
+			//time remaining omlaag
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F7)) { game->changeTimeRemaining(-10); }
+			//time remaining omhoog
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F8)) { game->changeTimeRemaining(10); }
+			//speler 1 100% balbezit
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F9)) { game->ballPossessionCheat(true); }
+			//speler 2 100% balbezit
+			if (keyboard->isKeyPressed(SDL_SCANCODE_F10)) { game->ballPossessionCheat(false); }
+			//spel versnellen
+			if (keyboard->isKeyHeld(SDL_SCANCODE_EQUALS))
+			{
+				if (this->gameSpeed < 0.04f)
+				{
+					this->gameSpeed += 0.001f;
+				}
+			}
+			//spel vertragen
+			if (keyboard->isKeyHeld(SDL_SCANCODE_MINUS))
+			{
+				if (this->gameSpeed > 0.001f)
+				{
+					this->gameSpeed -= 0.001f;
+				}
+			}
+			if (gameSpeed != 0.0f)
+			{
+				world->stepWithSpeed(gameSpeed);
 			}
 		}
-		if (ball->isHeldBy(player2)) { ball->drop(); ball->shoot(player2, p2xforce, -p2yforce); }
 
+		// TODO: call Game.teamAScored and Game.teamBScored when someone scored
+
+		player->move();
+		player2->move();
+		world->update();
 	}
-
-	//cheats
-	if (Config::getBool("debug", false))
-	{
-		//toggle sprite boundary view
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F1)) { showGrid = !showGrid; showHybricGrid = false; }
-		//toggle hybrid view
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F2)) { showHybricGrid = !showHybricGrid;; showGrid = false; }
-		//player 1 scoren
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F3)) { game->teamAScored(); }
-		//player 2 scoren
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F4)) { game->teamBScored(); }
-		//player 1 win
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F5)) { game->teamAWin(); }
-		//player 2 win
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F6)) { game->teamBWin(); }
-		//time remaining omlaag
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F7)) { game->changeTimeRemaining(-10); }
-		//time remaining omhoog
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F8)) { game->changeTimeRemaining(10); }
-		//speler 1 100% balbezit
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F9)) { game->ballPossessionCheat(true); }
-		//speler 2 100% balbezit
-		if (keyboard->isKeyPressed(SDL_SCANCODE_F10)) { game->ballPossessionCheat(false); }
-		//spel versnellen
-		if (keyboard->isKeyHeld(SDL_SCANCODE_EQUALS))
-		{
-			if (this->gameSpeed < 0.04f)
-			{
-				this->gameSpeed += 0.001f;
-			}
-		}
-		//spel vertragen
-		if (keyboard->isKeyHeld(SDL_SCANCODE_MINUS))
-		{
-			if (this->gameSpeed > 0.001f)
-			{
-				this->gameSpeed -= 0.001f;
-			}
-		}
-		if (gameSpeed != 0.0f)
-		{
-			world->stepWithSpeed(gameSpeed);
-		}
-	}
-
-	// TODO: call Game.teamAScored and Game.teamBScored when someone scored
-
-	player->move();
-	player2->move();
-	world->update();
-}
-
 void GameState::onDestroy()
 {
 	//delete world;

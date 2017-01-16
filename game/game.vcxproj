@@ -132,6 +132,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\states\AI\AIBallState.cpp" />
+    <ClCompile Include="game\states\AI\AIStateFactory.cpp" />
     <ClCompile Include="engine\world\ContactListener.cpp" />
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="engine\location\Edge.cpp" />
@@ -187,6 +189,8 @@
     <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\states\AI\AIBallState.h" />
+    <ClInclude Include="game\states\AI\AIStateFactory.h" />
     <ClInclude Include="engine\world\ContactListener.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />

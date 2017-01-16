@@ -2,11 +2,33 @@
 #include "Ball.h"
 
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
+#include "../states/AI/AIStateFactory.h"
+#include "../../engine/location/Graph.h"
 
-Enemy::Enemy(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 19, 0, 19, 40)), x, y, 0.25f, 0.5f, true, 0, 0, true)
+Enemy::Enemy(float x, float y, bool ai) : Player(x,y,ai)
 {
 	this->density = 0.4f;
 	this->restitution = 0.0f;
 	this->friction = 0.5f;
 	this->type = CIRCLE;
+}
+
+void Enemy::action(StateContext* context, Keyboard *keyboard, Game *game)
+{
+
+	currentState = AIStateFactory::getInstance()->getState("BallState", context, game);
+
+	currentState->onUpdate(keyboard);
+
+
+}
+
+bool Enemy::isMoving() const
+{
+
+	auto xVel = body->GetLinearVelocity().x;
+	auto yVel = body->GetLinearVelocity().y;
+
+	return (xVel > 0 || yVel > 0);
+
 }
