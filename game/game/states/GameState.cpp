@@ -36,7 +36,7 @@ void GameState::setGameStateItems()
 
 void GameState::populateWord()
 {
-	world = new World(WORLD_GRAVITY);
+	world = new World(game, WORLD_GRAVITY);
 	game->setWorld(world);
 
 	setGameStateItems();
@@ -65,7 +65,19 @@ void GameState::populateWord()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
 
 				//Add the sprite to the world
-				world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()));
+
+				if (tiles.at(counter) == 7)
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()), "red_goal");
+				} 
+				else if (tiles.at(counter) == 8)
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()), "blue_goal");
+				}
+				else
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()));
+				}
 			}
 			counter++;
 		}
@@ -79,10 +91,13 @@ void GameState::populateWord()
 	world->add(player);
 	world->add(player2);
 
-
 	world->add(new Score(game));
 	world->add(new Timer(game));
 	world->add(ball);
+
+	player->setUserData("player1");
+	player2->setUserData("player2");
+	ball->setUserData("ball");
 
 	player->setFixedRotation(true);
 	player2->setFixedRotation(true);
@@ -151,7 +166,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		int past_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - game->gameEnded).count();
 		if (past_seconds >= endGameScreenSeconds)
 		{
-			context->setState(new TransitionState(context));
+			context->setState(new TransitionState(context, game));
 		}
 		return;
 	}
@@ -206,12 +221,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 			{
 			case UP:
 				p1yforce += throwForce;
+				break;
 			case DOWN:
 				p1yforce -= throwForce;
+				break;
 			case RIGHT:
 				p1xforce += throwForce;
+				break;
 			case LEFT:
 				p1xforce -= throwForce;
+				break;
 			default: break;
 			}
 		}
@@ -248,12 +267,16 @@ void GameState::onUpdate(Keyboard *keyboard)
 			{
 			case UP:
 				p2yforce += throwForce;
+				break;
 			case DOWN:
 				p2yforce -= throwForce;
+				break;
 			case RIGHT:
 				p2xforce += throwForce;
+				break;
 			case LEFT:
 				p2xforce -= throwForce;
+				break;
 			default: break;
 			}
 		}
@@ -300,7 +323,10 @@ void GameState::onUpdate(Keyboard *keyboard)
 				this->gameSpeed -= 0.001f;
 			}
 		}
-		world->stepWithSpeed(gameSpeed);
+		if (gameSpeed != 0.0f)
+		{
+			world->stepWithSpeed(gameSpeed);
+		}
 	}
 
 	// TODO: call Game.teamAScored and Game.teamBScored when someone scored

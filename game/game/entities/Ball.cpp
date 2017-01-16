@@ -8,6 +8,7 @@ Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("s
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
+	this->queueTaskRespawn = false;
 
 	setExplosionSprites();
 }
@@ -18,6 +19,11 @@ void Ball::setExplosionSprites()
 	{
 		this->explosionSprites.push_back(Sprite("explosion_ball", i*70, 0, 70, 70));
 	}
+	
+}
+
+Ball::~Ball()
+{
 }
 
 /*
@@ -74,4 +80,21 @@ void Ball::pickUp(Body* p)
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
 	this->heldBy = p;
+}
+
+void Ball::set(float x, float y)
+{
+	this->body->SetActive(false);
+	this->body->SetTransform(b2Vec2(x, y), 0);
+	this->body->SetActive(true);
+}
+
+void Ball::setQueueTaskRespawn(bool value)
+{
+	queueTaskRespawn = value;
+}
+
+bool Ball::isQueueTaskRespawn() const
+{
+	return queueTaskRespawn;
 }

@@ -8,11 +8,15 @@ class Ball : public DrawableEntity {
 public:
 	Ball(float x, float y);
 	void setExplosionSprites();
+	~Ball();
 	void pickUp(Body* player);
 	void drop();
 	bool isHeldBy(Body*) const;
 	void shoot(Body* from, double sideForce, double downForce);
+	void set(float x, float y);
 
+	void setQueueTaskRespawn(bool value);
+	bool isQueueTaskRespawn() const;
 	bool scoreAnimation();
 
 private:
@@ -22,4 +26,5 @@ private:
 
 	int frames = 0;
 	int explosionFrame = 0;
+	bool queueTaskRespawn;
 };

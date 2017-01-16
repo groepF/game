@@ -5,6 +5,7 @@
 #include "MenuState.h"
 #include "../../engine/core/StateContext.h"
 #include "../../engine/widgets/ImageButton.h"
+#include "../../LevelUnlocker.h"
 
 
 class StateContext;
@@ -28,6 +29,13 @@ GameSelectionState::~GameSelectionState()
 void GameSelectionState::onCreate()
 {
 	Log::debug("OnCreate GameSelectionState");
+
+	//Unlocker
+
+	LevelUnlocker unlocker;
+	bool level1Unlocked = unlocker.getLevelUnlocked(1);
+	bool level2Unlocked = unlocker.getLevelUnlocked(2);
+	bool level3Unlocked = unlocker.getLevelUnlocked(3);
 
 	//Create a new game
 	game = new Game();
@@ -53,9 +61,9 @@ void GameSelectionState::onCreate()
 	int startY = 80;
 
 	//Add game setting labels
-	this->addWidget(new Label(300, startY, widgetWidth, widgetHeight, "Time:"));
-	this->addWidget(new Label(300, startY + 60, widgetWidth, widgetHeight, "Goals:"));
-	this->addWidget(new Label(300, startY + 320, widgetWidth, widgetHeight, "Mode:"));
+	this->addWidget(new Label(200, startY, widgetWidth, widgetHeight, "Select Time:"));
+	this->addWidget(new Label(200, startY + 60, widgetWidth, widgetHeight, "Select Goals:"));
+	this->addWidget(new Label(200, startY + 320, widgetWidth, widgetHeight, "Select Mode:"));
 
 	//Creating buttons and add them to a vector
 
@@ -79,9 +87,9 @@ void GameSelectionState::onCreate()
 
 	int mapCenterX = width / 2 - largeButtonWidth / 2;
 
-	ImageButton* btn_level1 = new ImageButton("level1", "level1", mapCenterX - largeButtonWidth - 20, startY + 130, largeButtonWidth, largeButtonHeight, false, this);
-	ImageButton* btn_level2 = new ImageButton("level2", "level2", mapCenterX, startY + 130, largeButtonWidth, largeButtonHeight, false, this);
-	ImageButton* btn_level3 = new ImageButton("level3", "level3", mapCenterX + largeButtonWidth + 20, startY + 130, largeButtonWidth, largeButtonHeight, true, this);
+	ImageButton* btn_level1 = new ImageButton("level1", "level1", mapCenterX - largeButtonWidth - 20, startY + 130, largeButtonWidth, largeButtonHeight, !level1Unlocked, this);
+	ImageButton* btn_level2 = new ImageButton("level2", "level2", mapCenterX, startY + 130, largeButtonWidth, largeButtonHeight, !level2Unlocked, this);
+	ImageButton* btn_level3 = new ImageButton("level3", "level3", mapCenterX + largeButtonWidth + 20, startY + 130, largeButtonWidth, largeButtonHeight, !level3Unlocked, this);
 	mapButtons.push_back(btn_level1);
 	mapButtons.push_back(btn_level2);
 	mapButtons.push_back(btn_level3);

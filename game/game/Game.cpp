@@ -3,12 +3,12 @@
 #include "../GraphRepository.h"
 #include "entities/Player.h"
 
-
 Game::Game()
 {
-	this->world = new World(WORLD_GRAVITY);
+	this->world = new World(this, WORLD_GRAVITY);
 
 	//Default map
+	this->mapID = 1;
 	this->map = "./res/maps/level1.tmx";
 	this->size = 0.2f;
 
@@ -20,7 +20,7 @@ Game::Game()
 
 	//Default settings
 	this->gameTime = 3;
-	this->maxGoals = 5;
+	this->maxGoals = 5;	
 
 	this->isOvertime = false;
 	this->gameOver = false;
@@ -82,9 +82,19 @@ void Game::setTime(int minutes)
 	gameTime = minutes;
 }
 
+int Game::getGameTime()
+{
+	return this->gameTime;
+}
+
 void Game::setGoals(int goals)
 {
 	maxGoals = goals;
+}
+
+int Game::getMaxGoals()
+{
+	return this->maxGoals;
 }
 
 void Game::setMap(int id)
@@ -93,22 +103,41 @@ void Game::setMap(int id)
 	{
 	case 1:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	case 2:
 		this->map = "./res/maps/level2.tmx";
+		this->mapID = 2;
 		break;
 	case 3:
 		this->map = "./res/maps/level3.tmx";
+		this->mapID = 3;
 		break;
 	default:
 		this->map = "./res/maps/level1.tmx";
+		this->mapID = 1;
 		break;
 	}
+}
+
+char* Game::getMap()
+{
+	return this->map;
+}
+
+int Game::getMapId()
+{
+	return this->mapID;
 }
 
 void Game::setWorld(World* world)
 {
 	this->world = world;
+}
+
+void Game::deleteTheBall() const
+{
+	ball->setQueueTaskRespawn(true);
 }
 
 int Game::getTeamAGoals()
@@ -133,20 +162,30 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamA++;
 	}
-	goalsTeamA++;
 }
 
 void Game::teamBScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
+	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
 	{
-		firstGoalTime = getElapsedTime();
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamB++;
 	}
-	goalsTeamB++;
 }
 
 void Game::teamAWin()
