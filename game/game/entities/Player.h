@@ -2,6 +2,7 @@
 
 #include "../../engine/world/Body.h"
 #include "../../engine/core-entities/DrawableEntity.h"
+#include <chrono>
 
 class Ball;
 class Enemy;
@@ -25,6 +26,7 @@ public:
 	void hitByEnemy(Ball* b) const;
 	float getY() const override;
 
+	int ballpossession;
 private:
 	PlayerState state;
 };

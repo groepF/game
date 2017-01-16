@@ -53,6 +53,7 @@
     <ClCompile Include="game\entities\EndGameStats.cpp" />
     <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="engine\widgets\ImageButton.cpp" />
+    <ClCompile Include="game\entities\PossessionMeter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\states\CreditsState.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="game\game.h" />
     <ClInclude Include="engine\widgets\ImageButton.h" />
+    <ClInclude Include="game\entities\PossessionMeter.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

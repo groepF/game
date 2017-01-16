@@ -11,6 +11,7 @@ Player::Player(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprit
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
 	this->type = CIRCLE;
+	this->ballpossession = 0;
 }
 
 void Player::move() const
