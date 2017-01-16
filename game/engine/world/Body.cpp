@@ -42,11 +42,6 @@ float Body::getBodyAngle() const
 	return body->GetAngle() * (180 / M_PI);
 }
 
-void Body::setPosition(float x, float y) const
-{
-	body->SetTransform(b2Vec2(x, y), body->GetAngle());
-}
-
 void Body::create(b2Body *body)
 {
 	if (!isPlayer)

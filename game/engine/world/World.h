@@ -22,6 +22,7 @@ public:
 	void setContactListener(ContactListener* listener);
 private:
 	b2World *world;
+	Game* game;
 	ContactListener* contacts;
 	std::vector<Body*> bodies;
 	Sprite* background;

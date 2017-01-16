@@ -12,6 +12,12 @@ public:
 	bool isHeldBy(Body*) const;
 	void shoot(Body* from, double sideForce, double downForce);
 
+	void set(float x, float y);
+
+	void setQueueTaskRespawn(bool value);
+	bool isQueueTaskRespawn() const;
+
 private:
 	Body* heldBy;
+	bool queueTaskRespawn;
 };

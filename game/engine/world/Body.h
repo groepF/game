@@ -24,8 +24,6 @@ public:
 	float getBodyHeight() const;
 	float getBodyAngle() const;
 
-	void setPosition(float x, float y) const;
-
 	virtual void create(b2Body *body);
 	void setVelocity(float x, float y) const;
 	void setFixedRotation(bool rotation) const;

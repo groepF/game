@@ -2,11 +2,12 @@
 #include "../graphics/render-strategies/RenderDrawableStrategy.h"
 #include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 #include "ContactListener.h"
+#include "../../game/game.h"
 
 World::World(Game* game, float gravity) : world(nullptr), contacts(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
-
+	this->game = game;
 	world = new b2World(vec);
 	world->SetContactListener(new ContactListener());
 	auto contact = new ContactListener();
@@ -36,6 +37,11 @@ World::~World()
 void World::update() const
 {
 	world->Step(1.0f / 60.0f, 8, 3);
+	if (this->game->getBall()->isQueueTaskRespawn())
+	{
+		this->game->getBall()->set(0.2f * 64, 0.4f);
+		this->game->getBall()->setQueueTaskRespawn(false);
+	}
 }
 
 void World::render(Screen* screen, const bool debug)

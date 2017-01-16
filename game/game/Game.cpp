@@ -111,7 +111,7 @@ void Game::setWorld(World* world)
 
 void Game::deleteTheBall() const
 {
-	ball->setPosition(size * 64, size * 2);
+	ball->setQueueTaskRespawn(true);
 }
 
 int Game::getTeamAGoals()
