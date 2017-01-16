@@ -115,6 +115,7 @@
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\entities\PossessionMeter.h" />
+    <ClInclude Include="engine\world\ContactListener.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

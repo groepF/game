@@ -31,6 +31,11 @@ public:
 
 	b2BodyDef* getBodyDef();
 
+	void setUserData(void* item) const
+	{
+		body->SetUserData(item);
+	}
+
 	virtual void Render(Screen& screen, bool debug = false) const = 0;
 
 private:

@@ -1,11 +1,15 @@
 #include "World.h"
 #include "../graphics/render-strategies/RenderDrawableStrategy.h"
 #include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
+#include "ContactListener.h"
 
 World::World(float gravity) : world(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
+
+	contacts = new ContactListener();
 	world = new b2World(vec);
+	world->SetContactListener(contacts);
 }
 
 World::~World()
@@ -46,10 +50,11 @@ void World::render(Screen* screen, const bool debug)
 	}
 }
 
-void World::add(Body* body)
+void World::add(Body* body, std::string id)
 {
 	auto item = world->CreateBody(body->getBodyDef());
 	body->create(item);
+	body->setUserData((void*)id.c_str());
 	body->setDefaultRenderStrategy();
 	bodies.push_back(body);
 }

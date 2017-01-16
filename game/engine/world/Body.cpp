@@ -64,6 +64,7 @@ void Body::create(b2Body *body)
 		body->CreateFixture(&fixtureDef);
 
 		this->body = body;
+		this->body->SetUserData(this);
 	} 
 	else
 	{

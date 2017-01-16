@@ -184,6 +184,7 @@
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\world\ContactListener.h" />
     <ClInclude Include="game\entities\EndGameStats.h" />
     <ClInclude Include="engine\location\Edge.h" />
     <ClInclude Include="game\game.h" />

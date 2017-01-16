@@ -64,7 +64,19 @@ void GameState::populateWord()
 				std::shared_ptr<Sprite> sprite = tileSet.at(tiles.at(counter) - 1);
 
 				//Add the sprite to the world
-				world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()));
+
+				if (tiles.at(counter) == 7)
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()), "red_goal");
+				} 
+				else if (tiles.at(counter) == 8)
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()), "blue_goal");
+				}
+				else
+				{
+					world->add(new DrawableEntity(sprite, (game->getSize() * 2.0f) * y + 0.2f, (game->getSize() * 2.0f) * x + 0.2f, game->getSize(), game->getSize()));
+				}
 			}
 			counter++;
 		}
@@ -78,10 +90,13 @@ void GameState::populateWord()
 	world->add(player);
 	world->add(player2);
 
-	
 	world->add(new Score(game));
 	world->add(new Timer(game));
 	world->add(ball);
+
+	player->setUserData("player1");
+	player2->setUserData("player2");
+	ball->setUserData("ball");
 
 	player->setFixedRotation(true);
 	player2->setFixedRotation(true);
