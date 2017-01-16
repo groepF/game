@@ -89,3 +89,10 @@ void DrawableEntity::setDefaultRenderStrategy()
 	renderStrategy = std::make_shared<RenderDrawableStrategy>(RenderDrawableStrategy(this));
 	renderDebugStrategy = std::make_shared<RenderDrawableDebugStrategy>(RenderDrawableDebugStrategy(this));
 }
+
+void DrawableEntity::setLinearVelocity(int x, int y)
+{
+
+	b2Vec2 distance = b2Vec2(x / getPPM() - getX(), y / getPPM() - getY());
+	body->ApplyForce(b2Vec2(distance.x, distance.y), body->GetWorldCenter(), true);
+}

@@ -22,6 +22,9 @@ public:
 	int getPPM() const override;
 
 	void setDefaultRenderStrategy() override;
+
+	void setLinearVelocity(int, int);
+
 protected:
 	std::shared_ptr<Sprite> sprite;
 	std::shared_ptr<Sprite> secondSprite;

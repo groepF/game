@@ -48,10 +48,15 @@ bool Ball::isHeldBy(Body* p) const
  * Body* body - Entity that shoots
  * bool left - if is shot left
  */
-void Ball::shoot(Body* from, double sideForce, double downForce)
+void Ball::shoot(Body* from, double sideForce, double downForce, bool action)
 {
-	this->body->ApplyForce(b2Vec2(sideForce, downForce), b2Vec2(from->getBodyX(), from->getBodyY()), false);
-
+	if(!action || static_cast<Player*>(from)->canDoAction())
+	{
+		this->body->ApplyForce(b2Vec2(sideForce, downForce), b2Vec2(from->getBodyX(), from->getBodyY()), false);
+		if(action)
+			static_cast<Player*>(from)->doAction();
+	}
+	
 }
 
 bool Ball::scoreAnimation()
@@ -78,15 +83,23 @@ bool Ball::scoreAnimation()
  */
 void Ball::pickUp(Body* p)
 {
-	this->body->SetActive(false);
-	this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
-	this->heldBy = p;
+	if(static_cast<Player*>(p)->canPickkup())
+	{
+		this->body->SetActive(false);
+		this->body->SetTransform(b2Vec2(p->getBodyX(), p->getBodyY()), 0);
+		this->heldBy = p;
+	}
+		
+	
+
 }
 
 void Ball::set(float x, float y)
 {
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(x, y), 0);
+	this->body->SetAngularVelocity(0);
+	this->body->SetLinearVelocity(b2Vec2(0,0));
 	this->body->SetActive(true);
 }
 

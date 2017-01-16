@@ -17,6 +17,7 @@ World::World(Game* game, float gravity) : world(nullptr), contacts(nullptr), bac
 
 World::~World()
 {
+
 	if (world)
 	{
 		delete world;

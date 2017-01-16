@@ -20,6 +20,8 @@ public:
 	Ball* getBall() const;
 	Graph* getGraph();
 
+	void setAI(bool);
+
 	void begin();
 
 	void setTime(int minutes);

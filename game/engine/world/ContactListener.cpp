@@ -12,7 +12,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		Log::error("Red team scored");
 		if (game) {
 			game->scored = true;
-			game->teamAScored();
+			game->teamBScored();
 		}
 	}
 
@@ -21,7 +21,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		Log::error("Blue team scored");
 		if (game) {
 			game->scored = true;
-			game->teamBScored(); 
+			game->teamAScored(); 
 		}
 	}
 }

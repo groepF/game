@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(Sprite sprite, float x, float y) : DrawableEntity(std::make_shared<Sprite>(sprite), x, y, 0.25f, 0.5f, true, 0, 0, true)
+Player::Player(Sprite sprite, float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
 {
 
 	this->density = 0.4f;
@@ -11,7 +11,9 @@ Player::Player(Sprite sprite, float x, float y) : DrawableEntity(std::make_share
 	this->friction = 0.5f;
 	this->state = PLAYER_STOP;
 	this->type = CIRCLE;
+	this->ai = ai;
 	this->ballpossession = 0;
+
 }
 
 void Player::move()
@@ -97,9 +99,48 @@ bool Player::isInRangeOf(Body* b) const
 * Makes the player drop the ball
 * @param b the ball to drop
 */
-void Player::hitByEnemy(Ball* b) const
+void Player::hitByEnemy(Ball* b, Player* dropper) const
 {
 	b->drop();
+	b->shoot(dropper, -20, 20, false);
+}
+
+const bool Player::isAI() const
+{
+	return this->ai;
+}
+
+const bool Player::canDoAction()
+{
+
+	return actionDelay == 0;
+
+}
+
+const bool Player::canPickkup()
+{
+	return pickupDelay == 0;
+}
+
+void Player::doAction()
+{
+	actionDelay = 300;
+}
+
+void Player::doPickup()
+{
+
+	pickupDelay = 100;
+
+}
+
+void Player::subtractActionDelay()
+{
+	if(actionDelay > 0)
+		actionDelay--;
+
+	if (pickupDelay > 0)
+		pickupDelay--;
 }
 
 float Player::getY() const
