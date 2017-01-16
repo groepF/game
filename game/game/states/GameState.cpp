@@ -7,7 +7,6 @@
 #include "../entities/EndGameStats.h"
 #include "../entities/PossessionMeter.h"
 
-
 GameState::GameState(StateContext* context, Game* game) : State(context),
 world(nullptr),
 player(nullptr),

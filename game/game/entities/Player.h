@@ -26,7 +26,7 @@ public:
 	void hitByEnemy(Ball* b) const;
 	float getY() const override;
 
-	std::chrono::system_clock::time_point ballpossession;
+	int ballpossession;
 private:
 	PlayerState state;
 };

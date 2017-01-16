@@ -23,7 +23,6 @@ Game::Game()
 	this->isOvertime = false;
 	isOvertime = false;
 	gameOver = false;
-	ballLastHeldBy = NONE;
 }
 
 
@@ -206,8 +205,6 @@ void Game::restartGame()
 	std::chrono::system_clock::time_point restartTime = std::chrono::system_clock::now();
 	auto timeDifference = std::chrono::duration_cast<std::chrono::milliseconds>(restartTime - startPause);
 	//add the difference to beginTime and timeLimit 
-	player->ballpossession += timeDifference;
-	player2->ballpossession += timeDifference;
 	beginTime += timeDifference;
 	timeLimit += timeDifference;
 
@@ -222,6 +219,39 @@ void Game::endGame()
 	// only save ball possession of player A, since this is our player
 
 	Highscore::load(); // restore last highscore
+
+	Highscore::setMostBallposession(player->ballpossession);
+	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
+	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
+	Highscore::setLongestGame(getElapsedTime());
+	if (goalsTeamA > goalsTeamB)
+	{
+		Highscore::setFastestWin(getElapsedTime());
+		Highscore::setFastestGoal(firstGoalTime);
+	}
+
+	Highscore::save();
+
+	gameOver = true;
+	gameEnded = std::chrono::system_clock::now();
+}
+
+int Game::getGoalLimit()
+{
+	return maxGoals;
+}
+
+void Game::calculateBallPossession()
+{
+
+	if (ball->isHeldBy(player2))
+	{
+		ballPossessionTeamB++;
+	}
+	if (ball->isHeldBy(player))
+	{
+		ballPossessionTeamA++;
+	}
 
 	int ballPossession = 0;
 	if (ballPossessionTeamA == 0 || ballPossessionTeamB == 0)
@@ -249,70 +279,14 @@ void Game::endGame()
 		float p = a / b * 100.0;
 		ballPossession = round(p);
 	}
-
-	Highscore::setMostBallposession(ballPossession);
-	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
-	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
-	Highscore::setLongestGame(getElapsedTime());
-	if (goalsTeamA > goalsTeamB)
+	player->ballpossession = ballPossession;
+	if (ballPossessionTeamB > 0)
 	{
-		Highscore::setFastestWin(getElapsedTime());
-		Highscore::setFastestGoal(firstGoalTime);
+		player2->ballpossession = 100 - ballPossession;
 	}
-
-	Highscore::save();
-
-	gameOver = true;
-	gameEnded = std::chrono::system_clock::now();
-}
-
-int Game::getGoalLimit()
-{
-	return maxGoals;
-}
-
-void Game::calculateBallPossession()
-{
-
-	if (ballLastHeldBy == PLAYER1 && !ball->isHeldBy(player)) {
-		auto duration = std::chrono::system_clock::now() - p1startBallpossession;
-		player->ballpossession += duration;
-		if (!ball->isHeldBy(player2))
-		{
-			ballLastHeldBy = NONE;
-		}
-	}
-	if (ballLastHeldBy == PLAYER2 && !ball->isHeldBy(player2))
+	else
 	{
-		auto duration = std::chrono::system_clock::now() - p2startBallpossession;
-		player2->ballpossession += duration;
-		if (!ball->isHeldBy(player))
-		{
-			ballLastHeldBy = NONE;
-		}
-	}
-	if (ballLastHeldBy == PLAYER2 && ball->isHeldBy(player2))
-	{
-		auto duration = std::chrono::system_clock::now() - p2startBallpossession;
-		player2->ballpossession += duration;
-		p2startBallpossession = std::chrono::system_clock::now();
-	}
-	if (ballLastHeldBy == PLAYER1 && ball->isHeldBy(player))
-	{
-		auto duration = std::chrono::system_clock::now() - p1startBallpossession;
-		player->ballpossession += duration;
-		p1startBallpossession = std::chrono::system_clock::now();
-	}
-
-	if (ball->isHeldBy(player2) && ballLastHeldBy != PLAYER2)
-	{
-		p2startBallpossession = std::chrono::system_clock::now();
-		ballLastHeldBy = PLAYER2;
-	}
-	if (ball->isHeldBy(player) && ballLastHeldBy != PLAYER1)
-	{
-		p1startBallpossession = std::chrono::system_clock::now();
-		ballLastHeldBy = PLAYER1;
+		player2->ballpossession = 0;
 	}
 
 }
@@ -327,7 +301,7 @@ int Game::getBallPossession(HoldingPlayer targetPlayer) const
 	if (targetPlayer == NONE) { return 0; }
 	if (getElapsedTime() <= 0) { return 0; }
 
-	std::chrono::system_clock::time_point possession;
+	int possession = 0;
 	if (targetPlayer == PLAYER1)
 	{
 		possession = player->ballpossession;
@@ -336,7 +310,5 @@ int Game::getBallPossession(HoldingPlayer targetPlayer) const
 	{
 		possession = player2->ballpossession;
 	}
-	auto p = std::chrono::duration_cast<std::chrono::seconds>(possession - beginTime).count();
-	double totalTime = getElapsedTime() + 0.00;
-	return  p /  totalTime* 100;
+	return possession;
 }
