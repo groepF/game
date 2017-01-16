@@ -11,7 +11,7 @@
 class World
 {
 public:
-	World(float gravity = 9.81f);
+	World(Game* game, float gravity = 9.81f);
 	~World();
 
 	void update() const;

@@ -5,8 +5,7 @@
 
 Game::Game()
 {
-	this->world = new World(WORLD_GRAVITY);
-	this->world->setContactListener(new ContactListener(this));
+	this->world = new World(this, WORLD_GRAVITY);
 
 	//Default map
 	this->map = "./res/maps/level1.tmx";
@@ -110,6 +109,11 @@ void Game::setWorld(World* world)
 	this->world = world;
 }
 
+void Game::deleteTheBall() const
+{
+	ball->setPosition(size * 64, size * 2);
+}
+
 int Game::getTeamAGoals()
 {
 	return goalsTeamA;
@@ -137,6 +141,7 @@ void Game::teamAScored()
 		firstGoalTime = getElapsedTime();
 	}
 	goalsTeamA++;
+	deleteTheBall();
 }
 
 void Game::teamBScored()
@@ -146,6 +151,7 @@ void Game::teamBScored()
 		firstGoalTime = getElapsedTime();
 	}
 	goalsTeamB++;
+	deleteTheBall();
 }
 
 void Game::teamAWin()

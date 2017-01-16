@@ -17,11 +17,14 @@ public:
 	Body(float x, float y, float width, float height, bool dynamic = false, float angularDamping = 0.0f, float linearDamping = 0.0f, bool isPlayer = false);
 	virtual ~Body();
 
+	b2Body* getBody() const;
 	float getBodyX() const;
 	float getBodyY() const;
 	float getBodyWidth() const;
 	float getBodyHeight() const;
 	float getBodyAngle() const;
+
+	void setPosition(float x, float y) const;
 
 	virtual void create(b2Body *body);
 	void setVelocity(float x, float y) const;

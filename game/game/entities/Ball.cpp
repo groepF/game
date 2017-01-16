@@ -10,6 +10,11 @@ Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("s
 	this->type = CIRCLE;
 }
 
+Ball::~Ball()
+{
+	this->getBody()->GetWorld()->DestroyBody(this->getBody());
+}
+
 /*
  * Drops the ball. Resets the heldby variable
  */

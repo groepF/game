@@ -35,7 +35,7 @@ void GameState::setGameStateItems()
 
 void GameState::populateWord()
 {
-	world = new World(WORLD_GRAVITY);
+	world = new World(game, WORLD_GRAVITY);
 	game->setWorld(world);
 
 	setGameStateItems();

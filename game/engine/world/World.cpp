@@ -3,11 +3,15 @@
 #include "../graphics/render-strategies/RenderDrawableDebugStrategy.h"
 #include "ContactListener.h"
 
-World::World(float gravity) : world(nullptr), contacts(nullptr), background(nullptr)
+World::World(Game* game, float gravity) : world(nullptr), contacts(nullptr), background(nullptr)
 {
 	b2Vec2 vec(0.0f, gravity);
 
 	world = new b2World(vec);
+	world->SetContactListener(new ContactListener());
+	auto contact = new ContactListener();
+	contact->setGame(game);
+	setContactListener(contact);
 }
 
 World::~World()

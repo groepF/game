@@ -12,6 +12,11 @@ Body::~Body()
 {
 }
 
+b2Body* Body::getBody() const
+{
+	return body;
+}
+
 float Body::getBodyX() const
 {
 	return body->GetPosition().x;
@@ -35,6 +40,11 @@ float Body::getBodyHeight() const
 float Body::getBodyAngle() const
 {
 	return body->GetAngle() * (180 / M_PI);
+}
+
+void Body::setPosition(float x, float y) const
+{
+	body->SetTransform(b2Vec2(x, y), body->GetAngle());
 }
 
 void Body::create(b2Body *body)
