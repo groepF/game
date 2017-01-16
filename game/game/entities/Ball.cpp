@@ -63,7 +63,7 @@ void Ball::shoot(Body* from, double sideForce, double downForce, bool action)
 bool Ball::scoreAnimation()
 {
 	this->body->SetActive(false);
-	if(frames > 5 && explosionFrame < this->explosionSprites.size())
+	if(frames > 2 && explosionFrame < this->explosionSprites.size())
 	{
 		this->sprite = std::make_shared<Sprite>(this->explosionSprites.at(explosionFrame));
 		explosionFrame++;
