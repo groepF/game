@@ -149,11 +149,6 @@ void GameState::onUpdate(Keyboard *keyboard)
 
 	if (game->getTimeRemaining() <= 0 && !game->isOvertime)
 	{
-		// tmp to foce winner
-		game->teamAScored();
-		game->teamAScored();
-		game->teamAScored();
-		// end tmp
 		game->isOvertime = true;
 	}
 
