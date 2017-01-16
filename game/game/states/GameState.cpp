@@ -244,9 +244,9 @@ void GameState::onUpdate(Keyboard *keyboard)
 		if (keyboard->isKeyHeld(SDL_SCANCODE_RIGHT)) { player2->setPlayerState(PLAYER_RIGHT); p2LastDirection = RIGHT; }
 
 		if (keyboard->isKeyPressed(SDL_SCANCODE_RCTRL)) {
-			if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2)) { ball->pickUp(player2); }
+			if (player2->isInRangeOf(ball) && !ball->isHeldBy(player2) && !ball->isHeldBy(player)) { ball->pickUp(player2); }
 			else if (ball->isHeldBy(player2)) { ball->drop(); }
-			else if (player2->isInRangeOf(ball)) { player->hitByEnemy(ball, player); player->doAction(); }
+			else if (player2->isInRangeOf(ball)) { player->hitByEnemy(ball, player); player->doAction(); player->doPickup(); player2->doPickup(); }
 		}
 
 		if (keyboard->isKeyPressed(SDL_SCANCODE_RSHIFT))

@@ -15,7 +15,7 @@ Game::Game()
 	auto size = 0.2f;
 
 	player = new Player((size * 2) * 3, (size * 2) * 1, false);
-	player2 = new Player((size * 2) * 20, (size * 2) * 1, false);
+	player2 = new Player((size * 2) * 61, (size * 2) * 1, false);
 	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 
 	//Default settings
@@ -70,7 +70,7 @@ void Game::setAI(bool ai)
 {
 
 	if(ai)
-		player2 = new Enemy((size * 2) * 20, (size * 2) * 1, ai);		
+		player2 = new Enemy((size * 2) * 61, (size * 2) * 1, ai);		
 
 }
 
