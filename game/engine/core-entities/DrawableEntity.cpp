@@ -57,6 +57,28 @@ Sprite* DrawableEntity::getSprite() const
 	return sprite.get();
 }
 
+void DrawableEntity::setSprites(Sprite sprite, Sprite sprite2)
+{
+	this->sprite = std::make_shared<Sprite>(sprite);
+	this->secondSprite = std::make_shared<Sprite>(sprite2);
+	this->stillSprite = std::make_shared<Sprite>(sprite);
+	this->walkSprite = std::make_shared<Sprite>(sprite2);
+}
+
+void DrawableEntity::setSpriteJump()
+{
+	this->sprite = this->stillSprite;
+	this->secondSprite = this->walkSprite;
+}
+
+void DrawableEntity::toggleSprite()
+{
+	auto tempSprite = this->sprite;
+	this->sprite = this->secondSprite;
+	this->secondSprite = tempSprite;
+}
+
+
 int DrawableEntity::getPPM() const
 {
 	return 50;

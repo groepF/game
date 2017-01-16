@@ -175,7 +175,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	}
 
 	if (keyboard->isKeyHeld(SDL_SCANCODE_W)) { player->jump(); p1LastDirection = UP; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
+	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT;  }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
 	if (keyboard->isKeyPressed(SDL_SCANCODE_E)) {
 		if (player->isInRangeOf(ball) && !ball->isHeldBy(player)) { ball->pickUp(player); }
