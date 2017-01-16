@@ -183,6 +183,7 @@
     <ClCompile Include="GraphRepository.cpp" />
     <ClCompile Include="engine\widgets\ImageButton.cpp" />
     <ClCompile Include="game\entities\PossessionMeter.cpp" />
+    <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\entities\EndGameStats.h" />
@@ -246,6 +247,7 @@
     <ClInclude Include="GraphRepository.h" />
     <ClInclude Include="engine\widgets\ImageButton.h" />
     <ClInclude Include="game\entities\PossessionMeter.h" />
+    <ClInclude Include="LevelUnlocker.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

@@ -144,7 +144,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 		int past_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - game->gameEnded).count();
 		if (past_seconds >= endGameScreenSeconds)
 		{
-			context->setState(new TransitionState(context));
+			context->setState(new TransitionState(context, game));
 		}
 		return;
 	}
