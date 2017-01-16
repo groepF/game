@@ -135,22 +135,30 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
-	{
-		firstGoalTime = getElapsedTime();
-	}
-	goalsTeamA++;
 	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
+	{
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamA++;
+	}
 }
 
 void Game::teamBScored()
 {
-	if (goalsTeamA == 0 && goalsTeamB == 0)
-	{
-		firstGoalTime = getElapsedTime();
-	}
-	goalsTeamB++;
 	deleteTheBall();
+
+	if (ball->isQueueTaskRespawn())
+	{
+		if (goalsTeamA == 0 && goalsTeamB == 0)
+		{
+			firstGoalTime = getElapsedTime();
+		}
+		goalsTeamB++;
+	}
 }
 
 void Game::teamAWin()

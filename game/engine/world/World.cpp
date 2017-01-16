@@ -84,6 +84,7 @@ void World::setContactListener(ContactListener* listener)
 {
 	contacts = listener;
 	world->SetContactListener(contacts);
+}
 
 void World::stepWithSpeed(float speed) const
 {
