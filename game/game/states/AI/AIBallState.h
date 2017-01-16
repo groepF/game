@@ -16,7 +16,11 @@ public:
 	void onUpdate(Keyboard *keyboard) final;
 	void onDestroy() final;
 
+	void setBallAsGoal(Graph*);
+	void setGoalAsGoal(Graph*);
+
 private:
 	Game* game;
+	Vertex* goal;
 };
 
