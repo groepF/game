@@ -29,6 +29,8 @@ void GameState::setGameStateItems()
 	player2 = game->getPlayer2();
 	ball = game->getBall();
 
+	p1LastDirection = RIGHT;
+	p2LastDirection = LEFT;
 }
 
 void GameState::populateWord()
@@ -38,11 +40,6 @@ void GameState::populateWord()
 
 	setGameStateItems();
 
-
-	p1LastDirection = RIGHT;
-	p2LastDirection = LEFT;
-
-	
 	LevelReader reader(game->getMap());
 
 	//Graph ophalen
@@ -188,10 +185,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	}
 	if (keyboard->isKeydown(KEY_W)) { player->jump(); p1LastDirection = UP; }
 	if (keyboard->isKeydown(KEY_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
-	if (keyboard->isKeydown(KEY_D))
-	{
-		player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT;
-	}
+	if (keyboard->isKeydown(KEY_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
 	if (keyboard->isKeydown(KEY_E)) {
 		if (player->isInRangeOf(ball) && !ball->isHeldBy(player)) { ball->pickUp(player); }
 		else if (ball->isHeldBy(player)) { ball->drop(); }
