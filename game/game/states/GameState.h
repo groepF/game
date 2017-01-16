@@ -14,6 +14,7 @@ public:
 	void setGameStateItems();
 	void populateWord();
 	void createFpsCounter();
+	void createPossessionMeter() const;
 	void onCreate() final;
 	void onRender(Screen *screen) final;
 	void onUpdate(Keyboard *keyboard) final;

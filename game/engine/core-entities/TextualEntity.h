@@ -12,7 +12,7 @@ public:
 	/*
 	 * The TextualEntity constructor.
 	 */
-	TextualEntity(std::string identifier, int x = 0, int y = 0, int width = 100, int height = 100, Color color = Color("white"));
+	TextualEntity(std::string identifier, int x = 0, int y = 0, int width = 100, int height = 100, Color color = Color("white"), std::string text = "");
 
 	/*
 	 * Renders text on a screen.
@@ -61,5 +61,10 @@ protected:
 	* The color of the text.
 	*/
 	Color color;
+	
+	/*
+	 * The static text to display.
+	 */
+	std::string text;
 };
 

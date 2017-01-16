@@ -33,4 +33,5 @@ private:
 	Mouse *mouse;
 	void update(float delta);
 	void render(Screen *screen) const;
+	Keyboard keyboard;
 };

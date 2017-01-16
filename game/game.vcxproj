@@ -181,6 +181,7 @@
     <ClCompile Include="engine\location\Path.cpp" />
     <ClCompile Include="game\states\PauseState.cpp" />
     <ClCompile Include="GraphRepository.cpp" />
+    <ClCompile Include="game\entities\PossessionMeter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\entities\EndGameStats.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="engine\location\Path.h" />
     <ClInclude Include="game\states\PauseState.h" />
     <ClInclude Include="GraphRepository.h" />
+    <ClInclude Include="game\entities\PossessionMeter.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscores.txt" />

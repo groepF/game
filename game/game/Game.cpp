@@ -169,7 +169,7 @@ bool Game::hasWinner() const
 
 void Game::ballPossessionCheat(bool teamA)
 {
-	if(teamA)
+	if (teamA)
 	{
 		ballPossessionTeamA = 1;
 		ballPossessionTeamB = 0;
@@ -220,6 +220,39 @@ void Game::endGame()
 
 	Highscore::load(); // restore last highscore
 
+	Highscore::setMostBallposession(player->ballpossession);
+	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
+	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
+	Highscore::setLongestGame(getElapsedTime());
+	if (goalsTeamA > goalsTeamB)
+	{
+		Highscore::setFastestWin(getElapsedTime());
+		Highscore::setFastestGoal(firstGoalTime);
+	}
+
+	Highscore::save();
+
+	gameOver = true;
+	gameEnded = std::chrono::system_clock::now();
+}
+
+int Game::getGoalLimit()
+{
+	return maxGoals;
+}
+
+void Game::calculateBallPossession()
+{
+
+	if (ball->isHeldBy(player2))
+	{
+		ballPossessionTeamB++;
+	}
+	if (ball->isHeldBy(player))
+	{
+		ballPossessionTeamA++;
+	}
+
 	int ballPossession = 0;
 	if (ballPossessionTeamA == 0 || ballPossessionTeamB == 0)
 	{
@@ -246,29 +279,36 @@ void Game::endGame()
 		float p = a / b * 100.0;
 		ballPossession = round(p);
 	}
-
-	Highscore::setMostBallposession(ballPossession);
-	Highscore::setMostGoalsInOneMatch(goalsTeamA + goalsTeamB);
-	Highscore::setScoreDifference(abs(goalsTeamA - goalsTeamB));
-	Highscore::setLongestGame(getElapsedTime());
-	if (goalsTeamA > goalsTeamB)
+	player->ballpossession = ballPossession;
+	if (ballPossessionTeamB > 0)
 	{
-		Highscore::setFastestWin(getElapsedTime());
-		Highscore::setFastestGoal(firstGoalTime);
+		player2->ballpossession = 100 - ballPossession;
+	}
+	else
+	{
+		player2->ballpossession = 0;
 	}
 
-	Highscore::save();
-
-	gameOver = true;
-	gameEnded = std::chrono::system_clock::now();
-}
-
-int Game::getGoalLimit()
-{
-	return maxGoals;
 }
 
 float Game::getSize() const
 {
 	return size;
+}
+
+int Game::getBallPossession(HoldingPlayer targetPlayer) const
+{
+	if (targetPlayer == NONE) { return 0; }
+	if (getElapsedTime() <= 0) { return 0; }
+
+	int possession = 0;
+	if (targetPlayer == PLAYER1)
+	{
+		possession = player->ballpossession;
+	}
+	if (targetPlayer == PLAYER2)
+	{
+		possession = player2->ballpossession;
+	}
+	return possession;
 }
