@@ -58,6 +58,8 @@ void Ball::set(float x, float y)
 {
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(x, y), 0);
+	this->body->SetAngularVelocity(0);
+	this->body->SetLinearVelocity(b2Vec2(0,0));
 	this->body->SetActive(true);
 }
 

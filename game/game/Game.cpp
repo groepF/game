@@ -45,9 +45,7 @@ Player* Game::getPlayer() const
 	return this->player;
 }
 
-
 Player* Game::getPlayer2() const
-
 {
 	return this->player2;
 }
@@ -160,9 +158,7 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	deleteTheBall();
-
-	if (ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn())
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -170,13 +166,13 @@ void Game::teamAScored()
 		}
 		goalsTeamA++;
 	}
+
+	deleteTheBall();
 }
 
 void Game::teamBScored()
 {
-	deleteTheBall();
-
-	if (ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn())
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -184,6 +180,8 @@ void Game::teamBScored()
 		}
 		goalsTeamB++;
 	}
+
+	deleteTheBall();
 }
 
 void Game::teamAWin()
