@@ -1,126 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="IMovableStrategy.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameState.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameController.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelController.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelBuilder.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelCreator.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReaderFactory.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityController.cpp">
-      <Filter>Game\Level\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Game\Level\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>Game\Level\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game\Level\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="BasePlayer.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Team.cpp">
-      <Filter>Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="FirstState.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerupDecorator.cpp">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClCompile>
+    <ClCompile Include="engine\core\State.cpp" />
+    <ClCompile Include="engine\input\Keyboard.cpp" />
+    <ClCompile Include="game\states\CreditsState.cpp" />
+    <ClCompile Include="engine\widgets\Button.cpp" />
+    <ClCompile Include="game\entities\Enemy.cpp" />
+    <ClCompile Include="engine\core\State.cpp" />
+    <ClCompile Include="engine\input\Keyboard.cpp" />
+    <ClCompile Include="game\states\GameSelectionState.cpp" />
+    <ClCompile Include="game\entities\Ball.cpp" />
+    <ClCompile Include="engine\world\Body.cpp" />
+    <ClCompile Include="engine\util\Color.cpp" />
+    <ClCompile Include="engine\core\Engine.cpp" />
+    <ClCompile Include="engine\util\Config.cpp" />
+    <ClCompile Include="engine\util\Log.cpp" />
+    <ClCompile Include="engine\util\SDL.cpp" />
+    <ClCompile Include="engine\util\Utils.cpp" />
+    <ClCompile Include="game\states\GameState.cpp" />
+    <ClCompile Include="game\main.cpp" />
+    <ClCompile Include="engine\graphics\Window.cpp" />
+    <ClCompile Include="engine\graphics\Sprite.cpp" />
+    <ClCompile Include="game\states\SplashScreenState.cpp" />
+    <ClCompile Include="engine\world\World.cpp" />
+    <ClCompile Include="game\entities\Player.cpp" />
+    <ClCompile Include="engine\core\StateContext.cpp" />
+    <ClCompile Include="engine\world\parser\TMXParser.cpp" />
+    <ClCompile Include="game\map\LevelReader.cpp" />
+    <ClCompile Include="engine\core-entities\FpsCounter.cpp" />
+    <ClCompile Include="engine\core-entities\TextualEntity.cpp" />
+    <ClCompile Include="game\entities\Score.cpp" />
+    <ClCompile Include="engine\core-entities\DrawableEntity.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderTextStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableStrategy.cpp" />
+    <ClCompile Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.cpp" />
+    <ClCompile Include="game\states\MenuState.cpp" />
+    <ClCompile Include="engine\input\Mouse.cpp" />
+    <ClCompile Include="engine\widgets\Widget.cpp" />
+    <ClCompile Include="engine\widgets\Label.cpp" />
+    <ClCompile Include="game\entities\Timer.cpp" />
+    <ClCompile Include="engine\core\AudioController.cpp" />
+    <ClCompile Include="game\states\TransitionState.cpp" />
+    <ClCompile Include="game\states\AchievementsState.cpp" />
+    <ClCompile Include="engine\util\Highscore.cpp" />
+    <ClCompile Include="game\states\HelpState.cpp" />
+    <ClCompile Include="engine\location\Graph.cpp" />
+    <ClCompile Include="engine\location\Vertex.cpp" />
+    <ClCompile Include="engine\location\Edge.cpp" />
+    <ClCompile Include="engine\location\Path.cpp" />
+    <ClCompile Include="game\states\PauseState.cpp" />
+    <ClCompile Include="GraphRepository.cpp" />
+    <ClCompile Include="game\entities\EndGameStats.cpp" />
+    <ClCompile Include="game\states\AI\AIStateFactory.cpp" />
+    <ClCompile Include="game\states\AI\AIBallState.cpp" />
+    <ClCompile Include="game\Game.cpp" />
+    <ClCompile Include="engine\widgets\ImageButton.cpp" />
+    <ClCompile Include="game\entities\PossessionMeter.cpp" />
+    <ClCompile Include="engine\world\ContactListener.cpp" />
+    <ClCompile Include="LevelUnlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IMovableStrategy.h" />
-    <ClInclude Include="GameController.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelController.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelBuilder.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelCreator.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReaderFactory.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityController.h">
-      <Filter>Game\Level\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Game\Level\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Goal.h">
-      <Filter>Game\Level\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game\Level\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="BasePlayer.h">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Team.h">
-      <Filter>Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstState.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerupDecorator.h">
-      <Filter>Game\Level\Entities\Player</Filter>
-    </ClInclude>
+    <ClInclude Include="game\states\CreditsState.h" />
+    <ClInclude Include="engine\input\OnClickListener.h" />
+    <ClInclude Include="engine\widgets\Button.h" />
+    <ClInclude Include="game\entities\Enemy.h" />
+    <ClInclude Include="engine\Entities\FpsCounter.h" />
+    <ClInclude Include="engine\input\Keyboard.h" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_iterators.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_print.hpp" />
+    <ClInclude Include="engine\world\parser\rapidxml\rapidxml_utils.hpp" />
+    <ClInclude Include="game\states\GameSelectionState.h" />
+    <ClInclude Include="game\entities\Ball.h" />
+    <ClInclude Include="engine\world\Body.h" />
+    <ClInclude Include="engine\core\Entity.h" />
+    <ClInclude Include="engine\util\Color.h" />
+    <ClInclude Include="engine\core\Engine.h" />
+    <ClInclude Include="engine\core\State.h" />
+    <ClInclude Include="engine\util\Config.h" />
+    <ClInclude Include="engine\util\Log.h" />
+    <ClInclude Include="engine\util\SDL.h" />
+    <ClInclude Include="engine\util\Utils.h" />
+    <ClInclude Include="engine\graphics\Window.h" />
+    <ClInclude Include="engine\graphics\Sprite.h" />
+    <ClInclude Include="game\states\GameState.h" />
+    <ClInclude Include="game\states\SplashScreenState.h" />
+    <ClInclude Include="engine\graphics\Screen.h" />
+    <ClInclude Include="engine\world\World.h" />
+    <ClInclude Include="game\entities\Player.h" />
+    <ClInclude Include="engine\core\StateContext.h" />
+    <ClInclude Include="engine\world\parser\TMXParser.h" />
+    <ClInclude Include="game\map\LevelReader.h" />
+    <ClInclude Include="engine\core-entities\FpsCounter.h" />
+    <ClInclude Include="engine\core-entities\TextualEntity.h" />
+    <ClInclude Include="game\entities\Score.h" />
+    <ClInclude Include="engine\core-entities\DrawableEntity.h" />
+    <ClInclude Include="engine\graphics\render-strategies\IRenderStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderTextStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\ITextRenderDataPorvider.h" />
+    <ClInclude Include="engine\graphics\render-strategies\data-providers\IDrawableRenderDataProvider.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableStrategy.h" />
+    <ClInclude Include="engine\graphics\render-strategies\RenderDrawableDebugStrategy.h" />
+    <ClInclude Include="game\states\MenuState.h" />
+    <ClInclude Include="engine\input\Mouse.h" />
+    <ClInclude Include="engine\widgets\Widget.h" />
+    <ClInclude Include="engine\widgets\Label.h" />
+    <ClInclude Include="game\entities\Timer.h" />
+    <ClInclude Include="engine\core\AudioController.h" />
+    <ClInclude Include="game\states\TransitionState.h" />
+    <ClInclude Include="game\states\AchievementsState.h" />
+    <ClInclude Include="engine\util\Highscore.h" />
+    <ClInclude Include="game\states\HelpState.h" />
+    <ClInclude Include="engine\location\Graph.h" />
+    <ClInclude Include="engine\location\Vertex.h" />
+    <ClInclude Include="engine\location\Edge.h" />
+    <ClInclude Include="engine\location\Path.h" />
+    <ClInclude Include="game\states\PauseState.h" />
+    <ClInclude Include="GraphRepository.h" />
+    <ClInclude Include="game\entities\EndGameStats.h" />
+    <ClInclude Include="game\states\AI\AIStateFactory.h" />
+    <ClInclude Include="game\states\AI\AIBallState.h" />
+    <ClInclude Include="game\game.h" />
+    <ClInclude Include="engine\widgets\ImageButton.h" />
+    <ClInclude Include="game\entities\PossessionMeter.h" />
+    <ClInclude Include="engine\world\ContactListener.h" />
+    <ClInclude Include="LevelUnlocker.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Game">
-      <UniqueIdentifier>{1d6da09c-f8e6-49da-9add-cf1bbc7ee9de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level">
-      <UniqueIdentifier>{1482e523-b873-489b-86af-6971a8c65e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level\Entities">
-      <UniqueIdentifier>{364231b0-d54f-449d-94bc-8f5e9ca5305a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Level\Entities\Player">
-      <UniqueIdentifier>{c8b1ffd3-0c90-4e43-8ee6-5b7bf32bc8e9}</UniqueIdentifier>
-    </Filter>
+    <Text Include="highscores.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="engine\res\fonts\VCR_OSD_MONO_1.001.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\level1.png" />
   </ItemGroup>
 </Project>
