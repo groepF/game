@@ -11,7 +11,7 @@ class Keyboard;
 
 class Enemy : public Player {
 public:
-	Enemy(float x, float y, bool ai);
+	Enemy(Sprite sprite, float x, float y, bool ai);
 	void action(StateContext*, Keyboard*, Game*);
 	void hitByPlayer(Ball* b) const;
 

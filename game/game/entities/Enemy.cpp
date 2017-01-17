@@ -5,7 +5,7 @@
 #include "../states/AI/AIStateFactory.h"
 #include "../../engine/location/Graph.h"
 
-Enemy::Enemy(float x, float y, bool ai) : Player(x,y,ai)
+Enemy::Enemy(Sprite sprite, float x, float y, bool ai) : Player(sprite,x,y,ai)
 {
 	this->density = 0.4f;
 	this->restitution = 0.0f;

@@ -4,11 +4,23 @@
 
 Ball::Ball(float x, float y) : DrawableEntity(std::make_shared<Sprite>(Sprite("spritesheet", 0, 140, 70, 70)), x, y, 0.3f, 0.3f, true, 1.0f, 1.0f)
 {
+	this->original_sprite = this->sprite;
 	this->density = 0.3f;
 	this->restitution = 0.8f;
 	this->friction = 0.6f;
 	this->type = CIRCLE;
 	this->queueTaskRespawn = false;
+
+	setExplosionSprites();
+}
+
+void Ball::setExplosionSprites()
+{
+	for(int i = 0; i < 12; i++)
+	{
+		this->explosionSprites.push_back(Sprite("explosion_ball", i*70, 0, 70, 70));
+	}
+	
 }
 
 Ball::~Ball()
@@ -48,6 +60,27 @@ void Ball::shoot(Body* from, double sideForce, double downForce, bool action)
 	
 }
 
+bool Ball::scoreAnimation()
+{
+	this->body->SetActive(false);
+	if(frames > 2 && explosionFrame < this->explosionSprites.size())
+	{
+		this->sprite = std::make_shared<Sprite>(this->explosionSprites.at(explosionFrame));
+		explosionFrame++;
+		frames = 0;
+	}
+	else if(explosionFrame >= this->explosionSprites.size())
+	{
+		this->sprite = original_sprite;
+		this->body->SetActive(true);
+		explosionFrame = 0;
+		frames = 0;
+		return true;
+	}
+	frames++;
+	return false;
+}
+
 /*
  * Sets the ball as picked up. Makes holder the current player.
  * Player* p - The player that performs the action
@@ -65,7 +98,7 @@ void Ball::pickUp(Body* p)
 
 }
 
-void Ball::set(float x, float y)
+void Ball::set(float x, float y) const
 {
 	this->body->SetActive(false);
 	this->body->SetTransform(b2Vec2(x, y), 0);

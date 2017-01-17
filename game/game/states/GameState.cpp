@@ -144,6 +144,15 @@ void GameState::onRender(Screen *screen)
 
 void GameState::onUpdate(Keyboard *keyboard)
 {
+	if(game->scored == true)
+	{
+		if(ball->scoreAnimation())
+		{
+			game->scored = false;
+			game->deleteTheBall();
+		}
+	}
+
 	if (keyboard->isKeyPressed(SDL_SCANCODE_ESCAPE))
 	{
 		context->setState(new PauseState(context, game));
@@ -204,7 +213,7 @@ void GameState::onUpdate(Keyboard *keyboard)
 	player->subtractActionDelay();
 
 	if (keyboard->isKeyHeld(SDL_SCANCODE_W)) { player->jump(); p1LastDirection = UP; }
-	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT; }
+	if (keyboard->isKeyHeld(SDL_SCANCODE_A)) { player->setPlayerState(PLAYER_LEFT); p1LastDirection = LEFT;  }
 	if (keyboard->isKeyHeld(SDL_SCANCODE_D)) { player->setPlayerState(PLAYER_RIGHT); p1LastDirection = RIGHT; }
 	if (keyboard->isKeyPressed(SDL_SCANCODE_E)) {
 		if (player->isInRangeOf(ball) && !ball->isHeldBy(player) && !ball->isHeldBy(player2)) { ball->pickUp(player); }

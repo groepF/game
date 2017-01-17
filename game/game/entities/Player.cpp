@@ -2,7 +2,7 @@
 #include "../../engine/graphics/render-strategies/RenderDrawableStrategy.h"
 #include "Ball.h"
 
-Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
+Player::Player(Sprite sprite, float x, float y, bool ai) : DrawableEntity(std::make_shared<Sprite>(Sprite("player", 0, 0, 19, 40)), x, y, 0.25f, 0.5f, true)
 {
 
 	this->density = 0.4f;
@@ -16,14 +16,33 @@ Player::Player(float x, float y, bool ai) : DrawableEntity(std::make_shared<Spri
 
 }
 
-void Player::move() const
+void Player::move()
 {
 	auto vel = body->GetLinearVelocity();
 	switch (state)
 	{
-	case PLAYER_LEFT:  vel.x = -1.8f; break;
-	case PLAYER_STOP:  vel.x = 0.0f; break;
-	case PLAYER_RIGHT: vel.x = 1.8f; break;
+	case PLAYER_LEFT:  
+		vel.x = -1.8f; 
+		if(this->i > 10)
+		{
+			this->toggleSprite();
+			i = 0;
+		}
+		i++;
+		break;
+	case PLAYER_STOP:  
+		vel.x = 0.0f; 
+		this->setSpriteJump();
+		break;
+	case PLAYER_RIGHT: 
+		vel.x = 1.8f; 
+		if (this->i > 10)
+		{
+			this->toggleSprite();
+			i = 0;
+		}
+		i++;
+		break;
 	default: break;
 	}
 	body->SetLinearVelocity(vel);

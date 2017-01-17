@@ -24,6 +24,8 @@ int main(int argc, char* argv[])
 	engine.addSpritesheet("achievements", "res/images/achievements.png");
 	engine.addSpritesheet("help", "res/images/help.png");
 	engine.addSpritesheet("pause_background", "res/images/pauseback.png");
+	engine.addSpritesheet("explosion_ball", "res/images/explosion.png");
+	engine.addSpritesheet("toilet", "res/images/wc_pot.png");
 	engine.addSpritesheet("level1", "res/images/level1.png");
 	engine.addSpritesheet("level2", "res/images/level2.png");
 	engine.addSpritesheet("level3", "res/images/level3.png");

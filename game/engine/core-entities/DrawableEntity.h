@@ -16,6 +16,9 @@ public:
 	float getWidth() const override;
 	double getAngle() const override;
 	Sprite* getSprite() const override;
+	void setSprites(Sprite sprite, Sprite sprite2);
+	void setSpriteJump();
+	void toggleSprite();
 	int getPPM() const override;
 
 	void setDefaultRenderStrategy() override;
@@ -24,5 +27,9 @@ public:
 
 protected:
 	std::shared_ptr<Sprite> sprite;
+	std::shared_ptr<Sprite> secondSprite;
+
+	std::shared_ptr<Sprite> stillSprite;
+	std::shared_ptr<Sprite> walkSprite;
 };
 

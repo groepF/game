@@ -16,9 +16,9 @@ enum PlayerState
 
 class Player : public DrawableEntity {
 public:
-	Player(float x, float y, bool ai);
+	Player(Sprite sprite, float x, float y, bool ai);
 
-	void move() const;
+	void move();
 	void jump();
 	void setPlayerState(PlayerState state);
 	PlayerState getPlayerState() const;
@@ -37,6 +37,7 @@ public:
 
 private:
 	PlayerState state;
+	int i = 0;
 	bool ai;
 	int actionDelay;
 	int pickupDelay;

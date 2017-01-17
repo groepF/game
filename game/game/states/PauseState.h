@@ -17,6 +17,7 @@ public:
 	void onDestroy() override;
 	StateContext* context_;
 
+	void addToiletFrames();
 	bool onClick(Widget *button) final;
 
 
@@ -24,5 +25,11 @@ private:
 	Game *game;
 	Sprite* background;
 	Sprite* logo;
+	Sprite* toilet;
+
+	int frames = 0;
+	int explosionFrame = 0;
+
+	std::vector<Sprite*> toiletAnimation;
 };
 

@@ -7,6 +7,7 @@
 PauseState::PauseState(StateContext* context, Game* game) : State(context)
 {
 	this->game = game;
+	this->addToiletFrames();
 }
 
 
@@ -39,6 +40,7 @@ void PauseState::onCreate()
 
 
 	this->logo = new Sprite("foxtrot_menu", 0, 0, 427, 93);
+	this->toilet = new Sprite("toilet", 0, 0, 137, 250);
 
 	this->context->playMusic("menu");
 }
@@ -49,10 +51,23 @@ void PauseState::onRender(Screen* screen)
 	screen->render(logo,
 		(screen->getWidth() / 2) - (logo->getWidth() / 2),
 		40);
+	screen->render(toilet, (screen->getWidth() / 2) - (137 / 2),
+		400);
 }
 
 void PauseState::onUpdate(Keyboard* keyboard)
 {
+	if (frames > 5 && explosionFrame < this->toiletAnimation.size())
+	{
+		this->toilet = this->toiletAnimation.at(explosionFrame);
+		explosionFrame++;
+		frames = 0;
+	}
+	else if(explosionFrame >= this->toiletAnimation.size())
+	{
+		explosionFrame = 0;
+	}
+	frames++;
 }
 
 bool PauseState::onClick(Widget* button)
@@ -73,6 +88,16 @@ bool PauseState::onClick(Widget* button)
 		context->setState(new MenuState(context));
 	}
 	return false;
+}
+
+void PauseState::addToiletFrames()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		this->toiletAnimation.push_back(new Sprite("toilet", i * 137, 0, 137, 250));
+	}
+	this->toiletAnimation.push_back(new Sprite("toilet", 274, 0, 137, 250));
+	this->toiletAnimation.push_back(new Sprite("toilet", 137, 0, 137, 250));
 }
 
 void PauseState::onDestroy()

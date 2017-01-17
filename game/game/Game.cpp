@@ -12,9 +12,11 @@ Game::Game()
 	this->map = "./res/maps/level1.tmx";
 	this->size = 0.2f;
 
-	player = new Player((size * 2) * 3, (size * 2) * 1, false);
-	player2 = new Player((size * 2) * 61, (size * 2) * 1, false);
-	ball = new Ball((size * 2) * 32, (size * 2) * 1);
+	player = new Player(Sprite("player", 0, 0, 19, 40), size * 6, size * 2, false);
+	player->setSprites(Sprite("player", 0, 0, 19, 40), Sprite("player", 19, 0, 19, 40));
+	player2 = new Player(Sprite("player", 38, 0, 19, 40), size * 2 * 61, size * 2, false);
+	player2->setSprites(Sprite("player", 38, 0, 19, 40), Sprite("player", 57, 0, 19, 40));
+	ball = new Ball(size * 64, size * 2);
 
 	//Default settings
 	this->gameTime = 3;
@@ -65,7 +67,11 @@ void Game::setAI(bool ai)
 {
 
 	if(ai)
-		player2 = new Enemy((size * 2) * 61, (size * 2) * 1, ai);		
+	{
+		player2 = new Enemy(Sprite("player", 38, 0, 19, 40), (size * 2) * 61, (size * 2) * 1, ai);
+		player2->setSprites(Sprite("player", 38, 0, 19, 40), Sprite("player", 57, 0, 19, 40));
+	}
+		
 
 }
 
@@ -166,7 +172,7 @@ int Game::getElapsedTime() const
 
 void Game::teamAScored()
 {
-	if (!ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn() && !scored)
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -174,13 +180,12 @@ void Game::teamAScored()
 		}
 		goalsTeamA++;
 	}
-
-	deleteTheBall();
+	scored = true;
 }
 
 void Game::teamBScored()
 {
-	if (!ball->isQueueTaskRespawn())
+	if (!ball->isQueueTaskRespawn() && !scored)
 	{
 		if (goalsTeamA == 0 && goalsTeamB == 0)
 		{
@@ -189,7 +194,7 @@ void Game::teamBScored()
 		goalsTeamB++;
 	}
 
-	deleteTheBall();
+	scored = true;
 }
 
 void Game::teamAWin()
@@ -355,4 +360,10 @@ int Game::getBallPossession(HoldingPlayer targetPlayer) const
 		possession = player2->ballpossession;
 	}
 	return possession;
+}
+
+void Game::respawnBall()
+{
+	delete ball;
+	ball = new Ball((size * 2) * 32, (size * 2) * 1);
 }
