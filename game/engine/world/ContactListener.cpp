@@ -9,17 +9,15 @@ void ContactListener::BeginContact(b2Contact* contact)
 
 	if ((fixtureA == "red_goal" || fixtureB == "red_goal") && (fixtureA == "ball" || fixtureB == "ball"))
 	{
-		Log::error("Red team scored");
 		if (game) {
-			game->teamAScored();
+			game->teamBScored();
 		}
 	}
 
 	if ((fixtureA == "blue_goal" || fixtureB == "blue_goal") && (fixtureA == "ball" || fixtureB == "ball"))
 	{
-		Log::error("Blue team scored");
 		if (game) {
-			game->teamBScored(); 
+			game->teamAScored();
 		}
 	}
 }
