@@ -29,6 +29,7 @@ Engine::Engine(const std::string config) : running(true)
 
 Engine::~Engine()
 {
+	Engine::stopMusic();
 	if (window != nullptr)
 	{
 		delete window;
